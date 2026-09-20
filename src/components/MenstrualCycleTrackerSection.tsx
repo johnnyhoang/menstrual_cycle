@@ -955,11 +955,11 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
       {/* Toast Notification */}
       {notification && (
         <div className={`fixed top-16 right-4 z-50 p-4 rounded-xl shadow-2xl border flex items-center gap-3 animate-in slide-in-from-top-4 duration-200 ${
-          notification.type === 'success' ? 'bg-emerald-950 border-emerald-500 text-emerald-100' :
-          notification.type === 'error' ? 'bg-rose-950 border-rose-500 text-rose-100' :
-          'bg-slate-900 border-teal-500 text-teal-100'
+          notification.type === 'success' ? 'bg-slate-800 border-slate-600 text-slate-200' :
+          notification.type === 'error' ? 'bg-rose-950/80 border-rose-500/40 text-rose-100' :
+          'bg-slate-800 border-slate-600 text-slate-300'
         }`}>
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+          <CheckCircle2 className="w-5 h-5 text-slate-400 shrink-0" />
           <span className="text-xs sm:text-sm font-medium">{notification.message}</span>
           <button onClick={() => setNotification(null)} className="p-1 hover:bg-slate-800 rounded cursor-pointer">
             <X className="w-4 h-4 text-slate-400" />
@@ -977,10 +977,10 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
       />
 
       {/* Top Header */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-rose-950/20 to-slate-900 border border-rose-500/30 space-y-3 shadow-xl">
+      <div className="p-4 sm:p-5 rounded-2xl bg-slate-900 border border-slate-700/60 space-y-3 shadow-lg">
         <div className="flex flex-wrap items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2 text-rose-400 text-xs font-black uppercase tracking-wider">
-            <CalendarIcon className="w-4 h-4 text-rose-400 animate-pulse" />
+          <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold uppercase tracking-wider">
+            <CalendarIcon className="w-4 h-4 text-rose-400/70" />
             <span>THEO DÕI CHU KỲ KINH NGUYỆT • MOM HEALTH ATLAS</span>
           </div>
 
@@ -989,9 +989,9 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             <button
               onClick={() => setIsDbModalOpen(true)}
               title="Cấu hình & Đồng bộ Database Supabase (prefix mh_)"
-              className="px-2.5 py-1.5 rounded-xl bg-teal-950/80 hover:bg-teal-900 text-teal-200 border border-teal-500/40 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm text-xs"
+              className="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm text-xs"
             >
-              <Database className="w-3.5 h-3.5 text-teal-400" />
+              <Database className="w-3.5 h-3.5 text-slate-400" />
               <span>Database (Cloud)</span>
             </button>
             <button
@@ -1031,18 +1031,18 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
           </div>
 
           {/* Quick Stats Pill */}
-          <div className="flex items-center gap-2 bg-slate-950/80 p-2 rounded-xl border border-slate-800 text-xs shrink-0">
-            <div className="text-center px-2 border-r border-slate-800">
-              <div className="text-[9px] text-slate-400 font-bold uppercase">Chu kỳ TB</div>
-              <div className="text-sm font-black text-rose-400">{dynamicStats.averageCycleLength} <span className="text-[9px] font-normal text-slate-400">ngày</span></div>
+          <div className="flex items-center gap-2 bg-slate-800/60 p-2 rounded-xl border border-slate-700/50 text-xs shrink-0">
+            <div className="text-center px-2 border-r border-slate-700/50">
+              <div className="text-[9px] text-slate-500 font-semibold uppercase">Chu kỳ TB</div>
+              <div className="text-sm font-bold text-slate-200">{dynamicStats.averageCycleLength} <span className="text-[9px] font-normal text-slate-500">ngày</span></div>
             </div>
-            <div className="text-center px-2 border-r border-slate-800">
-              <div className="text-[9px] text-slate-400 font-bold uppercase">Hành kinh</div>
-              <div className="text-sm font-black text-amber-400">{dynamicStats.averagePeriodDuration} <span className="text-[9px] font-normal text-slate-400">ngày</span></div>
+            <div className="text-center px-2 border-r border-slate-700/50">
+              <div className="text-[9px] text-slate-500 font-semibold uppercase">Hành kinh</div>
+              <div className="text-sm font-bold text-slate-200">{dynamicStats.averagePeriodDuration} <span className="text-[9px] font-normal text-slate-500">ngày</span></div>
             </div>
             <div className="text-center px-2">
-              <div className="text-[9px] text-slate-400 font-bold uppercase">Chu kỳ dài</div>
-              <div className="text-sm font-black text-teal-400">{dynamicStats.longCyclePercentage}%</div>
+              <div className="text-[9px] text-slate-500 font-semibold uppercase">Chu kỳ dài</div>
+              <div className="text-sm font-bold text-slate-200">{dynamicStats.longCyclePercentage}%</div>
             </div>
           </div>
         </div>
@@ -1055,8 +1055,8 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             onClick={() => setActiveTab('calendar')}
             className={`py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === 'calendar'
-                ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-rose-400/20 text-rose-300 border border-rose-400/30'
+                : 'text-slate-500 hover:text-slate-300'
             }`}
           >
             <CalendarDays className="w-3.5 h-3.5" />
@@ -1067,8 +1067,8 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             onClick={() => setActiveTab('tree_view')}
             className={`py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === 'tree_view'
-                ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-rose-400/20 text-rose-300 border border-rose-400/30'
+                : 'text-slate-500 hover:text-slate-300'
             }`}
           >
             <GitBranch className="w-3.5 h-3.5" />
@@ -1079,8 +1079,8 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             onClick={() => setActiveTab('medical_decoder')}
             className={`py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === 'medical_decoder'
-                ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-rose-400/20 text-rose-300 border border-rose-400/30'
+                : 'text-slate-500 hover:text-slate-300'
             }`}
           >
             <Microscope className="w-3.5 h-3.5" />
@@ -1110,7 +1110,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
               {/* Calendar Month/Year Navigator */}
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
+                  <div className="w-2 h-2 rounded-full bg-rose-400/60" />
                   <h4 className="text-sm sm:text-base font-black text-white">
                     {monthNamesVN[currentCalMonth]} Năm {currentCalYear}
                   </h4>
@@ -1162,29 +1162,29 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
               </div>
 
               {/* Legend Bar */}
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3 p-2 rounded-xl bg-slate-950/80 border border-slate-850 text-[10px] text-slate-300">
-                <span className="font-bold text-slate-400 flex items-center gap-1">
-                  <Sliders className="w-3 h-3 text-rose-400" />
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 p-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-[10px] text-slate-400">
+                <span className="font-semibold text-slate-500 flex items-center gap-1">
+                  <Sliders className="w-3 h-3 text-slate-500" />
                   Ký hiệu:
                 </span>
                 <div className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80 inline-block" />
                   <span>Máu đỏ</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-300/50 inline-block" />
                   <span>Đốm cam</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-teal-400 inline-block" />
-                  <span>Rụng trứng 🌸</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-slate-400/70 inline-block" />
+                  <span>Rụng trứng</span>
                 </div>
-                <div className="flex items-center gap-1 text-rose-400 font-bold">
-                  <Heart className="w-2.5 h-2.5 text-rose-500 fill-rose-500 inline-block" />
-                  <span>Quan hệ (❤️)</span>
+                <div className="flex items-center gap-1 text-slate-400">
+                  <Heart className="w-2.5 h-2.5 text-rose-400/70 fill-rose-400/40 inline-block" />
+                  <span>Quan hệ</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-purple-400 inline-block" />
+                  <span className="w-2 h-2 rounded-full bg-slate-500/60 inline-block" />
                   <span>Pipelle</span>
                 </div>
               </div>
@@ -1218,86 +1218,85 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                       onClick={() => handleSelectDay(cell.dateStr)}
                       className={`min-h-[50px] sm:min-h-[60px] p-1 sm:p-1.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between relative group ${
                         isSelected
-                          ? 'ring-2 ring-rose-400 border-rose-500 bg-rose-950/40 shadow-md scale-[1.01] z-10'
+                          ? 'ring-1 ring-rose-400/60 border-rose-400/40 bg-rose-900/20 shadow-sm z-10'
                           : cell.isCurrentMonth
                           ? cell.isPeriod
-                            ? 'bg-rose-950/30 border-rose-900/60 hover:bg-rose-950/50'
+                            ? 'bg-rose-900/15 border-rose-800/30 hover:bg-rose-900/25'
                             : cell.isOvulation
-                            ? 'bg-teal-950/20 border-teal-900/50 hover:bg-teal-950/40'
-                            : 'bg-slate-950/60 border-slate-800/80 hover:bg-slate-850 hover:border-slate-700'
-                          : 'bg-slate-950/20 border-slate-900 text-slate-600 opacity-40 hover:opacity-80'
+                            ? 'bg-slate-800/40 border-slate-700/40 hover:bg-slate-800/60'
+                            : 'bg-slate-800/20 border-slate-700/30 hover:bg-slate-800/40 hover:border-slate-600/40'
+                          : 'bg-transparent border-slate-800/30 text-slate-600 opacity-30 hover:opacity-60'
                       }`}
                     >
                       {/* Top Day Number & Badges */}
                       <div className="flex items-center justify-between">
                         <span className={`text-[11px] sm:text-xs font-bold ${
-                          isSelected ? 'text-rose-300 font-black' :
-                          isToday ? 'px-1 rounded bg-teal-500 text-slate-950 font-black text-[10px]' :
-                          cell.isCurrentMonth ? 'text-slate-200' : 'text-slate-500'
+                          isSelected ? 'text-rose-300/80 font-bold' :
+                          isToday ? 'px-1 rounded bg-rose-400/20 text-rose-300 font-bold text-[10px]' :
+                          cell.isCurrentMonth ? 'text-slate-300' : 'text-slate-600'
                         }`}>
                           {cell.dayNumber}
                         </span>
 
                         {cell.isCycleStart && (
-                          <span className="text-[8px] px-1 rounded bg-rose-600 text-white font-black" title="Bắt đầu chu kỳ">
+                          <span className="text-[8px] px-1 rounded bg-rose-400/20 text-rose-300/80 font-semibold" title="Bắt đầu chu kỳ">
                             K1
                           </span>
                         )}
 
                         {!cell.isCycleStart && cell.periodDayNumber && (
-                          <span className="text-[8px] px-0.5 rounded bg-rose-500/30 text-rose-300 font-bold">
+                          <span className="text-[8px] px-0.5 rounded bg-rose-400/10 text-rose-400/60 font-medium">
                             K{cell.periodDayNumber}
                           </span>
                         )}
 
                         {cell.isOvulationPeak && !cell.isPeriod && (
-                          <span className="text-[10px]" title="Đỉnh Rụng Trứng">🌸</span>
+                          <span className="text-[9px] opacity-60" title="Đỉnh Rụng Trứng">🌸</span>
                         )}
                       </div>
 
                       {/* Middle Visual Status Dots/Pills */}
                       <div className="my-0.5 flex flex-col gap-0.5">
                         {hasFreshBlood && (
-                          <div className="h-1 w-full rounded-full bg-gradient-to-r from-rose-500 to-red-600" />
+                          <div className="h-0.5 w-full rounded-full bg-rose-400/60" />
                         )}
 
                         {hasSpotting && (
                           <div className="flex items-center gap-0.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse shrink-0" />
-                            <span className="text-[8px] text-amber-300 font-bold truncate hidden sm:inline">Cam</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-rose-300/40 shrink-0" />
                           </div>
                         )}
 
                         {hasBrown && !hasFreshBlood && (
-                          <div className="h-0.5 w-3/4 rounded-full bg-amber-800" />
+                          <div className="h-0.5 w-3/4 rounded-full bg-slate-500/40" />
                         )}
 
                         {hasPostProc && (
-                          <div className="h-1 w-full rounded-full bg-purple-500 animate-pulse" title="Máu sau sinh thiết Pipelle" />
+                          <div className="h-0.5 w-full rounded-full bg-slate-400/30" title="Máu sau sinh thiết Pipelle" />
                         )}
                       </div>
 
                       {/* Bottom Icon Badges */}
-                      <div className="flex items-center justify-between text-[9px] text-slate-400">
+                      <div className="flex items-center justify-between text-[9px] text-slate-500">
                         <div className="flex items-center gap-0.5">
                           {hasSex && (
                             <span title="Có sinh hoạt vợ chồng" className="inline-flex">
-                              <Heart className="w-3 h-3 text-rose-500 fill-rose-500 animate-bounce" />
+                              <Heart className="w-2.5 h-2.5 text-rose-400/50 fill-rose-400/30" />
                             </span>
                           )}
                           {cell.log?.isKeyMilestone && (
-                            <span className="w-1 h-1 rounded-full bg-amber-400" title="Cột mốc" />
+                            <span className="w-1 h-1 rounded-full bg-slate-400/40" title="Cột mốc" />
                           )}
                           {hasMastalgia && (
-                            <span className="text-[8px]" title="Căng đau vú">⚡</span>
+                            <span className="text-[8px] opacity-50" title="Căng đau vú">⚡</span>
                           )}
                           {cell.log?.eventNote && (
-                            <span className="text-[8px]" title={cell.log.eventNote}>🏥</span>
+                            <span className="text-[8px] opacity-50" title={cell.log.eventNote}>🏥</span>
                           )}
                         </div>
 
                         {cell.hasLog && (
-                          <span className="w-1 h-1 rounded-full bg-teal-400" title="Có ghi nhật ký" />
+                          <span className="w-1 h-1 rounded-full bg-slate-400/40" title="Có ghi nhật ký" />
                         )}
                       </div>
                     </div>
@@ -1311,14 +1310,14 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
               
               <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
                 <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/30">
+                  <div className="p-1.5 rounded-lg bg-slate-800 text-slate-400 border border-slate-700">
                     <CalendarIcon className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm sm:text-base font-black text-white">
+                    <h4 className="text-sm sm:text-base font-bold text-slate-100">
                       {activeSelectedDayData.date}
                     </h4>
-                    <span className="text-[11px] text-slate-400 font-medium">
+                    <span className="text-[11px] text-slate-500 font-medium">
                       {activeSelectedDayData.dayOfWeek} • {activeSelectedDayData.cycleDayText}
                     </span>
                   </div>
@@ -1327,15 +1326,15 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                 {!isQuickEditing ? (
                   <button
                     onClick={handleStartQuickEdit}
-                    className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1 transition-all cursor-pointer border border-slate-700"
+                    className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs flex items-center gap-1 transition-all cursor-pointer border border-slate-700"
                   >
-                    <Edit3 className="w-3 h-3 text-rose-400" />
+                    <Edit3 className="w-3 h-3 text-slate-400" />
                     <span>{activeSelectedDayData.isVirtual ? 'Ghi Nhật Ký' : 'Sửa Ngày'}</span>
                   </button>
                 ) : (
                   <button
                     onClick={() => setIsQuickEditing(false)}
-                    className="p-1 text-slate-400 hover:text-white cursor-pointer"
+                    className="p-1 text-slate-500 hover:text-slate-300 cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -1345,7 +1344,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
               {/* Action Button: Start Cycle on Selected Date */}
               <button
                 onClick={() => handleOpenStartCycleModal(activeSelectedDayData.date)}
-                className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm cursor-pointer transition-all active:scale-95"
+                className="w-full py-2 px-3 rounded-xl bg-rose-400/15 hover:bg-rose-400/25 text-rose-300 font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-all border border-rose-400/20"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>+ Bắt Đầu Chu Kỳ (K1)</span>
@@ -1357,20 +1356,20 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   
                   {/* Status Badges Row */}
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className={`px-2 py-0.5 rounded-full font-bold flex items-center gap-1 text-[11px] ${
-                      activeSelectedDayData.dischargeType === 'none' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800/50' :
-                      activeSelectedDayData.dischargeType === 'orange_spotting' ? 'bg-amber-950 text-amber-300 border border-amber-800/50' :
-                      activeSelectedDayData.dischargeType === 'fresh_blood' ? 'bg-rose-950 text-rose-300 border border-rose-800/50' :
-                      'bg-slate-800 text-slate-300'
+                    <span className={`px-2 py-0.5 rounded-full font-medium flex items-center gap-1 text-[11px] ${
+                      activeSelectedDayData.dischargeType === 'none' ? 'bg-slate-800 text-slate-400 border border-slate-700' :
+                      activeSelectedDayData.dischargeType === 'orange_spotting' ? 'bg-rose-900/20 text-rose-300/70 border border-rose-700/30' :
+                      activeSelectedDayData.dischargeType === 'fresh_blood' ? 'bg-rose-900/30 text-rose-300 border border-rose-700/40' :
+                      'bg-slate-800 text-slate-400 border border-slate-700'
                     }`}>
                       <Droplets className="w-2.5 h-2.5" />
                       <span>{activeSelectedDayData.dischargeLabel}</span>
                     </span>
 
-                    <span className={`px-2 py-0.5 rounded-full font-bold text-[11px] ${
-                      activeSelectedDayData.painLevel === 'none' ? 'bg-slate-800 text-slate-300' :
-                      activeSelectedDayData.painLevel === 'mild' ? 'bg-amber-950 text-amber-300 border border-amber-800/50' :
-                      'bg-rose-950 text-rose-300 border border-rose-800/50'
+                    <span className={`px-2 py-0.5 rounded-full font-medium text-[11px] ${
+                      activeSelectedDayData.painLevel === 'none' ? 'bg-slate-800 text-slate-500 border border-slate-700' :
+                      activeSelectedDayData.painLevel === 'mild' ? 'bg-slate-800 text-slate-400 border border-slate-700' :
+                      'bg-rose-900/20 text-rose-300/70 border border-rose-700/30'
                     }`}>
                       Đau: {
                         activeSelectedDayData.painLevel === 'none' ? 'Không đau' :
@@ -1379,33 +1378,33 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                       }
                     </span>
 
-                    <span className="px-2 py-0.5 rounded-full bg-teal-950 text-teal-300 border border-teal-800/50 font-medium text-[11px]">
+                    <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 font-medium text-[11px]">
                       {activeSelectedDayData.phaseLabel}
                     </span>
                   </div>
 
                   {/* Intimacy Heart Banner */}
                   {activeSelectedDayData.hasIntercourse && (
-                    <div className="p-2.5 rounded-xl bg-rose-950/40 border border-rose-500/50 text-rose-200 space-y-1">
-                      <div className="font-bold flex items-center gap-1 text-rose-300 text-xs">
-                        <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />
+                    <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-700/60 text-slate-300 space-y-1">
+                      <div className="font-semibold flex items-center gap-1 text-slate-300 text-xs">
+                        <Heart className="w-3 h-3 text-rose-400/60 fill-rose-400/30" />
                         <span>Sinh hoạt vợ chồng:</span>
                       </div>
-                      <div className="flex flex-wrap items-center gap-1.5 text-[10px] text-slate-200">
-                        <span className="px-1.5 py-0.5 rounded bg-rose-900/60 text-rose-200 font-bold border border-rose-700/50">
+                      <div className="flex flex-wrap items-center gap-1.5 text-[10px] text-slate-400">
+                        <span className="px-1.5 py-0.5 rounded bg-slate-700/60 text-slate-300 font-medium border border-slate-600/40">
                           {activeSelectedDayData.intercourseCount || 1} lần
                         </span>
-                        <span className="px-1.5 py-0.5 rounded bg-slate-900 text-slate-200 border border-slate-700">
+                        <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700/50">
                           {activeSelectedDayData.intercourseProtection === 'protected' ? 'Có bao cao su' : 'Tự nhiên'}
                         </span>
                         {activeSelectedDayData.intercourseOrgasm && (
-                          <span className="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-700/50">
+                          <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700/50">
                             Có cực khoái
                           </span>
                         )}
                       </div>
                       {activeSelectedDayData.intercourseNote && (
-                        <p className="text-[11px] text-rose-200/90 italic pt-0.5">
+                        <p className="text-[11px] text-slate-400 italic pt-0.5">
                           {activeSelectedDayData.intercourseNote}
                         </p>
                       )}
@@ -1413,11 +1412,11 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   )}
 
                   {/* Summary Box */}
-                  <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-850 space-y-1">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  <div className="p-2.5 rounded-xl bg-slate-800/30 border border-slate-700/40 space-y-1">
+                    <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
                       Diễn biến trong ngày:
                     </div>
-                    <p className="text-slate-200 leading-relaxed text-xs">
+                    <p className="text-slate-300 leading-relaxed text-xs">
                       {activeSelectedDayData.summary}
                     </p>
                   </div>
@@ -1425,12 +1424,12 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   {/* Symptoms Tags */}
                   {activeSelectedDayData.symptoms.length > 0 && (
                     <div className="space-y-1">
-                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                      <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
                         Triệu chứng:
                       </div>
                       <div className="flex flex-wrap gap-1">
                         {activeSelectedDayData.symptoms.map((sym, sIdx) => (
-                          <span key={sIdx} className="px-2 py-0.5 rounded-md bg-slate-800 text-slate-200 border border-slate-700 text-[10px]">
+                          <span key={sIdx} className="px-2 py-0.5 rounded-md bg-slate-800/50 text-slate-400 border border-slate-700/50 text-[10px]">
                             {sym}
                           </span>
                         ))}
@@ -1440,15 +1439,15 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
 
                   {/* Event Note */}
                   {activeSelectedDayData.eventNote && (
-                    <div className="p-2 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-200 text-xs">
-                      <strong>Cột mốc:</strong> {activeSelectedDayData.eventNote}
+                    <div className="p-2 rounded-xl bg-slate-800/40 border border-slate-700/40 text-slate-400 text-xs">
+                      <strong className="text-slate-300">Cột mốc:</strong> {activeSelectedDayData.eventNote}
                     </div>
                   )}
 
                   {/* Clinical Interpretation */}
                   {activeSelectedDayData.clinicalInterpretation && (
-                    <div className="p-2 rounded-xl bg-teal-950/40 border border-teal-500/40 text-teal-200 text-xs">
-                      <strong>Đối chiếu y học:</strong> {activeSelectedDayData.clinicalInterpretation}
+                    <div className="p-2 rounded-xl bg-slate-800/30 border border-slate-700/30 text-slate-500 text-xs">
+                      <strong className="text-slate-400">Đối chiếu y học:</strong> {activeSelectedDayData.clinicalInterpretation}
                     </div>
                   )}
 
@@ -1752,7 +1751,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-black hover:opacity-90 flex items-center gap-1.5 cursor-pointer shadow-md"
+                      className="px-4 py-2 rounded-xl bg-rose-400/20 hover:bg-rose-400/30 text-rose-300 font-bold flex items-center gap-1.5 cursor-pointer border border-rose-400/30"
                     >
                       <Save className="w-3.5 h-3.5" />
                       <span>Lưu Nhật Ký Ngày</span>
@@ -1796,7 +1795,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                 </button>
                 <button
                   onClick={() => handleOpenStartCycleModal(formatDateToVN(new Date()))}
-                  className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-rose-500/20 cursor-pointer"
+                  className="px-3 py-1.5 rounded-xl bg-rose-400/15 hover:bg-rose-400/25 text-rose-300 text-xs font-semibold flex items-center gap-1.5 cursor-pointer border border-rose-400/20"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>+ Thêm Chu Kỳ Mới</span>
@@ -1896,7 +1895,9 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                         <div>
                           <div className="flex flex-wrap items-center gap-2">
                             <span className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                              {cycle.dateRangeDisplay}
+                              {isOngoing
+                                ? cycle.dateRangeDisplay.split('–')[0].trim()
+                                : cycle.dateRangeDisplay}
                               {isOngoing && (
                                 <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-300 border border-rose-500/20 font-medium">
                                   <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
@@ -1906,18 +1907,10 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                             </span>
                           </div>
 
-                          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 mt-0.5 text-xs text-slate-400">
-                            <span>Năm {cycle.year}</span>
+                          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 mt-0.5 text-xs text-slate-500">
+                            <span>Chu kỳ: <strong className="text-slate-400">{cycle.cycleLengthDays} ngày</strong></span>
                             <span>•</span>
-                            <span>Chu kỳ: <strong>{cycle.cycleLengthDays} ngày</strong></span>
-                            <span>•</span>
-                            <span>Hành kinh: <strong>{cycle.periodDurationDays} ngày</strong></span>
-                            {childLogs.length > 0 && (
-                              <>
-                                <span>•</span>
-                                <span className="text-teal-400">{childLogs.length} ngày ghi nhận</span>
-                              </>
-                            )}
+                            <span>Hành kinh: <strong className="text-slate-400">{cycle.periodDurationDays} ngày</strong></span>
                           </div>
                         </div>
                       </div>
@@ -1931,11 +1924,10 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                             setActiveTab('calendar');
                             handleStartQuickEdit();
                           }}
-                          className="px-2 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 text-xs font-medium flex items-center gap-1 cursor-pointer border border-slate-700/60"
-                          title="Ghi nhật ký ngày cho chu kỳ này"
+                          className="p-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-rose-300 cursor-pointer border border-slate-700/60"
+                          title="Ghi nhật ký ngày"
                         >
-                          <Plus className="w-3 h-3 text-rose-400" />
-                          <span>Ghi Ngày</span>
+                          <Plus className="w-3 h-3" />
                         </button>
 
                         <button
@@ -1981,31 +1973,35 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                                     isDay1 ? 'bg-rose-500/[0.03] -mx-2 px-2 rounded-lg' : ''
                                   }`}
                                 >
-                                  {/* Line 1: Date, Day, CycleDay, Badges & Actions */}
+                                  {/* Line 1: Date, Day label, Badges & Actions */}
                                   <div className="flex flex-wrap items-center justify-between gap-1.5 text-xs">
                                     <div className="flex flex-wrap items-center gap-1.5">
-                                      <span className="font-bold text-white text-xs sm:text-sm">{log.date}</span>
-                                      <span className="text-slate-400">({log.dayOfWeek})</span>
-                                      <span className="text-slate-500">•</span>
-                                      <span className={`font-semibold ${isDay1 ? 'text-rose-400 font-bold' : 'text-teal-300'}`}>
-                                        {log.cycleDayText}
+                                      <span className="font-bold text-slate-200 text-xs sm:text-sm">{log.date}</span>
+                                      <span className="text-slate-500">
+                                        {/* Chỉ lấy phần tiếng Việt, bỏ "(Monday)" */}
+                                        {log.dayOfWeek.split('(')[0].trim()}
+                                      </span>
+                                      <span className="text-slate-600">•</span>
+                                      <span className={`text-[11px] font-medium ${isDay1 ? 'text-rose-400/80' : 'text-slate-400'}`}>
+                                        {/* Chỉ lấy phần ngắn trước dấu ( */}
+                                        {isDay1 ? 'Ngày 1' : log.cycleDayText.split('(')[0].trim()}
                                       </span>
 
-                                      {/* Discharge Badge */}
-                                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
-                                        log.dischargeType === 'none' ? 'bg-emerald-950/40 text-emerald-300' :
-                                        log.dischargeType === 'orange_spotting' ? 'bg-amber-950/40 text-amber-300' :
-                                        log.dischargeType === 'fresh_blood' ? 'bg-rose-950/40 text-rose-300' :
-                                        'bg-purple-950/40 text-purple-300'
-                                      }`}>
-                                        {log.dischargeLabel}
-                                      </span>
+                                      {/* Discharge Badge — chỉ hiện khi không phải fresh_blood (đã rõ qua summary) */}
+                                      {log.dischargeType !== 'none' && log.dischargeType !== 'fresh_blood' && (
+                                        <span className={`px-1.5 py-0.5 rounded text-[10px] ${
+                                          log.dischargeType === 'orange_spotting' ? 'bg-rose-900/20 text-rose-400/70' :
+                                          'bg-slate-800/50 text-slate-500'
+                                        }`}>
+                                          {log.dischargeLabel}
+                                        </span>
+                                      )}
 
                                       {/* Intimacy Badge */}
                                       {log.hasIntercourse && (
-                                        <span className="px-1.5 py-0.5 rounded text-[10px] bg-rose-950/40 text-rose-300 flex items-center gap-1">
-                                          <Heart className="w-2.5 h-2.5 text-rose-400 fill-rose-400" />
-                                          <span>{log.intercourseCount || 1} lần</span>
+                                        <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800/40 text-slate-400 flex items-center gap-1">
+                                          <Heart className="w-2.5 h-2.5 text-rose-400/50 fill-rose-400/30" />
+                                          <span>{log.intercourseCount || 1}×</span>
                                         </span>
                                       )}
                                     </div>
@@ -2023,14 +2019,14 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                                           setActiveTab('calendar');
                                           handleStartQuickEdit();
                                         }}
-                                        className="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                                        className="p-1 rounded text-slate-500 hover:text-slate-200 hover:bg-slate-800 transition-colors cursor-pointer"
                                         title="Chỉnh sửa"
                                       >
                                         <Edit3 className="w-3 h-3" />
                                       </button>
                                       <button
                                         onClick={() => handleDeleteLogForDay(log.date)}
-                                        className="p-1 rounded text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition-colors cursor-pointer"
+                                        className="p-1 rounded text-slate-500 hover:text-rose-400 hover:bg-slate-800 transition-colors cursor-pointer"
                                         title="Xóa"
                                       >
                                         <Trash2 className="w-3 h-3" />
@@ -2038,44 +2034,33 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                                     </div>
                                   </div>
 
-                                  {/* Line 2: Summary Description */}
-                                  <p className="text-xs sm:text-[13px] text-slate-200 mt-1 leading-snug">
+                                  {/* Line 2: Summary */}
+                                  <p className="text-xs text-slate-400 mt-0.5 leading-snug">
                                     {log.summary}
                                   </p>
 
-                                  {/* Line 3: Inline symptoms, pain, notes */}
-                                  {(log.symptoms.length > 0 || log.painDescription || log.intercourseNote) && (
-                                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-[11px] text-slate-400">
-                                      {log.symptoms.length > 0 && (
-                                        <div className="flex flex-wrap gap-1">
-                                          {log.symptoms.map((s, sIdx) => (
-                                            <span key={sIdx} className="px-1.5 py-0.2 rounded bg-slate-950/80 text-slate-300 border border-slate-800 text-[10px]">
-                                              {s}
-                                            </span>
-                                          ))}
-                                        </div>
-                                      )}
+                                  {/* Line 3: Symptoms & pain — chỉ show khi không phải Day 1 (Day 1 đã có trong summary) */}
+                                  {!isDay1 && (log.symptoms.length > 0 || log.painDescription || log.intercourseNote) && (
+                                    <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 mt-1 text-[10px] text-slate-500">
+                                      {log.symptoms.map((s, sIdx) => (
+                                        <span key={sIdx} className="px-1.5 py-0.5 rounded bg-slate-800/40 border border-slate-700/40">
+                                          {s}
+                                        </span>
+                                      ))}
                                       {log.painDescription && (
-                                        <span className="text-amber-300/90">⚡ {log.painDescription}</span>
+                                        <span className="text-slate-400">⚡ {log.painDescription}</span>
                                       )}
                                       {log.hasIntercourse && log.intercourseNote && (
-                                        <span className="text-rose-300/90">❤️ {log.intercourseNote}</span>
+                                        <span className="text-slate-400">❤ {log.intercourseNote}</span>
                                       )}
                                     </div>
                                   )}
 
-                                  {/* Medical milestone / Interpretation if present */}
-                                  {log.eventNote && (
-                                    <div className="mt-1 text-[11px] text-amber-300/90 flex items-start gap-1">
-                                      <Sparkles className="w-3 h-3 text-amber-400 shrink-0 mt-0.5" />
-                                      <span><strong>Cột mốc:</strong> {log.eventNote}</span>
-                                    </div>
-                                  )}
-
-                                  {log.clinicalInterpretation && (
-                                    <div className="mt-0.5 text-[11px] text-teal-300/80 flex items-start gap-1">
-                                      <CheckCircle2 className="w-3 h-3 text-teal-400 shrink-0 mt-0.5" />
-                                      <span>{log.clinicalInterpretation}</span>
+                                  {/* Cột mốc — chỉ hiện khi không phải Day 1 */}
+                                  {!isDay1 && log.eventNote && (
+                                    <div className="mt-0.5 text-[10px] text-slate-500 flex items-start gap-1">
+                                      <Sparkles className="w-3 h-3 shrink-0 mt-0.5" />
+                                      <span>{log.eventNote}</span>
                                     </div>
                                   )}
                                 </div>
@@ -2102,42 +2087,42 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
       {activeTab === 'medical_decoder' && (
         <div className="space-y-6">
           
-          <div className="p-5 sm:p-6 rounded-2xl bg-teal-950/40 border-l-4 border-teal-400 text-teal-100 space-y-3">
-            <div className="flex items-center gap-2 font-bold text-teal-300 text-base">
-              <CheckCircle2 className="w-5 h-5 text-teal-400 shrink-0" />
+          <div className="p-5 sm:p-6 rounded-2xl bg-slate-800/40 border-l-4 border-rose-400/40 text-slate-300 space-y-3">
+            <div className="flex items-center gap-2 font-semibold text-slate-200 text-base">
+              <CheckCircle2 className="w-5 h-5 text-slate-400 shrink-0" />
               <span>Đối Chiếu Kết Quả GPB BV Hùng Vương (15/09/2026) & Sinh Lý Pha Phân Tiết:</span>
             </div>
-            <div className="space-y-2 leading-relaxed text-slate-200 text-xs sm:text-sm">
+            <div className="space-y-2 leading-relaxed text-slate-400 text-xs sm:text-sm">
               <p>
-                • <strong>Mô tả vi thể:</strong> <em>"Nội mạc tử cung tăng sản điển hình khu trú (tuyến giãn rộng, lót biểu mô trụ cao, không dị dạng)"</em>.
+                • <strong className="text-slate-300">Mô tả vi thể:</strong> <em>"Nội mạc tử cung tăng sản điển hình khu trú (tuyến giãn rộng, lót biểu mô trụ cao, không dị dạng)"</em>.
               </p>
               <p>
-                • <strong>Giải mã sinh lý:</strong> Ngày làm sinh thiết Pipelle (09/09) là <strong>Ngày 17 của chu kỳ</strong> (ngay sau đỉnh rụng trứng). Ở pha này, hormone Progesterone kích thích niêm mạc phì đại tối đa, các tuyến nội mạc giãn to chứa đầy chất nhầy. Đây là phản ánh sinh lý pha phân tiết bình thường kết hợp tác động mô đệm 5 năm Tamoxifen, <strong>hoàn toàn lành tính 100%</strong>.
+                • <strong className="text-slate-300">Giải mã sinh lý:</strong> Ngày làm sinh thiết Pipelle (09/09) là <strong className="text-slate-200">Ngày 17 của chu kỳ</strong> (ngay sau đỉnh rụng trứng). Ở pha này, hormone Progesterone kích thích niêm mạc phì đại tối đa, các tuyến nội mạc giãn to chứa đầy chất nhầy. Đây là phản ánh sinh lý pha phân tiết bình thường kết hợp tác động mô đệm 5 năm Tamoxifen, <strong className="text-slate-200">hoàn toàn lành tính 100%</strong>.
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {cyclePhaseAnalyses.map((phase) => (
-              <div key={phase.id} className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <h4 className="font-bold text-rose-300 text-sm flex items-center gap-1.5">
-                    <Activity className="w-4 h-4 text-rose-400" />
+              <div key={phase.id} className="p-5 rounded-2xl bg-slate-800/30 border border-slate-700/50 space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-700/40 pb-2">
+                  <h4 className="font-semibold text-slate-200 text-sm flex items-center gap-1.5">
+                    <Activity className="w-4 h-4 text-rose-400/60" />
                     <span>{phase.title}</span>
                   </h4>
-                  <span className="text-[11px] font-mono text-slate-400">{phase.timeRange}</span>
+                  <span className="text-[11px] font-mono text-slate-500">{phase.timeRange}</span>
                 </div>
 
-                <div className="space-y-2 text-xs text-slate-300">
+                <div className="space-y-2 text-xs text-slate-400">
                   <div>
-                    <span className="font-bold text-slate-400 uppercase text-[10px]">Sinh lý & Độ dày:</span>
-                    <p className="mt-0.5">{phase.physiologicState} (Độ dày: <strong>{phase.endometrialThickness}</strong>)</p>
+                    <span className="font-semibold text-slate-500 uppercase text-[10px]">Sinh lý & Độ dày:</span>
+                    <p className="mt-0.5">{phase.physiologicState} (Độ dày: <strong className="text-slate-300">{phase.endometrialThickness}</strong>)</p>
                   </div>
                   <div>
-                    <span className="font-bold text-slate-400 uppercase text-[10px]">Tương tác Tamoxifen:</span>
+                    <span className="font-semibold text-slate-500 uppercase text-[10px]">Tương tác Tamoxifen:</span>
                     <p className="mt-0.5">{phase.tamoxifenInteraction}</p>
                   </div>
-                  <div className="p-2 rounded-xl bg-emerald-950/40 border border-emerald-800/40 text-emerald-200">
+                  <div className="p-2 rounded-xl bg-slate-700/30 border border-slate-600/30 text-slate-300">
                     <strong>Kết luận an toàn:</strong> {phase.safetyVerdict}
                   </div>
                 </div>
@@ -2145,18 +2130,18 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             ))}
           </div>
 
-          <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
-            <h4 className="font-black text-white text-sm flex items-center gap-2">
-              <HelpCircle className="w-4 h-4 text-amber-400" />
+          <div className="p-5 rounded-2xl bg-slate-800/30 border border-slate-700/50 space-y-4">
+            <h4 className="font-bold text-slate-200 text-sm flex items-center gap-2">
+              <HelpCircle className="w-4 h-4 text-slate-400" />
               <span>Giải Mã 3 Hiện Tượng Thường Gặp Của Bệnh Nhân:</span>
             </h4>
 
             <div className="space-y-3">
               {symptomDecoders.map((dec, idx) => (
-                <div key={idx} className="p-4 rounded-xl bg-slate-950 border border-slate-850 space-y-2 text-xs">
-                  <div className="font-bold text-amber-300 text-sm">{dec.symptom}</div>
-                  <p className="text-slate-300 leading-relaxed">{dec.scientificMechanism}</p>
-                  <div className="text-emerald-300 font-medium">✓ Vì sao không phải K: {dec.whyNotCancer}</div>
+                <div key={idx} className="p-4 rounded-xl bg-slate-800/20 border border-slate-700/30 space-y-2 text-xs">
+                  <div className="font-semibold text-slate-200 text-sm">{dec.symptom}</div>
+                  <p className="text-slate-400 leading-relaxed">{dec.scientificMechanism}</p>
+                  <div className="text-slate-400 font-medium">✓ Vì sao không phải K: {dec.whyNotCancer}</div>
                 </div>
               ))}
             </div>
@@ -2192,9 +2177,9 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             </div>
 
             {/* Smart Auto-closing notice */}
-            <div className="p-3.5 rounded-2xl bg-teal-950/40 border border-teal-500/40 text-xs text-teal-200 space-y-1.5">
-              <div className="font-bold flex items-center gap-1.5 text-teal-300">
-                <CheckCircle2 className="w-4 h-4 text-teal-400" />
+            <div className="p-3.5 rounded-2xl bg-slate-800/40 border border-slate-700/50 text-xs text-slate-400 space-y-1.5">
+              <div className="font-semibold flex items-center gap-1.5 text-slate-300">
+                <CheckCircle2 className="w-4 h-4 text-slate-400" />
                 <span>Quy tắc tự động thông minh:</span>
               </div>
               <p className="text-slate-300 leading-relaxed">
@@ -2525,7 +2510,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-black flex items-center gap-2 cursor-pointer shadow-lg shadow-rose-500/30"
+                  className="px-5 py-2.5 rounded-xl bg-rose-400/20 hover:bg-rose-400/30 text-rose-300 font-bold flex items-center gap-2 cursor-pointer border border-rose-400/30"
                 >
                   <Save className="w-4 h-4" />
                   <span>Lưu & Bắt Đầu Chu Kỳ Mới</span>
@@ -2654,7 +2639,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold hover:opacity-90 flex items-center gap-1.5 cursor-pointer shadow-md"
+                  className="px-4 py-2 rounded-xl bg-rose-400/20 hover:bg-rose-400/30 text-rose-300 font-semibold hover:opacity-90 flex items-center gap-1.5 cursor-pointer border border-rose-400/30"
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>Lưu Chu Kỳ</span>

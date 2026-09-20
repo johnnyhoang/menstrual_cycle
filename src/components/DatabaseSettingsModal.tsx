@@ -165,7 +165,7 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-teal-500/20 text-teal-400 border border-teal-500/30">
+            <div className="p-2 rounded-xl bg-slate-800 text-slate-400 border border-slate-700">
               <Database className="w-5 h-5" />
             </div>
             <div>
@@ -181,11 +181,11 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
         {/* Status Badge */}
         <div className={`p-3 rounded-2xl border flex items-center justify-between text-xs ${
           isConnected 
-            ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-200' 
-            : 'bg-amber-950/40 border-amber-500/40 text-amber-200'
+            ? 'bg-slate-800/60 border-slate-700/50 text-slate-300' 
+            : 'bg-slate-800/40 border-slate-700/40 text-slate-400'
         }`}>
           <div className="flex items-center gap-2">
-            {isConnected ? <Cloud className="w-4 h-4 text-emerald-400" /> : <HardDrive className="w-4 h-4 text-amber-400" />}
+            {isConnected ? <Cloud className="w-4 h-4 text-slate-400" /> : <HardDrive className="w-4 h-4 text-slate-500" />}
             <span>
               Trạng thái: <strong>{isConnected ? 'Đã cấu hình Supabase Cloud' : 'Đang hoạt động cục bộ (Offline-first)'}</strong>
             </span>
@@ -198,11 +198,11 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
         {/* Message Banner */}
         {statusMessage && (
           <div className={`p-3 rounded-xl border text-xs leading-relaxed flex items-start gap-2 ${
-            statusMessage.type === 'success' ? 'bg-emerald-950/60 border-emerald-500/50 text-emerald-100' :
-            statusMessage.type === 'error' ? 'bg-rose-950/60 border-rose-500/50 text-rose-100' :
-            'bg-slate-950 border-teal-500/50 text-teal-100'
+            statusMessage.type === 'success' ? 'bg-slate-800/60 border-slate-700/50 text-slate-300' :
+            statusMessage.type === 'error' ? 'bg-rose-950/40 border-rose-500/30 text-rose-200' :
+            'bg-slate-800/40 border-slate-700/30 text-slate-400'
           }`}>
-            {statusMessage.type === 'success' ? <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" /> : <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />}
+            {statusMessage.type === 'success' ? <CheckCircle2 className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" /> : <AlertCircle className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />}
             <div>{statusMessage.text}</div>
           </div>
         )}
@@ -216,7 +216,7 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
                 href="https://supabase.com/dashboard/projects" 
                 target="_blank" 
                 rel="noreferrer"
-                className="text-[11px] text-teal-400 hover:underline flex items-center gap-1"
+                className="text-[11px] text-slate-400 hover:underline flex items-center gap-1"
               >
                 <span>Supabase Dashboard</span>
                 <ExternalLink className="w-3 h-3" />
@@ -227,7 +227,7 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
               placeholder="https://xyzcompany.supabase.co"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-teal-500"
+              className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-slate-600"
             />
           </div>
 
@@ -238,7 +238,7 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
               placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
               value={key}
               onChange={(e) => setKey(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-teal-500"
+              className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-slate-600"
             />
           </div>
 
@@ -249,12 +249,12 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
               disabled={isTesting}
               className="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-slate-700 disabled:opacity-50"
             >
-              <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
               <span>{isTesting ? 'Đang kiểm tra...' : 'Kiểm Tra Kết Nối'}</span>
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-black flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-rose-400/20 hover:bg-rose-400/30 text-rose-300 font-bold flex items-center gap-1.5 transition-colors cursor-pointer border border-rose-400/30"
             >
               <Save className="w-3.5 h-3.5" />
               <span>Lưu Cấu Hình</span>
@@ -264,8 +264,8 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
 
         {/* Cloud Sync Actions */}
         <div className="p-4 rounded-2xl bg-slate-950 border border-slate-850 space-y-3 text-xs">
-          <div className="font-bold text-white flex items-center gap-1.5">
-            <Cloud className="w-4 h-4 text-teal-400" />
+          <div className="font-semibold text-slate-300 flex items-center gap-1.5">
+            <Cloud className="w-4 h-4 text-slate-400" />
             <span>Đồng Bộ Dữ Liệu Hai Chiều (mh_):</span>
           </div>
 
@@ -273,9 +273,9 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
             <button
               onClick={handlePushLocalToCloud}
               disabled={isPushing}
-              className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-800 flex flex-col items-center justify-center gap-1 font-bold cursor-pointer transition-all hover:border-teal-500/50 disabled:opacity-50"
+              className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-300 border border-slate-800 flex flex-col items-center justify-center gap-1 font-semibold cursor-pointer transition-all hover:border-slate-600 disabled:opacity-50"
             >
-              <Cloud className="w-4 h-4 text-teal-400" />
+              <Cloud className="w-4 h-4 text-slate-400" />
               <span>Đẩy Lên Cloud (Push)</span>
               <span className="text-[10px] text-slate-500 font-normal">Lưu 43 chu kỳ & logs</span>
             </button>
@@ -283,9 +283,9 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
             <button
               onClick={handlePullCloudToLocal}
               disabled={isPulling}
-              className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-800 flex flex-col items-center justify-center gap-1 font-bold cursor-pointer transition-all hover:border-teal-500/50 disabled:opacity-50"
+              className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-300 border border-slate-800 flex flex-col items-center justify-center gap-1 font-semibold cursor-pointer transition-all hover:border-slate-600 disabled:opacity-50"
             >
-              <RefreshCw className="w-4 h-4 text-amber-400" />
+              <RefreshCw className="w-4 h-4 text-slate-400" />
               <span>Kéo Về Máy (Pull)</span>
               <span className="text-[10px] text-slate-500 font-normal">Nạp từ Supabase</span>
             </button>
@@ -294,7 +294,7 @@ export const DatabaseSettingsModal: React.FC<DatabaseSettingsModalProps> = ({
 
         {/* Schema SQL hint */}
         <div className="text-[11px] text-slate-500 leading-relaxed border-t border-slate-800/80 pt-3">
-          💡 Dữ liệu được lưu trữ trong các bảng: <code className="text-teal-400">mh_menstrual_cycles</code>, <code className="text-teal-400">mh_daily_logs</code>, <code className="text-teal-400">mh_app_settings</code>. File <code className="text-slate-300">supabase_schema.sql</code> nằm tại thư mục gốc của dự án.
+          💡 Dữ liệu được lưu trữ trong các bảng: <code className="text-slate-400">mh_menstrual_cycles</code>, <code className="text-slate-400">mh_daily_logs</code>, <code className="text-slate-400">mh_app_settings</code>. File <code className="text-slate-300">supabase_schema.sql</code> nằm tại thư mục gốc của dự án.
         </div>
 
       </div>

@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 antialiased selection:bg-rose-500 selection:text-white font-sans;
+    @apply bg-slate-900 text-slate-300 antialiased selection:bg-rose-500/40 selection:text-rose-100 font-sans;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
