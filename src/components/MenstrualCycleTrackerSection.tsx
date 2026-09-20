@@ -41,8 +41,47 @@ import {
   deleteDailyLogFromDB
 } from '../utils/supabaseClient';
 
-const STORAGE_KEY_CYCLES = 'mom_health_menstrual_cycles_v2';
-const STORAGE_KEY_LOGS = 'mom_health_daily_logs_v2';
+const STORAGE_KEY_CYCLES = 'mom_health_menstrual_cycles_v3';
+const STORAGE_KEY_LOGS = 'mom_health_daily_logs_v3';
+
+// Helper: Merge loaded logs with initial full clinical dataset (guarantees September biopsy & GPB logs are never lost)
+function mergeWithInitialLogs(loadedLogs: DailyCycleLog[]): DailyCycleLog[] {
+  const map = new Map<string, DailyCycleLog>();
+  initialDailyLogs.forEach(log => map.set(log.date.trim(), log));
+  loadedLogs.forEach(log => {
+    const existing = map.get(log.date.trim());
+    if (existing) {
+      map.set(log.date.trim(), {
+        ...existing,
+        ...log,
+        summary: log.summary || existing.summary,
+        symptoms: (log.symptoms && log.symptoms.length > 0) ? log.symptoms : existing.symptoms,
+        dischargeType: log.dischargeType || existing.dischargeType,
+        dischargeLabel: log.dischargeLabel || existing.dischargeLabel,
+        painLevel: log.painLevel || existing.painLevel,
+        painDescription: log.painDescription || existing.painDescription,
+        clinicalInterpretation: log.clinicalInterpretation || existing.clinicalInterpretation,
+        isKeyMilestone: log.isKeyMilestone ?? existing.isKeyMilestone,
+        hasIntercourse: log.hasIntercourse ?? existing.hasIntercourse,
+        eventNote: log.eventNote || existing.eventNote
+      });
+    } else {
+      map.set(log.date.trim(), log);
+    }
+  });
+  return Array.from(map.values()).sort((a, b) => {
+    const da = parseDateUnified(a.date)?.getTime() || 0;
+    const db = parseDateUnified(b.date)?.getTime() || 0;
+    return db - da;
+  });
+}
+
+function mergeWithInitialCycles(loadedCycles: HistoricalCycle[]): HistoricalCycle[] {
+  const map = new Map<string, HistoricalCycle>();
+  initialHistoricalCycles.forEach(c => map.set(c.id, c));
+  loadedCycles.forEach(c => map.set(c.id, c));
+  return recalibrateCycles(Array.from(map.values()));
+}
 
 // Helper: Parse any date string into JS Date object robustly
 function parseDateUnified(dateStr: string): Date | null {
@@ -149,13 +188,13 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
   // 3. 'medical_decoder' (Giải Mã 4 Pha & GPB)
   const [activeTab, setActiveTab] = useState<'calendar' | 'tree_view' | 'medical_decoder'>('calendar');
 
-  // Persistence State: Cycles & Daily Logs
+  // Persistence State: Cycles & Daily Logs (Merged with rich initial records)
   const [cycles, setCycles] = useState<HistoricalCycle[]>(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY_CYCLES);
+      const saved = localStorage.getItem(STORAGE_KEY_CYCLES) || localStorage.getItem('mom_health_menstrual_cycles_v2');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return recalibrateCycles(parsed);
+        if (Array.isArray(parsed) && parsed.length > 0) return mergeWithInitialCycles(parsed);
       }
     } catch {
       // ignore
@@ -165,10 +204,10 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
 
   const [dailyLogs, setDailyLogs] = useState<DailyCycleLog[]>(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY_LOGS);
+      const saved = localStorage.getItem(STORAGE_KEY_LOGS) || localStorage.getItem('mom_health_daily_logs_v2');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) return mergeWithInitialLogs(parsed);
       }
     } catch {
       // ignore
@@ -265,19 +304,17 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
     const config = getSupabaseConfig();
     if (config.isConfigured) {
       fetchCyclesFromDB().then(res => {
-        if (res.data && res.data.length > 0) {
-          setCycles(recalibrateCycles(res.data));
-        } else if (res.data && res.data.length === 0) {
-          // Auto push initial dataset to Supabase if database table is empty
-          upsertCyclesToDB(cycles);
+        if (res.data) {
+          const merged = mergeWithInitialCycles(res.data);
+          setCycles(merged);
+          upsertCyclesToDB(merged);
         }
       });
       fetchDailyLogsFromDB().then(res => {
-        if (res.data && res.data.length > 0) {
-          setDailyLogs(res.data);
-        } else if (res.data && res.data.length === 0) {
-          // Auto push initial dataset to Supabase if database table is empty
-          upsertDailyLogsToDB(dailyLogs);
+        if (res.data) {
+          const merged = mergeWithInitialLogs(res.data);
+          setDailyLogs(merged);
+          upsertDailyLogsToDB(merged);
         }
       });
     }
@@ -578,28 +615,47 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
     }
   }, [treeCyclesHierarchy]);
 
+  const changeMonth = (newYear: number, newMonth: number) => {
+    setCurrentCalYear(newYear);
+    setCurrentCalMonth(newMonth);
+    // Auto-select first recorded log in this month or day 1
+    const monthLogs = dailyLogs.filter(l => {
+      const d = parseDateUnified(l.date);
+      return d && d.getFullYear() === newYear && d.getMonth() === newMonth;
+    }).sort((a, b) => {
+      const da = parseDateUnified(a.date)?.getTime() || 0;
+      const db = parseDateUnified(b.date)?.getTime() || 0;
+      return db - da;
+    });
+
+    if (monthLogs.length > 0) {
+      setSelectedCalendarDateStr(monthLogs[0].date);
+    } else {
+      const defaultDate = new Date(newYear, newMonth, 1);
+      setSelectedCalendarDateStr(formatDateToVN(defaultDate));
+    }
+    setIsQuickEditing(false);
+  };
+
   const handlePrevMonth = () => {
     if (currentCalMonth === 0) {
-      setCurrentCalMonth(11);
-      setCurrentCalYear(y => y - 1);
+      changeMonth(currentCalYear - 1, 11);
     } else {
-      setCurrentCalMonth(m => m - 1);
+      changeMonth(currentCalYear, currentCalMonth - 1);
     }
   };
 
   const handleNextMonth = () => {
     if (currentCalMonth === 11) {
-      setCurrentCalMonth(0);
-      setCurrentCalYear(y => y + 1);
+      changeMonth(currentCalYear + 1, 0);
     } else {
-      setCurrentCalMonth(m => m + 1);
+      changeMonth(currentCalYear, currentCalMonth + 1);
     }
   };
 
   const handleJumpToToday = () => {
     const now = new Date();
-    setCurrentCalYear(now.getFullYear());
-    setCurrentCalMonth(now.getMonth());
+    changeMonth(now.getFullYear(), now.getMonth());
     const todayStr = formatDateToVN(now);
     setSelectedCalendarDateStr(todayStr);
   };
@@ -608,6 +664,18 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
     setSelectedCalendarDateStr(dateStr);
     setIsQuickEditing(false);
   };
+
+  // Logs specifically belonging to the currently viewed calendar month
+  const logsInCurrentMonth = useMemo(() => {
+    return dailyLogs.filter(l => {
+      const d = parseDateUnified(l.date);
+      return d && d.getFullYear() === currentCalYear && d.getMonth() === currentCalMonth;
+    }).sort((a, b) => {
+      const da = parseDateUnified(a.date)?.getTime() || 0;
+      const db = parseDateUnified(b.date)?.getTime() || 0;
+      return da - db;
+    });
+  }, [dailyLogs, currentCalYear, currentCalMonth]);
 
   // Open the Start Cycle Modal from Calendar Day
   const handleOpenStartCycleModal = (dateStr: string) => {
@@ -1038,7 +1106,35 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                 </div>
 
                 {/* Quick jump month controls */}
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <button
+                    onClick={() => {
+                      setCurrentCalYear(2026);
+                      setCurrentCalMonth(8); // September
+                      setSelectedCalendarDateStr('15/09/2026');
+                    }}
+                    className={`px-2 py-1 rounded-lg text-xs font-semibold cursor-pointer border transition-all ${
+                      currentCalYear === 2026 && currentCalMonth === 8
+                        ? 'bg-rose-400/20 text-rose-300 border-rose-400/30'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    T9/2026 (Pipelle)
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentCalYear(2026);
+                      setCurrentCalMonth(7); // August
+                      setSelectedCalendarDateStr('24/08/2026');
+                    }}
+                    className={`px-2 py-1 rounded-lg text-xs font-semibold cursor-pointer border transition-all ${
+                      currentCalYear === 2026 && currentCalMonth === 7
+                        ? 'bg-rose-400/20 text-rose-300 border-rose-400/30'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    T8/2026 (Kinh)
+                  </button>
                   <button
                     onClick={handleJumpToToday}
                     className="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer border border-slate-700"
@@ -1100,7 +1196,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
               </div>
 
               {/* Calendar Matrix */}
-              <div className="grid grid-cols-7 gap-1">
+              <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
                 {calendarMatrix.map((cell, idx) => {
                   const isSelected = cell.dateStr === selectedCalendarDateStr;
                   const isToday = cell.dateStr === formatDateToVN(new Date());
@@ -1110,97 +1206,143 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   const hasBrown = cell.dischargeType === 'brown_blood';
                   const hasMastalgia = cell.log?.symptoms?.some(s => s.toLowerCase().includes('vú') || s.toLowerCase().includes('ngực'));
                   const hasSex = cell.hasIntercourse;
+                  const hasLog = cell.hasLog;
 
                   return (
                     <div
                       key={idx}
                       onClick={() => handleSelectDay(cell.dateStr)}
-                      className={`min-h-[50px] sm:min-h-[60px] p-1 sm:p-1.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between relative group ${
+                      className={`min-h-[56px] sm:min-h-[68px] p-1 sm:p-1.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between relative group ${
                         isSelected
-                          ? 'ring-1 ring-rose-400/60 border-rose-400/40 bg-rose-900/20 shadow-sm z-10'
+                          ? 'ring-2 ring-rose-400 border-rose-400 bg-rose-950/40 shadow-md z-10'
                           : cell.isCurrentMonth
-                          ? cell.isPeriod
+                          ? hasLog
+                            ? hasPostProc || cell.log?.isKeyMilestone
+                              ? 'bg-rose-950/30 border-rose-600/60 hover:bg-rose-900/40'
+                              : hasFreshBlood || cell.isPeriod
+                              ? 'bg-rose-950/25 border-rose-700/50 hover:bg-rose-900/35'
+                              : hasSpotting
+                              ? 'bg-amber-950/20 border-amber-600/50 hover:bg-amber-900/30'
+                              : 'bg-slate-800/60 border-slate-600/60 hover:bg-slate-800'
+                            : cell.isPeriod
                             ? 'bg-rose-900/15 border-rose-800/30 hover:bg-rose-900/25'
                             : cell.isOvulation
-                            ? 'bg-slate-800/40 border-slate-700/40 hover:bg-slate-800/60'
-                            : 'bg-slate-800/20 border-slate-700/30 hover:bg-slate-800/40 hover:border-slate-600/40'
-                          : 'bg-transparent border-slate-800/30 text-slate-600 opacity-30 hover:opacity-60'
+                            ? 'bg-slate-800/30 border-slate-700/40 hover:bg-slate-800/50'
+                            : 'bg-slate-800/15 border-slate-700/20 hover:bg-slate-800/30 hover:border-slate-600/40'
+                          : 'bg-transparent border-slate-800/20 text-slate-600 opacity-25 hover:opacity-50'
                       }`}
                     >
                       {/* Top Day Number & Badges */}
                       <div className="flex items-center justify-between">
                         <span className={`text-[11px] sm:text-xs font-bold ${
-                          isSelected ? 'text-rose-300/80 font-bold' :
+                          isSelected ? 'text-rose-300 font-black' :
                           isToday ? 'px-1 rounded bg-rose-400/20 text-rose-300 font-bold text-[10px]' :
+                          hasLog ? 'text-white font-bold' :
                           cell.isCurrentMonth ? 'text-slate-300' : 'text-slate-600'
                         }`}>
                           {cell.dayNumber}
                         </span>
 
                         {cell.isCycleStart && (
-                          <span className="text-[8px] px-1 rounded bg-rose-400/20 text-rose-300/80 font-semibold" title="Bắt đầu chu kỳ">
+                          <span className="text-[8px] px-1 rounded bg-rose-500/30 text-rose-300 font-bold" title="Bắt đầu chu kỳ">
                             K1
                           </span>
                         )}
 
                         {!cell.isCycleStart && cell.periodDayNumber && (
-                          <span className="text-[8px] px-0.5 rounded bg-rose-400/10 text-rose-400/60 font-medium">
+                          <span className="text-[8px] px-0.5 rounded bg-rose-400/20 text-rose-300 font-medium">
                             K{cell.periodDayNumber}
                           </span>
                         )}
 
                         {cell.isOvulationPeak && !cell.isPeriod && (
-                          <span className="text-[9px] opacity-60" title="Đỉnh Rụng Trứng">🌸</span>
+                          <span className="text-[9px] opacity-80" title="Đỉnh Rụng Trứng">🌸</span>
                         )}
                       </div>
 
                       {/* Middle Visual Status Dots/Pills */}
                       <div className="my-0.5 flex flex-col gap-0.5">
                         {hasFreshBlood && (
-                          <div className="h-0.5 w-full rounded-full bg-rose-400/60" />
+                          <div className="h-1 w-full rounded-full bg-rose-500/80 shadow-xs" title="Máu đỏ (Kinh)" />
                         )}
 
                         {hasSpotting && (
-                          <div className="flex items-center gap-0.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-rose-300/40 shrink-0" />
+                          <div className="flex items-center gap-1">
+                            <span className="w-2 h-2 rounded-full bg-amber-400 shadow-xs shrink-0" title="Đốm cam" />
+                            <span className="text-[8px] text-amber-300 font-medium hidden sm:inline">Cam</span>
                           </div>
                         )}
 
                         {hasBrown && !hasFreshBlood && (
-                          <div className="h-0.5 w-3/4 rounded-full bg-slate-500/40" />
+                          <div className="h-1 w-3/4 rounded-full bg-amber-700/60" title="Nâu sậm" />
                         )}
 
                         {hasPostProc && (
-                          <div className="h-0.5 w-full rounded-full bg-slate-400/30" title="Máu sau sinh thiết Pipelle" />
+                          <div className="h-1 w-full rounded-full bg-rose-400 shadow-xs" title="Máu sau sinh thiết Pipelle" />
                         )}
                       </div>
 
                       {/* Bottom Icon Badges */}
-                      <div className="flex items-center justify-between text-[9px] text-slate-500">
+                      <div className="flex items-center justify-between text-[9px]">
                         <div className="flex items-center gap-0.5">
                           {hasSex && (
                             <span title="Có sinh hoạt vợ chồng" className="inline-flex">
-                              <Heart className="w-2.5 h-2.5 text-rose-400/50 fill-rose-400/30" />
+                              <Heart className="w-2.5 h-2.5 text-rose-400 fill-rose-400" />
                             </span>
                           )}
                           {cell.log?.isKeyMilestone && (
-                            <span className="w-1 h-1 rounded-full bg-slate-400/40" title="Cột mốc" />
+                            <span className="text-[9px]" title="Cột mốc quan trọng">⭐</span>
                           )}
                           {hasMastalgia && (
-                            <span className="text-[8px] opacity-50" title="Căng đau vú">⚡</span>
+                            <span className="text-[8px] text-amber-400 font-bold" title="Căng đau vú">⚡</span>
                           )}
                           {cell.log?.eventNote && (
-                            <span className="text-[8px] opacity-50" title={cell.log.eventNote}>🏥</span>
+                            <span className="text-[8px]" title={cell.log.eventNote}>🏥</span>
                           )}
                         </div>
 
-                        {cell.hasLog && (
-                          <span className="w-1 h-1 rounded-full bg-slate-400/40" title="Có ghi nhật ký" />
+                        {hasLog && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-400" title="Có nhật ký" />
                         )}
                       </div>
                     </div>
                   );
                 })}
+              </div>
+
+              {/* Quick list of recorded events for this viewed month */}
+              <div className="p-3 rounded-2xl bg-slate-800/40 border border-slate-700/50 space-y-2 pt-2.5">
+                <div className="flex items-center justify-between text-xs font-semibold text-slate-300">
+                  <span className="flex items-center gap-1.5 text-slate-200">
+                    <CalendarIcon className="w-3.5 h-3.5 text-rose-400" />
+                    <span>Các ngày đã ghi nhận trong Tháng {currentCalMonth + 1}/{currentCalYear} ({logsInCurrentMonth.length} ngày):</span>
+                  </span>
+                </div>
+                {logsInCurrentMonth.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {logsInCurrentMonth.map(l => {
+                      const isSel = l.date === selectedCalendarDateStr;
+                      return (
+                        <button
+                          key={l.date}
+                          onClick={() => handleSelectDay(l.date)}
+                          className={`px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer border ${
+                            isSel
+                              ? 'bg-rose-500 text-white border-rose-400 shadow-sm ring-1 ring-rose-300'
+                              : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-slate-700 hover:border-slate-600'
+                          }`}
+                        >
+                          <span>{l.date.slice(0, 5)}</span>
+                          {l.isKeyMilestone && <span>⭐</span>}
+                          {l.eventNote && <span className="text-[10px] text-rose-300 truncate max-w-[90px]">({l.eventNote.slice(0, 12)}...)</span>}
+                          {l.hasIntercourse && <Heart className="w-2.5 h-2.5 text-rose-400 fill-rose-400 inline" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p className="text-xs text-slate-500 italic">Tháng này chưa có ghi nhận triệu chứng nào.</p>
+                )}
               </div>
             </div>
 

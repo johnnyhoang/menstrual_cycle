@@ -55,8 +55,8 @@ export function App() {
 
   const handleExportData = () => {
     try {
-      const cyclesRaw = localStorage.getItem('mom_health_menstrual_cycles_v2');
-      const logsRaw = localStorage.getItem('mom_health_daily_logs_v2');
+      const cyclesRaw = localStorage.getItem('mom_health_menstrual_cycles_v3') || localStorage.getItem('mom_health_menstrual_cycles_v2');
+      const logsRaw = localStorage.getItem('mom_health_daily_logs_v3') || localStorage.getItem('mom_health_daily_logs_v2');
       const exportPayload = {
         exportedAt: new Date().toISOString(),
         userEmail: user?.email || 'user',
