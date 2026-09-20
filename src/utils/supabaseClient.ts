@@ -1,8 +1,18 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import type { HistoricalCycle, DailyCycleLog } from '../data/menstrualCycleLogData';
 
-const ENV_SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
-const ENV_SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+const ENV_SUPABASE_URL =
+  import.meta.env.VITE_SUPABASE_URL ||
+  import.meta.env.NEXT_PUBLIC_SUPABASE_URL ||
+  import.meta.env.SUPABASE_URL ||
+  '';
+const ENV_SUPABASE_ANON_KEY =
+  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+  import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  import.meta.env.SUPABASE_ANON_KEY ||
+  '';
+
 
 export function getSupabaseConfig(): { url: string; key: string; isConfigured: boolean } {
   const customUrl = localStorage.getItem('mh_supabase_url') || ENV_SUPABASE_URL;
