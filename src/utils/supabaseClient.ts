@@ -46,8 +46,10 @@ export function getSupabase(): SupabaseClient | null {
     try {
       cachedClient = createClient(url, key, {
         auth: {
-          persistSession: false,
-          autoRefreshToken: false
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true,
+          storage: window.localStorage
         }
       });
       lastClientKey = currentKey;
@@ -57,6 +59,73 @@ export function getSupabase(): SupabaseClient | null {
     }
   }
   return cachedClient;
+}
+
+// ==============================================================================
+// AUTH HELPERS (GOOGLE OAUTH)
+// ==============================================================================
+
+export const DEFAULT_OWNER_EMAIL = 'thuynga126@gmail.com';
+
+export async function signInWithGoogle(): Promise<{ error: string | null }> {
+  const client = getSupabase();
+  if (!client) {
+    return { error: 'Vui lòng cấu hình Supabase URL và Anon Key trước khi đăng nhập Google!' };
+  }
+
+  try {
+    const { error } = await client.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin
+      }
+    });
+
+    if (error) throw error;
+    return { error: null };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { error: msg };
+  }
+}
+
+export async function signOutUser(): Promise<{ error: string | null }> {
+  const client = getSupabase();
+  if (!client) return { error: null };
+
+  try {
+    const { error } = await client.auth.signOut();
+    if (error) throw error;
+    return { error: null };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { error: msg };
+  }
+}
+
+export async function getCurrentUser() {
+  const client = getSupabase();
+  if (!client) return null;
+
+  try {
+    const { data: { user } } = await client.auth.getUser();
+    return user;
+  } catch {
+    return null;
+  }
+}
+
+export function onAuthStateChange(callback: (user: any) => void) {
+  const client = getSupabase();
+  if (!client) return { unsubscribe: () => {} };
+
+  const { data: { subscription } } = client.auth.onAuthStateChange((_event, session) => {
+    callback(session?.user || null);
+  });
+
+  return {
+    unsubscribe: () => subscription.unsubscribe()
+  };
 }
 
 // ==============================================================================
