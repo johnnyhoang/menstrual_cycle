@@ -65,8 +65,6 @@ export function getSupabase(): SupabaseClient | null {
 // AUTH HELPERS (GOOGLE OAUTH)
 // ==============================================================================
 
-export const DEFAULT_OWNER_EMAIL = 'thuynga126@gmail.com';
-
 export async function signInWithGoogle(): Promise<{ error: string | null }> {
   const client = getSupabase();
   if (!client) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   menstrualCycleLogs as initialDailyLogs, 
   cyclePhaseAnalyses, 
@@ -25,16 +25,12 @@ import {
   Edit3,
   Trash2,
   Download,
-  Upload,
-  RotateCcw,
   Save,
   Search,
   Sliders,
-  Database,
   GitBranch,
   Heart
 } from 'lucide-react';
-import { DatabaseSettingsModal } from './DatabaseSettingsModal';
 import { 
   getSupabaseConfig, 
   fetchCyclesFromDB, 
@@ -252,10 +248,9 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
   });
   const [startCycleCustomSymptom, setStartCycleCustomSymptom] = useState<string>('');
 
-  // Edit Existing Cycle Modal & DB Modal
+  // Edit Existing Cycle Modal
   const [isCycleModalOpen, setIsCycleModalOpen] = useState<boolean>(false);
   const [editingCycle, setEditingCycle] = useState<HistoricalCycle | null>(null);
-  const [isDbModalOpen, setIsDbModalOpen] = useState<boolean>(false);
 
   // Tree View State: Filter, Search, Expanded Nodes
   const [treeYearFilter, setTreeYearFilter] = useState<number | 'all'>('all');
@@ -264,7 +259,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
 
   // Notifications
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'info' | 'error' } | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Initial Seamless Auto-Sync & Auto-Seed with Supabase
   useEffect(() => {
@@ -854,45 +848,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
     showNotification('Đã xuất toàn bộ dữ liệu chu kỳ & nhật ký thành file JSON!', 'success');
   };
 
-  const handleImportFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      try {
-        const content = event.target?.result as string;
-        const parsed = JSON.parse(content);
-        if (parsed && Array.isArray(parsed.cycles)) {
-          setCycles(recalibrateCycles(parsed.cycles));
-          if (Array.isArray(parsed.dailyLogs)) {
-            setDailyLogs(parsed.dailyLogs);
-          }
-          showNotification(`Đã nạp ${parsed.cycles.length} chu kỳ và ${parsed.dailyLogs?.length || 0} nhật ký!`, 'success');
-        } else if (Array.isArray(parsed)) {
-          setCycles(recalibrateCycles(parsed));
-          showNotification(`Đã nạp ${parsed.length} chu kỳ!`, 'success');
-        } else {
-          showNotification('File không đúng cấu trúc dữ liệu chu kỳ!', 'error');
-        }
-      } catch (err) {
-        console.error('Import error', err);
-        showNotification('Lỗi khi đọc file JSON!', 'error');
-      }
-    };
-    reader.readAsText(file);
-    e.target.value = '';
-  };
-
-  const handleResetToDefault = () => {
-    if (window.confirm('Khôi phục toàn bộ 43 chu kỳ gốc (2022-2026) và nhật ký tháng 8-9/2026?')) {
-      setCycles(recalibrateCycles(initialHistoricalCycles));
-      setDailyLogs(initialDailyLogs);
-      localStorage.removeItem(STORAGE_KEY_CYCLES);
-      localStorage.removeItem(STORAGE_KEY_LOGS);
-      showNotification('Đã khôi phục dữ liệu y khoa gốc!', 'info');
-    }
-  };
-
   const handleSaveCycle = (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingCycle) return;
@@ -967,15 +922,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
         </div>
       )}
 
-      {/* Hidden File Input for JSON Import */}
-      <input 
-        type="file" 
-        ref={fileInputRef} 
-        onChange={handleImportFileChange} 
-        accept=".json" 
-        className="hidden" 
-      />
-
       {/* Top Header */}
       <div className="p-4 sm:p-5 rounded-2xl bg-slate-900 border border-slate-700/60 space-y-3 shadow-lg">
         <div className="flex flex-wrap items-center justify-between gap-2.5">
@@ -984,38 +930,14 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             <span>THEO DÕI CHU KỲ KINH NGUYỆT • MOM HEALTH ATLAS</span>
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Buttons: Only Single Download Icon */}
           <div className="flex items-center gap-1.5 text-xs">
             <button
-              onClick={() => setIsDbModalOpen(true)}
-              title="Cấu hình & Đồng bộ Database Supabase (prefix mh_)"
-              className="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm text-xs"
-            >
-              <Database className="w-3.5 h-3.5 text-slate-400" />
-              <span>Database (Cloud)</span>
-            </button>
-            <button
               onClick={handleExportData}
-              title="Xuất file sao lưu JSON toàn bộ dữ liệu"
-              className="px-2.5 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm text-xs"
+              title="Tải xuống toàn bộ dữ liệu (JSON)"
+              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-slate-100 border border-slate-700 transition-all cursor-pointer shadow-sm"
             >
-              <Download className="w-3.5 h-3.5 text-rose-400" />
-              <span className="hidden sm:inline">Xuất Dữ Liệu</span>
-            </button>
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              title="Nhập file JSON đã lưu"
-              className="px-2.5 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm text-xs"
-            >
-              <Upload className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden sm:inline">Nhập JSON</span>
-            </button>
-            <button
-              onClick={handleResetToDefault}
-              title="Khôi phục dữ liệu gốc"
-              className="p-1.5 rounded-xl bg-slate-800/80 hover:bg-rose-950 text-slate-400 hover:text-rose-300 border border-slate-700 transition-all cursor-pointer"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <Download className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -1084,7 +1006,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             }`}
           >
             <Microscope className="w-3.5 h-3.5" />
-            <span>Giải Mã 4 Pha & GPB</span>
+            <span>Giải Mã 4 Pha Sinh Lý</span>
           </button>
         </div>
 
@@ -1098,14 +1020,13 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
         </button>
       </div>
 
-      {/* TAB 1: CALENDAR */}
+      {/* Dynamic View Panels */}
       {activeTab === 'calendar' && (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
-            
-            {/* Calendar Container */}
-            <div className="lg:col-span-7 xl:col-span-8 bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 sm:p-4 space-y-3 shadow-lg">
+          {/* Calendar Main Grid (Left 7 or 8 Cols) */}
+          <div className="lg:col-span-7 xl:col-span-8 space-y-4">
+            <div className="p-3.5 sm:p-5 rounded-2xl bg-slate-900 border border-slate-700/60 shadow-md space-y-3">
               
               {/* Calendar Month/Year Navigator */}
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
@@ -1116,46 +1037,28 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   </h4>
                 </div>
 
+                {/* Quick jump month controls */}
                 <div className="flex items-center gap-1.5">
-                  <div className="flex items-center gap-1 bg-slate-950 p-0.5 rounded-lg border border-slate-850 text-xs">
-                    <button
-                      onClick={() => { setCurrentCalYear(2026); setCurrentCalMonth(8); setSelectedCalendarDateStr('15/09/2026'); }}
-                      className={`px-2 py-0.5 rounded-md font-bold transition-all cursor-pointer text-[11px] ${
-                        currentCalYear === 2026 && currentCalMonth === 8 ? 'bg-rose-500 text-white' : 'text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      T9/2026 (Pipelle)
-                    </button>
-                    <button
-                      onClick={() => { setCurrentCalYear(2026); setCurrentCalMonth(7); setSelectedCalendarDateStr('24/08/2026'); }}
-                      className={`px-2 py-0.5 rounded-md font-bold transition-all cursor-pointer text-[11px] ${
-                        currentCalYear === 2026 && currentCalMonth === 7 ? 'bg-rose-500 text-white' : 'text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      T8/2026 (Kinh)
-                    </button>
-                    <button
-                      onClick={handleJumpToToday}
-                      className="px-2 py-0.5 rounded-md text-slate-400 hover:text-teal-300 font-bold transition-all cursor-pointer text-[11px]"
-                    >
-                      Hôm nay
-                    </button>
-                  </div>
-
-                  <div className="flex items-center gap-0.5">
+                  <button
+                    onClick={handleJumpToToday}
+                    className="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer border border-slate-700"
+                  >
+                    Hôm Nay
+                  </button>
+                  <div className="flex items-center bg-slate-800 rounded-lg p-0.5 border border-slate-700">
                     <button
                       onClick={handlePrevMonth}
-                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition-colors cursor-pointer"
+                      className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-700 cursor-pointer"
                       title="Tháng trước"
                     >
-                      <ChevronLeft className="w-3.5 h-3.5" />
+                      <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button
                       onClick={handleNextMonth}
-                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition-colors cursor-pointer"
+                      className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-700 cursor-pointer"
                       title="Tháng sau"
                     >
-                      <ChevronRight className="w-3.5 h-3.5" />
+                      <ChevronRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -1182,10 +1085,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                 <div className="flex items-center gap-1 text-slate-400">
                   <Heart className="w-2.5 h-2.5 text-rose-400/70 fill-rose-400/40 inline-block" />
                   <span>Quan hệ</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-slate-500/60 inline-block" />
-                  <span>Pipelle</span>
                 </div>
               </div>
 
@@ -2090,14 +1989,14 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
           <div className="p-5 sm:p-6 rounded-2xl bg-slate-800/40 border-l-4 border-rose-400/40 text-slate-300 space-y-3">
             <div className="flex items-center gap-2 font-semibold text-slate-200 text-base">
               <CheckCircle2 className="w-5 h-5 text-slate-400 shrink-0" />
-              <span>Đối Chiếu Kết Quả GPB BV Hùng Vương (15/09/2026) & Sinh Lý Pha Phân Tiết:</span>
+              <span>Tổng Quan 4 Pha Chu Kỳ & Sự Thay Đổi Niêm Mạc Tử Cung:</span>
             </div>
             <div className="space-y-2 leading-relaxed text-slate-400 text-xs sm:text-sm">
               <p>
-                • <strong className="text-slate-300">Mô tả vi thể:</strong> <em>"Nội mạc tử cung tăng sản điển hình khu trú (tuyến giãn rộng, lót biểu mô trụ cao, không dị dạng)"</em>.
+                • <strong className="text-slate-300">Cơ chế điều hòa nội tiết:</strong> Chu kỳ kinh nguyệt được điều hòa nhịp nhàng bởi trục Não bộ – Tuyến yên – Buồng trứng qua sự tương tác giữa hormone FSH, LH, Estrogen và Progesterone.
               </p>
               <p>
-                • <strong className="text-slate-300">Giải mã sinh lý:</strong> Ngày làm sinh thiết Pipelle (09/09) là <strong className="text-slate-200">Ngày 17 của chu kỳ</strong> (ngay sau đỉnh rụng trứng). Ở pha này, hormone Progesterone kích thích niêm mạc phì đại tối đa, các tuyến nội mạc giãn to chứa đầy chất nhầy. Đây là phản ánh sinh lý pha phân tiết bình thường kết hợp tác động mô đệm 5 năm Tamoxifen, <strong className="text-slate-200">hoàn toàn lành tính 100%</strong>.
+                • <strong className="text-slate-300">Biến thiên niêm mạc sinh lý:</strong> Niêm mạc tử cung mỏng nhất sau hành kinh (2-4mm), tăng sinh dần trong pha noãn (7-10mm) và đạt độ dày tối đa (10-16mm) ở pha hoàng thể phân tiết để chuẩn bị môi trường dinh dưỡng nuôi phôi.
               </p>
             </div>
           </div>
@@ -2115,15 +2014,15 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
 
                 <div className="space-y-2 text-xs text-slate-400">
                   <div>
-                    <span className="font-semibold text-slate-500 uppercase text-[10px]">Sinh lý & Độ dày:</span>
+                    <span className="font-semibold text-slate-500 uppercase text-[10px]">Sinh lý & Độ dày niêm mạc:</span>
                     <p className="mt-0.5">{phase.physiologicState} (Độ dày: <strong className="text-slate-300">{phase.endometrialThickness}</strong>)</p>
                   </div>
                   <div>
-                    <span className="font-semibold text-slate-500 uppercase text-[10px]">Tương tác Tamoxifen:</span>
-                    <p className="mt-0.5">{phase.tamoxifenInteraction}</p>
+                    <span className="font-semibold text-slate-500 uppercase text-[10px]">Cơ chế sinh lý học:</span>
+                    <p className="mt-0.5">{phase.clinicalMechanism}</p>
                   </div>
                   <div className="p-2 rounded-xl bg-slate-700/30 border border-slate-600/30 text-slate-300">
-                    <strong>Kết luận an toàn:</strong> {phase.safetyVerdict}
+                    <strong>Đánh giá sinh lý:</strong> {phase.safetyVerdict}
                   </div>
                 </div>
               </div>
@@ -2133,7 +2032,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
           <div className="p-5 rounded-2xl bg-slate-800/30 border border-slate-700/50 space-y-4">
             <h4 className="font-bold text-slate-200 text-sm flex items-center gap-2">
               <HelpCircle className="w-4 h-4 text-slate-400" />
-              <span>Giải Mã 3 Hiện Tượng Thường Gặp Của Bệnh Nhân:</span>
+              <span>Giải Mã 3 Hiện Tượng Thường Gặp Ở Phụ Nữ:</span>
             </h4>
 
             <div className="space-y-3">
@@ -2141,7 +2040,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                 <div key={idx} className="p-4 rounded-xl bg-slate-800/20 border border-slate-700/30 space-y-2 text-xs">
                   <div className="font-semibold text-slate-200 text-sm">{dec.symptom}</div>
                   <p className="text-slate-400 leading-relaxed">{dec.scientificMechanism}</p>
-                  <div className="text-slate-400 font-medium">✓ Vì sao không phải K: {dec.whyNotCancer}</div>
+                  <div className="text-slate-400 font-medium">✓ Cơ sở an toàn: {dec.whyNotCancer}</div>
                 </div>
               ))}
             </div>
@@ -2648,20 +2547,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             </form>
           </div>
         </div>
-      )}
-
-      {/* Database Settings & Sync Modal */}
-      {isDbModalOpen && (
-        <DatabaseSettingsModal
-          onClose={() => setIsDbModalOpen(false)}
-          cycles={cycles}
-          dailyLogs={dailyLogs}
-          onSyncFromCloud={(cloudCycles, cloudLogs) => {
-            setCycles(recalibrateCycles(cloudCycles));
-            setDailyLogs(cloudLogs);
-            showNotification(`Đã tải thành công ${cloudCycles.length} chu kỳ và ${cloudLogs.length} nhật ký từ Supabase!`, 'success');
-          }}
-        />
       )}
 
     </div>

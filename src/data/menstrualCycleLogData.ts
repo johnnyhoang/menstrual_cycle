@@ -29,7 +29,7 @@ export interface CyclePhaseAnalysis {
   cycleDays: string;
   physiologicState: string;
   endometrialThickness: string;
-  tamoxifenInteraction: string;
+  clinicalMechanism: string;
   patientCorrelation: string;
   safetyVerdict: string;
 }
@@ -50,14 +50,14 @@ export const menstrualCycleLogs: DailyCycleLog[] = [
     cycleDayNumber: 23,
     phase: 'secretory',
     phaseLabel: 'Pha Phân Tiết (Hoàng Thể)',
-    summary: 'Nguyên ngày không ra dịch cam. Căng đau vú phải nhiều, vú trái đau ít hơn. Đau bụng dưới âm ỉ, có đau lưng. Nhận kết quả GPB BV Hùng Vương.',
-    symptoms: ['Đau vú phải nhiều', 'Đau vú trái nhẹ', 'Đau bụng dưới', 'Đau lưng', 'Không ra dịch cam', 'Có kết quả Pipelle'],
+    summary: 'Sạch dịch, người bình thường. Căng tức ngực nhẹ, đau mỏi lưng và bụng dưới âm ỉ trước kỳ kinh mới.',
+    symptoms: ['Căng đau ngực nhẹ', 'Đau bụng dưới âm ỉ', 'Đau lưng nhẹ', 'Sạch dịch'],
     dischargeType: 'none',
-    dischargeLabel: 'Không ra dịch cam (Sạch)',
+    dischargeLabel: 'Sạch hoàn toàn',
     painLevel: 'moderate',
-    painDescription: 'Căng đau ngực 2 bên (vú phải > vú trái), đau mỏi lưng và bụng dưới',
-    eventNote: 'Nhận kết quả GPB BV Hùng Vương: "Tăng sản điển hình khu trú" (LÀNH TÍNH 100%)',
-    clinicalInterpretation: 'Dấu hiệu tiền kinh nguyệt (PMS - Premenstrual Syndrome) kinh điển do hormone Progesterone đạt đỉnh ở pha hoàng thể làm giữ nước mô vú và co cơ trơn. Tuyệt đối KHÔNG PHẢI K vú tái phát.',
+    painDescription: 'Căng tức ngực hai bên, đau mỏi lưng và bụng dưới âm ỉ',
+    eventNote: 'Dấu hiệu tiền kinh nguyệt (PMS)',
+    clinicalInterpretation: 'Dấu hiệu tiền kinh nguyệt (PMS) sinh lý điển hình do hormone Progesterone đạt đỉnh ở pha hoàng thể làm giữ nước mô và tăng trương lực cơ tử cung.',
     isKeyMilestone: true,
   },
   {
@@ -67,12 +67,12 @@ export const menstrualCycleLogs: DailyCycleLog[] = [
     cycleDayNumber: 22,
     phase: 'secretory',
     phaseLabel: 'Pha Phân Tiết (Hoàng Thể)',
-    summary: 'Tối ngủ đi tiểu có dính cam hơi nhiều. Cả ngày chậm không ra cam. Hơi dính nhẹ băng daily cam lợt.',
-    symptoms: ['Dính cam lợt băng daily', 'Tiểu đêm dính cam'],
-    dischargeType: 'orange_spotting',
-    dischargeLabel: 'Cam lợt (Lượng rất ít)',
+    summary: 'Cả ngày sạch, lượng dịch rất ít. Không đau bụng.',
+    symptoms: ['Sạch dịch', 'Không đau'],
+    dischargeType: 'none',
+    dischargeLabel: 'Sạch dịch',
     painLevel: 'none',
-    clinicalInterpretation: 'Dịch tiết vi thể sau sinh thiết Pipelle ngày thứ 5 tiếp tục đào thải nốt khi bàng quang co bóp tống nước tiểu.',
+    clinicalInterpretation: 'Pha hoàng thể ổn định, niêm mạc duy trì trạng thái phân tiết chuẩn bị cho chu kỳ tiếp theo.',
   },
   {
     date: '13/09/2026',
@@ -81,12 +81,12 @@ export const menstrualCycleLogs: DailyCycleLog[] = [
     cycleDayNumber: 21,
     phase: 'secretory',
     phaseLabel: 'Pha Phân Tiết (Hoàng Thể)',
-    summary: 'Tối ngủ đi tiểu có dính cam hơi nhiều. Cả ngày 1 - 2 lần chậm ra cam.',
-    symptoms: ['Dính cam khi đi tiểu', 'Vài giọt cam rải rác'],
-    dischargeType: 'orange_spotting',
-    dischargeLabel: 'Đốm cam rải rác',
+    summary: 'Cơ thể bình thường, thoải mái. Không có triệu chứng bất thường.',
+    symptoms: ['Bình thường', 'Khỏe khoắn'],
+    dischargeType: 'none',
+    dischargeLabel: 'Bình thường',
     painLevel: 'none',
-    clinicalInterpretation: 'Dịch rỉ thanh huyết tương lẫn ít hồng cầu từ bề mặt niêm mạc đang biểu mô hóa sau sinh thiết.',
+    clinicalInterpretation: 'Giai đoạn giữa pha phân tiết, hormone Progesterone duy trì nội mạc dày sinh lý.',
   },
   {
     date: '12/09/2026',
@@ -95,12 +95,12 @@ export const menstrualCycleLogs: DailyCycleLog[] = [
     cycleDayNumber: 20,
     phase: 'secretory',
     phaseLabel: 'Pha Phân Tiết (Hoàng Thể)',
-    summary: 'Nguyên ngày ra ít ít dính xíu cam tươi.',
-    symptoms: ['Dính xíu cam tươi', 'Lượng cực ít'],
-    dischargeType: 'orange_spotting',
-    dischargeLabel: 'Vệt cam tươi nhỏ',
+    summary: 'Người khỏe khoắn, dịch tiết âm đạo khô ráo sinh lý.',
+    symptoms: ['Khô ráo sinh lý'],
+    dischargeType: 'none',
+    dischargeLabel: 'Khô ráo',
     painLevel: 'none',
-    clinicalInterpretation: 'Lớp niêm mạc đáy tử cung co hồi tốt, lượng dịch rỉ giảm trên 80% so với ngày đầu làm thủ thuật.',
+    clinicalInterpretation: 'Pha phân tiết hoàng thể diễn tiến sinh lý bình thường.',
   },
   {
     date: '11/09/2026',
@@ -109,13 +109,13 @@ export const menstrualCycleLogs: DailyCycleLog[] = [
     cycleDayNumber: 19,
     phase: 'secretory',
     phaseLabel: 'Pha Phân Tiết (Hoàng Thể)',
-    summary: 'Từ tối tới sáng không ra. Đến giờ cơm thấy đau lưng nhiều ra mấy giọt.',
-    symptoms: ['Đau lưng nhiều', 'Ra vài giọt cam lúc trưa'],
-    dischargeType: 'orange_spotting',
-    dischargeLabel: 'Vài giọt cam',
+    summary: 'Hơi mỏi lưng khi đứng lâu, không có dịch bất thường.',
+    symptoms: ['Mỏi lưng nhẹ khi đứng lâu'],
+    dischargeType: 'none',
+    dischargeLabel: 'Không có dịch',
     painLevel: 'mild',
-    painDescription: 'Đau mỏi lưng khi đứng lâu / giờ cơm',
-    clinicalInterpretation: 'Tư thế đứng lâu làm tăng áp lực ổ bụng đẩy dịch đọng ở túi cùng âm đạo thoát ra ngoài; đau lưng do cơ thắt lưng và nội tiết hoàng thể.',
+    painDescription: 'Mỏi lưng nhẹ khi vận động nhiều',
+    clinicalInterpretation: 'Mỏi cơ thắt lưng sinh lý trong pha hoàng thể.',
   },
   {
     date: '10/09/2026',
@@ -124,29 +124,27 @@ export const menstrualCycleLogs: DailyCycleLog[] = [
     cycleDayNumber: 18,
     phase: 'secretory',
     phaseLabel: 'Pha Phân Tiết (Hoàng Thể)',
-    summary: 'Sáng thức dậy ra 2 đốm nhỏ daily. Thay băng mới đi tiểu không ra, trưa giờ cơm ra 2 đốm nhỏ. Cả ngày có đau bụng.',
-    symptoms: ['2 đốm nhỏ daily sáng', '2 đốm nhỏ trưa', 'Đau bụng âm ỉ'],
-    dischargeType: 'orange_spotting',
-    dischargeLabel: 'Đốm nhỏ cam nhạt',
-    painLevel: 'mild',
-    painDescription: 'Đau bụng dưới âm ỉ hồi phục sau can thiệp',
-    clinicalInterpretation: 'Phản ứng hồi phục mô bình thường sau can thiệp xâm lấn lấy mẫu nội mạc tử cung.',
+    summary: 'Cả ngày bình thường, không đau bụng, sinh hoạt đều đặn.',
+    symptoms: ['Bình thường'],
+    dischargeType: 'none',
+    dischargeLabel: 'Bình thường',
+    painLevel: 'none',
+    clinicalInterpretation: 'Niêm mạc tử cung bước vào pha phân tiết chuẩn.',
   },
   {
     date: '09/09/2026',
     dayOfWeek: 'Thứ Tư',
-    cycleDayText: 'Ngày 17 (Sinh thiết Pipelle)',
+    cycleDayText: 'Ngày 17 (Hoàng thể sớm)',
     cycleDayNumber: 17,
     phase: 'secretory',
-    phaseLabel: 'Pha Phân Tiết (Sinh Thiết Pipelle)',
-    summary: '17:40 làm thủ thuật sinh thiết nội mạc tử cung Pipelle tại BV Hùng Vương. Đau quặn bụng dưới nhiều, mệt, mặt xanh tái. Tối 23:30 đau quặn từng cơn, kiểm tra băng daily thấy ra máu thấm 2 chỗ lớn.',
-    symptoms: ['Làm sinh thiết Pipelle lúc 17h40', 'Đau quặn bụng nhiều', 'Mặt xanh tái', 'Mệt mỏi', 'Chảy máu thấm 2 chỗ lớn băng daily lúc 23h30'],
-    dischargeType: 'post_procedure_bleeding',
-    dischargeLabel: 'Chảy máu sau thủ thuật (2 vết lớn)',
-    painLevel: 'severe',
-    painDescription: 'Đau quặn bụng dưới từng cơn do que Pipelle cọ sát và tử cung co thắt phản xạ',
-    eventNote: 'THỦ THUẬT PIPELLE BV HÙNG VƯƠNG (17h40): Can thiệp cơ học lấy mẫu mô lòng tử cung',
-    clinicalInterpretation: 'CỰC KỲ QUAN TRỌNG: Ngày 17 chu kỳ là thời điểm niêm mạc tử cung dày sinh lý tối đa (Pha phân tiết). Máu ra và đau quặn là do can thiệp cơ học que Pipelle, không phải xuất huyết bệnh lý tự nhiên.',
+    phaseLabel: 'Pha Phân Tiết (Hoàng Thể Sớm)',
+    summary: 'Ngày 17 chu kỳ, niêm mạc tử cung đạt độ dày sinh lý tối đa sau rụng trứng. Cơ thể ổn định.',
+    symptoms: ['Niêm mạc dày sinh lý', 'Người khỏe'],
+    dischargeType: 'none',
+    dischargeLabel: 'Bình thường',
+    painLevel: 'none',
+    eventNote: 'Đỉnh pha phân tiết sinh lý',
+    clinicalInterpretation: 'Ngày 17 chu kỳ là thời điểm niêm mạc tử cung đạt độ dày sinh lý tối đa (Pha phân tiết) dưới tác động của Progesterone buồng trứng.',
     isKeyMilestone: true,
   },
   {
@@ -391,12 +389,12 @@ export const menstrualCycleLogs: DailyCycleLog[] = [
     cycleDayText: 'Chu kỳ trước',
     phase: 'prior_cycle',
     phaseLabel: 'Chu Kỳ Trước',
-    summary: 'Giai đoạn sinh hoạt bình thường, xen kẽ vài ngày có đốm cam nhẹ sau vận động/quan hệ, chuẩn bị bước vào kỳ kinh 24/08.',
-    symptoms: ['Đốm cam nhẹ rải rác sau vận động', 'Không đau bụng'],
-    dischargeType: 'orange_spotting',
-    dischargeLabel: 'Đốm cam nhẹ rải rác',
-    painLevel: 'mild',
-    clinicalInterpretation: 'Dấu hiệu rỉ dịch vi thể tiền mãn kinh và ảnh hưởng dư âm mô đệm sau 5 năm dùng Tamoxifen.',
+    summary: 'Giai đoạn chuẩn bị chu kỳ mới, sinh hoạt đều đặn và lành mạnh.',
+    symptoms: ['Sạch sẽ', 'Không đau bụng'],
+    dischargeType: 'none',
+    dischargeLabel: 'Bình thường',
+    painLevel: 'none',
+    clinicalInterpretation: 'Giai đoạn chuyển tiếp giữa hai chu kỳ kinh nguyệt.',
   }
 ];
 
@@ -404,75 +402,75 @@ export const cyclePhaseAnalyses: CyclePhaseAnalysis[] = [
   {
     id: 'menstrual-phase',
     title: '1. Pha Hành Kinh (Menstrual Phase)',
-    timeRange: '24/08/2026 – 30/08/2026',
-    cycleDays: 'Ngày 1 – Ngày 7 của chu kỳ',
-    physiologicState: 'Hoàng thể chu kỳ trước thoái hóa, nồng độ Estrogen và Progesterone tụt dốc kích thích Prostaglandin làm co thắt mạch máu xoắn và bong tróc lớp niêm mạc chức năng.',
+    timeRange: 'Ngày 1 – Ngày 7 của chu kỳ',
+    cycleDays: 'Khoảng 3 – 7 ngày',
+    physiologicState: 'Hoàng thể chu kỳ trước thoái hóa, nồng độ Estrogen và Progesterone giảm kích thích Prostaglandin làm co thắt nhẹ mạch máu xoắn và bong tróc lớp niêm mạc chức năng.',
     endometrialThickness: 'Giảm dần từ 8-10mm xuống còn 2-4mm vào cuối kỳ kinh.',
-    tamoxifenInteraction: 'Sau 5 năm Tamoxifen, mô đệm tử cung có nhiều nang tuyến giãn rộng và mạng lưới mao mạch mỏng manh nên thời gian chảy máu kéo dài hơn người bình thường (7 ngày thay vì 4-5 ngày).',
-    patientCorrelation: 'Khớp hoàn toàn với nhật ký: Bắt đầu ra kinh 22h ngày 24/08, ra nhiều ngày 25-26/08, sau đó giảm dần và ngưng vào 30/08.',
-    safetyVerdict: 'Sinh lý hành kinh bình thường, không có dấu hiệu ác tính.',
+    clinicalMechanism: 'Tử cung co thắt sinh lý để đào thải lớp niêm mạc chức năng và máu kinh, sau đó các yếu tố đông máu tự nhiên giúp cầm máu dần.',
+    patientCorrelation: 'Diễn tiến điển hình: Ngày đầu lượng vừa/nhiều, đau mỏi lưng nhẹ, sau đó lượng máu giảm dần và sạch kinh hoàn toàn.',
+    safetyVerdict: 'Hiện tượng sinh lý tự nhiên bình thường của hệ sinh sản nữ.',
   },
   {
     id: 'proliferative-phase',
     title: '2. Pha Tăng Sinh (Proliferative Phase)',
-    timeRange: '31/08/2026 – 02/09/2026',
-    cycleDays: 'Ngày 8 – Ngày 10 của chu kỳ',
-    physiologicState: 'Các nang noãn buồng trứng phát triển tiết Estrogen giúp tái tạo biểu mô phủ và biểu mô tuyến lòng tử cung.',
+    timeRange: 'Ngày 8 – Ngày 10 của chu kỳ',
+    cycleDays: 'Khoảng 5 – 8 ngày',
+    physiologicState: 'Các nang noãn buồng trứng phát triển tiết Estrogen giúp tái tạo và tăng sinh biểu mô phủ, biểu mô tuyến lòng tử cung.',
     endometrialThickness: 'Tăng dần từ 4mm lên 7-8mm.',
-    tamoxifenInteraction: 'Tập aerobic ngày 31/08 làm tăng áp lực ổ bụng đẩy nốt vài giọt máu đỏ tươi đọng trong nếp gấp niêm mạc ra ngoài.',
-    patientCorrelation: 'Sạch kinh hoàn toàn vào 02/09/2026, cơ thể khỏe mạnh.',
-    safetyVerdict: 'Lớp niêm mạc lành lặn, không xuất huyết tự phát.',
+    clinicalMechanism: 'Estrogen kích thích sự phân chia tế bào niêm mạc, làm giàu mạng lưới mao mạch và tuyến nội mạc tử cung.',
+    patientCorrelation: 'Cơ thể sạch kinh, phục hồi năng lượng và cảm thấy thoải mái, người khỏe khoắn.',
+    safetyVerdict: 'Lớp niêm mạc tái tạo tốt, không có xuất huyết bất thường.',
   },
   {
     id: 'ovulatory-phase',
-    title: '3. Pha Rụng Trứng & Huyết Trắng Cam (Periovulatory Phase)',
-    timeRange: '03/09/2026 – 08/09/2026',
-    cycleDays: 'Ngày 11 – Ngày 16 của chu kỳ (Đỉnh rụng trứng: Ngày 14 - 06/09)',
-    physiologicState: 'Nồng độ Estrogen đạt đỉnh rồi sụt giảm nhẹ trước khi phóng noãn. Cổ tử cung tiết dịch nhầy trong, dai, kiềm tính.',
-    endometrialThickness: 'Dày khoảng 8-11mm, hình ảnh 3 lá (Trilaminar pattern) trên siêu âm.',
-    tamoxifenInteraction: 'Sự tụt nhẹ Estrogen lúc rụng trứng làm rỉ một lượng máu cực nhỏ (< 0.5ml). Máu này khi trộn với dịch âm đạo có pH axit (3.8 - 4.5) làm hemoglobin bị oxy hóa thành sắc tố cam nhạt / vàng cam.',
-    patientCorrelation: 'Giải thích hoàn hảo triệu chứng: Ra ít dịch cam nhạt sáng 03/09, dính nhẹ sau quan hệ 07/09 và lau giấy ra cam tươi trưa 08/09.',
+    title: '3. Pha Rụng Trứng (Ovulatory Phase)',
+    timeRange: 'Ngày 11 – Ngày 16 của chu kỳ',
+    cycleDays: 'Đỉnh phóng noãn: Ngày 14 (hoặc 14 ngày trước kỳ kinh sau)',
+    physiologicState: 'Nồng độ Estrogen và LH đạt đỉnh kích thích phóng noãn. Cổ tử cung tiết dịch nhầy trong suốt, dai co giãn sinh lý.',
+    endometrialThickness: 'Dày khoảng 8-11mm, xuất hiện cấu trúc 3 lá (Trilaminar) trên siêu âm.',
+    clinicalMechanism: 'Sự sụt giảm nhẹ Estrogen ngay lúc nang noãn vỡ có thể gây rỉ vài giọt hồng cầu vi thể, khi hòa với dịch nhầy cổ tử cung có thể tạo đốm cam/hồng nhạt.',
+    patientCorrelation: 'Dịch tiết âm đạo trong dai, có thể xuất hiện đốm cam/vàng nhạt trong 1-2 ngày quanh thời điểm phóng noãn.',
     safetyVerdict: 'Hiện tượng "Rỉ máu quanh rụng trứng" (Periovulatory Spotting) hoàn toàn lành tính.',
   },
   {
     id: 'secretory-phase',
-    title: '4. Pha Phân Tiết & Thủ Thuật Pipelle (Secretory / Luteal Phase)',
-    timeRange: '09/09/2026 – 15/09/2026',
-    cycleDays: 'Ngày 17 – Ngày 23 của chu kỳ (Làm Pipelle: Ngày 17 - 09/09)',
-    physiologicState: 'Hoàng thể tiết lượng lớn Progesterone làm các tuyến nội mạc cuộn xoắn, giãn rộng chứa đầy glycogen và dịch bài tiết, mô đệm phù nề tối đa để chuẩn bị đón trứng làm tổ.',
-    endometrialThickness: 'Dày sinh lý tối đa: 10 – 16mm (hoàn toàn bình thường trong pha này).',
-    tamoxifenInteraction: 'Sinh thiết Pipelle ngày 17 lấy trúng mẫu mô ở đỉnh pha phân tiết + ảnh hưởng Tamoxifen -> Mô tả vi thể: "Tuyến giãn rộng dạng bọc, lót biểu mô trụ cao".',
-    patientCorrelation: '17h40 ngày 09/09 làm Pipelle gây đau quặn và ra máu cơ học 2 vết lớn; ngày 15/09 căng đau vú do Progesterone pha hoàng thể (PMS). Kết quả GPB: "Tăng sản điển hình khu trú" lành tính.',
-    safetyVerdict: 'CHẨN ĐOÁN XÁC ĐỊNH: Lành tính 100%. Độ dày niêm mạc và hình ảnh tuyến giãn rộng là phản ánh sinh lý pha phân tiết ngày 17 kết hợp Tamoxifen!',
+    title: '4. Pha Phân Tiết / Hoàng Thể (Secretory Phase)',
+    timeRange: 'Ngày 17 – Ngày 28 của chu kỳ',
+    cycleDays: 'Khoảng 12 – 14 ngày cố định',
+    physiologicState: 'Hoàng thể tiết lượng lớn Progesterone làm các tuyến nội mạc cuộn xoắn, giãn rộng chứa đầy glycogen và dịch dinh dưỡng nuôi dưỡng phôi.',
+    endometrialThickness: 'Dày sinh lý tối đa: 10 – 16mm.',
+    clinicalMechanism: 'Progesterone kích thích mô đệm phù nề, giữ nước nhẹ toàn thân và làm căng các tiểu thùy tuyến vú (Hội chứng tiền kinh nguyệt - PMS).',
+    patientCorrelation: 'Căng tức ngực hai bên, đau mỏi thắt lưng hoặc đau bụng dưới âm ỉ vài ngày trước khi chu kỳ kinh mới bắt đầu.',
+    safetyVerdict: 'Sinh lý pha hoàng thể ổn định, phản ánh buồng trứng có phóng noãn đều đặn.',
   }
 ];
 
 export const symptomDecoders: SymptomDecoder[] = [
   {
     symptom: '1. Huyết Trắng Màu Cam / Đốm Cam (Orange Spotting)',
-    laymanExplanation: 'Máu vi thể (vài giọt li ti) hòa lẫn với dịch nhờn âm đạo có tính axit, khiến màu đỏ bị biến đổi thành màu vàng cam hoặc cam tươi.',
-    scientificMechanism: 'Hemoglobin (Fe2+) trong máu khi tiếp xúc với môi trường axit âm đạo (pH 3.8 - 4.5) và dịch nhầy cổ tử cung sẽ bị oxy hóa thành Methemoglobin (Fe3+), tạo ra sắc tố màu cam/nâu nhạt thay vì đỏ tươi.',
-    whyNotCancer: 'Ung thư nội mạc tử cung thường gây ra máu đỏ tươi lượng nhiều liên tục hoặc dịch mủ hôi thối. Đốm cam chỉ xuất hiện rải rác quanh ngày rụng trứng (03-08/09) hoặc sau cọ sát cơ học (quan hệ, tập thể dục).',
-    actionGuidance: 'Giữ vệ sinh nhẹ nhàng bằng nước ấm, dùng băng vệ sinh hàng ngày mỏng, không thụt rửa sâu âm đạo.',
+    laymanExplanation: 'Máu vi thể (vài giọt li ti) hòa lẫn với dịch nhờn âm đạo có tính axit, khiến màu biến đổi thành màu vàng cam hoặc cam nhạt.',
+    scientificMechanism: 'Hemoglobin trong máu khi tiếp xúc với môi trường axit tự nhiên của âm đạo (pH 3.8 - 4.5) sẽ bị oxy hóa nhẹ, tạo thành sắc tố màu cam/hồng nhạt thay vì đỏ tươi.',
+    whyNotCancer: 'Hiện tượng này xuất hiện theo chu kỳ quanh ngày rụng trứng hoặc sau vận động mạnh/sinh hoạt vợ chồng, tự hết sau 1-2 ngày.',
+    actionGuidance: 'Giữ vệ sinh nhẹ nhàng, sử dụng băng hàng ngày mỏng và theo dõi ngày chu kỳ.',
   },
   {
-    symptom: '2. Căng Đau Vú Phải & Trái Vào Ngày 15/09 (PMS Mastalgia)',
-    laymanExplanation: 'Ngực căng tức giống như chuẩn bị đến kỳ kinh hàng tháng, do cơ thể giữ nước dưới tác động của nội tiết tố.',
-    scientificMechanism: 'Vào ngày 23 của chu kỳ (Pha hoàng thể muộn), nồng độ Progesterone và Estrogen tăng cao kích thích các tiểu thùy và ống dẫn sữa trong tuyến vú giãn nở, gây ứ dịch mô kẽ (Premenstrual Mastalgia).',
-    whyNotCancer: 'Khối u ung thư vú là tổn thương cố định không thay đổi theo ngày chu kỳ và thường không đau. Đau vú xuất hiện đồng thời cả 2 bên (phải nhiều, trái ít) vào ngày 23 chu kỳ kèm đau lưng, đau bụng dưới là triệu chứng tiền kinh nguyệt (PMS) 100%.',
-    actionGuidance: 'Mặc áo ngực mềm không gọng, chườm ấm nhẹ, hạn chế ăn mặn và cà phê trong những ngày cuối chu kỳ.',
+    symptom: '2. Căng Đau Tức Ngực Tiền Kinh Nguyệt (PMS Mastalgia)',
+    laymanExplanation: 'Ngực căng tức giống như dấu hiệu sắp đến kỳ kinh hàng tháng do cơ thể giữ nước nhẹ dưới tác động của nội tiết tố.',
+    scientificMechanism: 'Vào pha hoàng thể muộn, nồng độ Progesterone và Estrogen tăng cao kích thích các tuyến và ống dẫn trong mô vú giãn nở tạm thời.',
+    whyNotCancer: 'Căng đau xuất hiện đối xứng hai bên ngực vào những ngày cuối chu kỳ và tự hết hoàn toàn khi kỳ kinh mới bắt đầu.',
+    actionGuidance: 'Mặc áo ngực thoải mái không gọng, chườm ấm nhẹ và giảm ăn mặn trong những ngày cuối chu kỳ.',
   },
   {
-    symptom: '3. Đau Quặn Bụng & Ra Máu Đêm 09/09 Sau Sinh Thiết Pipelle',
-    laymanExplanation: 'Ống hút cao su Pipelle đi vào buồng tử cung cọ xát cơ học lấy mẫu mô, khiến tử cung co bóp mạnh và rỉ máu vết thương.',
-    scientificMechanism: 'Thủ thuật Pipelle đòi hỏi đưa ống thông qua lỗ trong cổ tử cung và tạo áp lực âm hút niêm mạc. Kích thích này kích hoạt thụ thể đau màng bụng và gây chảy máu mao mạch cơ học cấp tính tại diện sinh thiết.',
-    whyNotCancer: 'Đây là phản ứng bình thường sau bất kỳ thủ thuật can thiệp tử cung nào. Máu giảm nhanh trong 24-48 giờ và chuyển sang đốm cam lợt rồi tự hết.',
-    actionGuidance: 'Nghỉ ngơi tại giường, tránh mang vác nặng trong 3-5 ngày đầu sau thủ thuật.',
+    symptom: '3. Đau Quặn Bụng Dưới & Mỏi Lưng Khi Hành Kinh',
+    laymanExplanation: 'Tử cung co bóp nhẹ để tống xuất máu kinh và lớp niêm mạc cũ ra ngoài cơ thể.',
+    scientificMechanism: 'Hợp chất Prostaglandin được giải phóng tại niêm mạc tử cung kích thích cơ trơn tử cung co thắt nhịp nhàng để đào thải dịch kinh nguyệt.',
+    whyNotCancer: 'Đau có tính chất chu kỳ, rõ nhất vào 1-2 ngày đầu hành kinh và giảm dần nhanh chóng.',
+    actionGuidance: 'Chườm ấm bụng dưới, uống nước ấm, nghỉ ngơi hợp lý và duy trì vận động nhẹ nhàng.',
   }
 ];
 
 // =========================================================================
-// LỊCH SỬ CHU KỲ KINH NGUYỆT DÀI HẠN (2022 – 2024) TỪ APP THEO DÕI
+// LỊCH SỬ CHU KỲ KINH NGUYỆT MẪU (LỊCH SỬ THEO DÕI)
 // =========================================================================
 
 export interface HistoricalCycle {
@@ -502,7 +500,7 @@ export interface HistoricalCycleStats {
 }
 
 export const historicalCyclesData: HistoricalCycle[] = [
-  // --- NĂM 2026 (NĂM NGƯNG TAMOXIFEN & HIỆN TẠI) ---
+  // --- NĂM 2026 ---
   {
     id: 'cycle-2026-08',
     startDate: 'Aug 24, 2026',
@@ -513,7 +511,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'normal_long',
     cycleTypeLabel: 'Chu kỳ hiện tại (Đang ở Ngày 23/24)',
-    clinicalNote: 'Kỳ kinh bắt đầu 22h ngày 24/08. Sinh thiết Pipelle Ngày 17 (09/09) lúc niêm mạc dày tối đa. Nhận kết quả GPB Ngày 23 (15/09 - Lành tính 100%), căng đau vú PMS.'
+    clinicalNote: 'Kỳ kinh bắt đầu ngày 24/08. Pha hoàng thể diễn tiến sinh lý bình thường với các dấu hiệu tiền kinh nguyệt (PMS).'
   },
   {
     id: 'cycle-2026-07',
@@ -584,8 +582,8 @@ export const historicalCyclesData: HistoricalCycle[] = [
     cycleLengthDays: 43,
     periodDurationDays: 5,
     cycleType: 'delayed_long',
-    cycleTypeLabel: 'Chu kỳ thưa sau dừng thuốc (43 ngày)',
-    clinicalNote: 'Chu kỳ dài đầu tiên sau khi kết thúc 5 năm Tamoxifen 1 tháng do hệ trục nội tiết tự tái thiết lập.'
+    cycleTypeLabel: 'Chu kỳ dài (43 ngày)',
+    clinicalNote: 'Chu kỳ dài sinh lý do biến thiên thời gian rụng trứng.'
   },
   {
     id: 'cycle-2026-01',
@@ -597,10 +595,10 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'standard',
     cycleTypeLabel: 'Chu kỳ chuẩn (30 ngày)',
-    clinicalNote: 'Thời điểm chính thức ngưng liệu trình Tamoxifen 5 năm (tháng 01/2026).'
+    clinicalNote: 'Chu kỳ 30 ngày đều đặn.'
   },
 
-  // --- NĂM 2025 (NĂM THỨ 5 TAMOXIFEN) ---
+  // --- NĂM 2025 ---
   {
     id: 'cycle-2025-09',
     startDate: 'Dec 15, 2025',
@@ -611,7 +609,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'standard',
     cycleTypeLabel: 'Chu kỳ chuẩn (30 ngày)',
-    clinicalNote: 'Chu kỳ chuyển tiếp sang năm 2026, rất đều đặn.'
+    clinicalNote: 'Chu kỳ chuyển tiếp đều đặn.'
   },
   {
     id: 'cycle-2025-08',
@@ -710,7 +708,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     clinicalNote: 'Độ dài 37 ngày mở đầu năm 2025.'
   },
 
-  // --- NĂM 2024 (NĂM THỨ 4 TAMOXIFEN) ---
+  // --- NĂM 2024 ---
   {
     id: 'cycle-2024-10',
     startDate: 'Dec 18, 2024',
@@ -721,7 +719,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'short_breakthrough',
     cycleTypeLabel: 'Chu kỳ ngắn đột xuất (17 ngày)',
-    clinicalNote: 'Chu kỳ thoái hóa sớm không phóng noãn (Anovulatory cycle).'
+    clinicalNote: 'Chu kỳ ngắn do thoái hóa sớm nang noãn.'
   },
   {
     id: 'cycle-2024-09',
@@ -733,7 +731,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'normal_long',
     cycleTypeLabel: 'Chu kỳ dài sinh lý (39 ngày)',
-    clinicalNote: 'Hành kinh 5 ngày.'
+    clinicalNote: 'Chu kỳ dài tự nhiên, rụng trứng quanh ngày 23-25.'
   },
   {
     id: 'cycle-2024-08',
@@ -816,8 +814,8 @@ export const historicalCyclesData: HistoricalCycle[] = [
     cycleLengthDays: 50,
     periodDurationDays: 6,
     cycleType: 'delayed_long',
-    cycleTypeLabel: 'Chu kỳ thưa (50 ngày)',
-    clinicalNote: 'Biến thiên tiền mãn kinh / tác động Tamoxifen làm trễ phóng noãn.'
+    cycleTypeLabel: 'Chu kỳ dài (50 ngày)',
+    clinicalNote: 'Biến thiên sinh lý tự nhiên do trễ phóng noãn.'
   },
   {
     id: 'cycle-2024-01',
@@ -829,10 +827,10 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'normal_long',
     cycleTypeLabel: 'Chu kỳ dài sinh lý (37 ngày)',
-    clinicalNote: 'Chu kỳ chuẩn của bệnh nhân, hành kinh 5 ngày.'
+    clinicalNote: 'Chu kỳ 37 ngày ổn định, hành kinh 5 ngày.'
   },
 
-  // --- NĂM 2023 (NĂM THỨ 3 TAMOXIFEN) ---
+  // --- NĂM 2023 ---
   {
     id: 'cycle-2023-11',
     startDate: 'Dec 8, 2023',
@@ -855,7 +853,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'short_breakthrough',
     cycleTypeLabel: 'Chu kỳ ngắn đột xuất (19 ngày)',
-    clinicalNote: 'Chu kỳ không phóng noãn (Anovulatory cycle) thoái hóa sớm nội tiết.'
+    clinicalNote: 'Chu kỳ ngắn do thoái hóa sớm nang noãn.'
   },
   {
     id: 'cycle-2023-09',
@@ -867,7 +865,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'delayed_long',
     cycleTypeLabel: 'Chu kỳ dài (43 ngày)',
-    clinicalNote: 'Pha tăng sinh kéo dài do Tamoxifen điều hòa thụ thể Estrogen.'
+    clinicalNote: 'Pha tăng sinh kéo dài tự nhiên.'
   },
   {
     id: 'cycle-2023-08',
@@ -903,7 +901,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'normal_long',
     cycleTypeLabel: 'Chu kỳ dài sinh lý (37 ngày)',
-    clinicalNote: 'Độ dài 37 ngày điển hình của bệnh nhân.'
+    clinicalNote: 'Độ dài 37 ngày đều đặn.'
   },
   {
     id: 'cycle-2023-05',
@@ -927,7 +925,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'normal_long',
     cycleTypeLabel: 'Chu kỳ dài sinh lý (41 ngày)',
-    clinicalNote: 'Pha nang noãn phát triển chậm nhưng hoàng thể bình thường.'
+    clinicalNote: 'Pha nang noãn phát triển chậm, hoàng thể ổn định.'
   },
   {
     id: 'cycle-2023-03',
@@ -963,10 +961,10 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'normal_long',
     cycleTypeLabel: 'Chu kỳ dài sinh lý (39 ngày)',
-    clinicalNote: 'Chu kỳ vắt qua tết dương lịch 2023.'
+    clinicalNote: 'Chu kỳ ổn định chuyển giao năm.'
   },
 
-  // --- NĂM 2022 (NĂM THỨ 2 TAMOXIFEN) ---
+  // --- NĂM 2022 ---
   {
     id: 'cycle-2022-05',
     startDate: 'Nov 10, 2022',
@@ -1001,7 +999,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'normal_long',
     cycleTypeLabel: 'Chu kỳ dài sinh lý (36 ngày)',
-    clinicalNote: 'Chu kỳ ổn định mùa thu 2022.'
+    clinicalNote: 'Chu kỳ ổn định mùa thu.'
   },
   {
     id: 'cycle-2022-02',
@@ -1013,7 +1011,7 @@ export const historicalCyclesData: HistoricalCycle[] = [
     periodDurationDays: 5,
     cycleType: 'normal_long',
     cycleTypeLabel: 'Chu kỳ dài sinh lý (36 ngày)',
-    clinicalNote: '3 chu kỳ 36 ngày liên tiếp.'
+    clinicalNote: 'Chu kỳ 36 ngày liên tiếp.'
   },
   {
     id: 'cycle-2022-01',
@@ -1031,29 +1029,29 @@ export const historicalCyclesData: HistoricalCycle[] = [
 
 export const historicalCycleStatistics: HistoricalCycleStats = {
   totalTrackedCycles: 43,
-  trackingDurationYears: '2022 – 2026 (Hơn 4 năm • 51 tháng liên tục)',
+  trackingDurationYears: 'Theo dõi nhiều năm liên tục',
   averageCycleLength: 34.8,
   medianCycleLength: 35,
   shortestCycle: 17,
   longestCycle: 50,
   averagePeriodDuration: 5.0,
-  longCyclePercentage: 84, // 36/43 chu kỳ trong khoảng 28-42 ngày
+  longCyclePercentage: 84,
   ovulationWindowEstimate: 'Ngày 18 – 24 của chu kỳ (hoặc ngày 14-17 đối với chu kỳ 28-30 ngày)',
-  clinicalConclusion: 'Bệnh nhân có cơ địa chu kỳ sinh lý cực kỳ bền vững và ổn định qua hơn 4 năm theo dõi (bao gồm trọn vẹn 5 năm Tamoxifen và giai đoạn hậu Tamoxifen 2026). Buồng trứng duy trì chức năng nội tiết tự nhiên, không bị vô kinh sớm.'
+  clinicalConclusion: 'Cơ địa chu kỳ sinh lý ổn định và đều đặn qua các năm theo dõi. Chức năng nội tiết buồng trứng duy trì nhịp nhàng theo quy luật sinh học tự nhiên.'
 };
 
 export const historicalCycleClinicalInsights = [
   {
-    title: '1. Bản Chất Cơ Địa: Chu Kỳ Dài Sinh Lý (30 – 40 Ngày)',
-    content: 'Dữ liệu 43 chu kỳ liên tục từ 2022 đến 2026 chứng minh cơ địa kinh nguyệt của chị cực kỳ bền vững: Độ dài trung bình 34.8 ngày (dao động 28-42 ngày) với số ngày hành kinh chuẩn 5 ngày. Đây là nhịp sinh học tự nhiên của buồng trứng, không phải bệnh lý.'
+    title: '1. Quy Luật Sinh Học: Chu Kỳ Dài Sinh Lý (30 – 40 Ngày)',
+    content: 'Độ dài chu kỳ dao động trong khoảng 28-42 ngày với số ngày hành kinh trung bình 5 ngày là đặc điểm sinh học tự nhiên hoàn toàn bình thường của nhiều phụ nữ.'
   },
   {
-    title: '2. Tương Quan Rụng Trứng & Thủ Thuật Pipelle Ngày 17 (09/09/2026)',
-    content: 'Với chu kỳ dao động 28 – 36 ngày, thời điểm rụng trứng thường rơi vào khoảng Ngày 14 – Ngày 22 chu kỳ. Do đó, ngày làm thủ thuật Pipelle (09/09 - Ngày 17) rơi đúng vào cửa sổ phóng noãn và bước vào pha hoàng thể phân tiết, khi nội mạc bắt đầu dày lên mạnh mẽ nhất (10-16mm). Điều này khẳng định độ dày nội mạc và hình ảnh tuyến giãn nở là hoàn toàn đồng bộ với nhịp sinh học tự nhiên!'
+    title: '2. Cửa Sổ Rụng Trứng & Thay Đổi Niêm Mạc Tử Cung',
+    content: 'Thời điểm rụng trứng thường xảy ra khoảng 14 ngày trước khi kỳ kinh tiếp theo bắt đầu. Sau khi phóng noãn, niêm mạc tử cung bước vào pha phân tiết dày lên tự nhiên (10-16mm) dưới tác động của Progesterone.'
   },
   {
-    title: '3. Bằng Chứng Thép: Buồng Trứng Vẫn Hoạt Động Bền Bỉ Suốt 5 Năm Tamoxifen',
-    content: 'Nhiều bệnh nhân uống Tamoxifen bị ức chế dẫn đến mất kinh hoàn toàn. Ngược lại, nhật ký app cho thấy chị vẫn có kinh đều đặn 43 chu kỳ từ 2022 đến 2026. Khi ngưng thuốc vào tháng 1/2026, sự thay đổi nội tiết tố ở tuổi 45 kết hợp khối u xơ 45mm mới là căn nguyên gây rong kinh, chứ hoàn toàn không phải ung thư tái phát.'
+    title: '3. Theo Dõi Lâm Sàng & Nhận Biết Triệu Chứng Sinh Lý',
+    content: 'Việc ghi nhận đều đặn giúp nhận biết các triệu chứng lành tính như đốm cam quanh rụng trứng, căng tức ngực tiền kinh nguyệt (PMS) và phân biệt với các dấu hiệu bất thường.'
   }
 ];
 
