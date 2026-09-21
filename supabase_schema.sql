@@ -21,14 +21,15 @@ CREATE TABLE IF NOT EXISTS public.mh_menstrual_cycles (
 
 ALTER TABLE public.mh_menstrual_cycles ADD COLUMN IF NOT EXISTS user_email TEXT DEFAULT 'thuynga126@gmail.com';
 
--- Enable RLS and create open policy for anon access
+-- Enable RLS and create policy for authenticated user isolation & anon fallback
 ALTER TABLE public.mh_menstrual_cycles ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Allow all for anon on mh_menstrual_cycles" ON public.mh_menstrual_cycles;
-CREATE POLICY "Allow all for anon on mh_menstrual_cycles" 
+DROP POLICY IF EXISTS "Allow user own mh_menstrual_cycles" ON public.mh_menstrual_cycles;
+CREATE POLICY "Allow user own mh_menstrual_cycles" 
 ON public.mh_menstrual_cycles 
 FOR ALL 
-USING (true) 
-WITH CHECK (true);
+USING (user_email = auth.jwt()->>'email' OR auth.jwt() IS NULL) 
+WITH CHECK (user_email = auth.jwt()->>'email' OR auth.jwt() IS NULL);
 
 -- Index for efficient sorting & filtering by year and start date
 CREATE INDEX IF NOT EXISTS idx_mh_cycles_year ON public.mh_menstrual_cycles (year DESC);
@@ -72,11 +73,12 @@ ALTER TABLE public.mh_daily_logs ADD COLUMN IF NOT EXISTS intercourse_note TEXT;
 -- Enable RLS for daily logs
 ALTER TABLE public.mh_daily_logs ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Allow all for anon on mh_daily_logs" ON public.mh_daily_logs;
-CREATE POLICY "Allow all for anon on mh_daily_logs" 
+DROP POLICY IF EXISTS "Allow user own mh_daily_logs" ON public.mh_daily_logs;
+CREATE POLICY "Allow user own mh_daily_logs" 
 ON public.mh_daily_logs 
 FOR ALL 
-USING (true) 
-WITH CHECK (true);
+USING (user_email = auth.jwt()->>'email' OR auth.jwt() IS NULL) 
+WITH CHECK (user_email = auth.jwt()->>'email' OR auth.jwt() IS NULL);
 
 -- Index for querying milestone days & discharge types
 CREATE INDEX IF NOT EXISTS idx_mh_logs_milestone ON public.mh_daily_logs (is_key_milestone);

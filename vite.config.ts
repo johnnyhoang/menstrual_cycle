@@ -5,5 +5,9 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   envPrefix: ['VITE_', 'NEXT_PUBLIC_', 'SUPABASE_'],
+  server: {
+    port: 5173,
+    strictPort: true,
+  },
 })
 
