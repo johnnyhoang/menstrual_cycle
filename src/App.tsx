@@ -175,8 +175,8 @@ export function App() {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-300 flex flex-col selection:bg-rose-500/30 selection:text-rose-200">
       {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-6 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+      <header className="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-8 py-3">
+        <div className="max-w-[1650px] w-full mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-xl bg-slate-800 border border-slate-700 text-rose-400">
               <Heart className="w-5 h-5 fill-rose-400/20" />
@@ -227,13 +227,13 @@ export function App() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4">
+      <main className="flex-1 max-w-[1650px] w-full mx-auto px-4 sm:px-8 py-5">
         <MenstrualCycleTrackerSection />
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 py-6 px-4 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <footer className="bg-slate-900 border-t border-slate-800 py-6 px-4 sm:px-8 text-center text-xs text-slate-500">
+        <div className="max-w-[1650px] w-full mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-slate-400 font-medium">
             <ShieldCheck className="w-4 h-4 text-slate-400" />
             <span>Dữ liệu y tế được bảo mật cục bộ & riêng tư</span>

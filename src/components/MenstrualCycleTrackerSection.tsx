@@ -995,7 +995,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-2.5">
           <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold uppercase tracking-wider">
             <CalendarIcon className="w-4 h-4 text-rose-400/70" />
-            <span>THEO DÕI CHU KỲ KINH NGUYỆT • MOM HEALTH ATLAS</span>
+            <span>THEO DÕI CHU KỲ KINH NGUYỆT</span>
           </div>
 
           {/* Action Buttons: Only Single Download Icon */}
@@ -1015,23 +1015,23 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             <h3 className="text-lg sm:text-xl font-black text-white tracking-tight">
               Nhật Ký & Lịch Theo Dõi Chu Kỳ
             </h3>
-            <p className="text-xs text-slate-300 mt-0.5 max-w-2xl leading-relaxed">
+            <p className="text-xs text-slate-300 mt-0.5 max-w-3xl leading-relaxed">
               Chọn ngày trên lịch để xem và cập nhật triệu chứng, sinh hoạt hoặc bắt đầu chu kỳ mới ({dynamicStats.totalTrackedCycles} chu kỳ từ {dynamicStats.minYear} – {dynamicStats.maxYear}).
             </p>
           </div>
 
           {/* Quick Stats Pill */}
           <div className="flex items-center gap-2 bg-slate-800/60 p-2 rounded-xl border border-slate-700/50 text-xs shrink-0">
-            <div className="text-center px-2 border-r border-slate-700/50">
-              <div className="text-[9px] text-slate-500 font-semibold uppercase">Chu kỳ TB</div>
-              <div className="text-sm font-bold text-slate-200">{dynamicStats.averageCycleLength} <span className="text-[9px] font-normal text-slate-500">ngày</span></div>
+            <div className="text-center px-2.5 border-r border-slate-700/50">
+              <div className="text-[9px] text-slate-400 font-semibold uppercase">Chu kỳ TB</div>
+              <div className="text-sm font-bold text-slate-200">{dynamicStats.averageCycleLength} <span className="text-[9px] font-normal text-slate-400">ngày</span></div>
             </div>
-            <div className="text-center px-2 border-r border-slate-700/50">
-              <div className="text-[9px] text-slate-500 font-semibold uppercase">Hành kinh</div>
-              <div className="text-sm font-bold text-slate-200">{dynamicStats.averagePeriodDuration} <span className="text-[9px] font-normal text-slate-500">ngày</span></div>
+            <div className="text-center px-2.5 border-r border-slate-700/50">
+              <div className="text-[9px] text-slate-400 font-semibold uppercase">Hành kinh</div>
+              <div className="text-sm font-bold text-slate-200">{dynamicStats.averagePeriodDuration} <span className="text-[9px] font-normal text-slate-400">ngày</span></div>
             </div>
-            <div className="text-center px-2">
-              <div className="text-[9px] text-slate-500 font-semibold uppercase">Chu kỳ dài</div>
+            <div className="text-center px-2.5">
+              <div className="text-[9px] text-slate-400 font-semibold uppercase">Chu kỳ dài</div>
               <div className="text-sm font-bold text-slate-200">{dynamicStats.longCyclePercentage}%</div>
             </div>
           </div>
@@ -1090,36 +1090,36 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
 
       {/* Dynamic View Panels */}
       {activeTab === 'calendar' && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          {/* Calendar Main Grid (Left 7 or 8 Cols) */}
-          <div className="lg:col-span-7 xl:col-span-8 space-y-4">
-            <div className="p-3.5 sm:p-5 rounded-2xl bg-slate-900 border border-slate-700/60 shadow-md space-y-3">
+          {/* Calendar Slimmer Column (Left 5 Cols) */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-900 border border-slate-700/60 shadow-md space-y-2.5">
               
               {/* Calendar Month/Year Navigator */}
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full bg-rose-400/60" />
-                  <h4 className="text-sm sm:text-base font-black text-white">
-                    {monthNamesVN[currentCalMonth]} Năm {currentCalYear}
+                  <h4 className="text-sm font-black text-white">
+                    {monthNamesVN[currentCalMonth]} {currentCalYear}
                   </h4>
                 </div>
 
                 {/* Quick jump month controls */}
-                <div className="flex items-center gap-1.5 flex-wrap">
+                <div className="flex items-center gap-1 flex-wrap">
                   <button
                     onClick={() => {
                       setCurrentCalYear(2026);
                       setCurrentCalMonth(8); // September
                       setSelectedCalendarDateStr('15/09/2026');
                     }}
-                    className={`px-2 py-1 rounded-lg text-xs font-semibold cursor-pointer border transition-all ${
+                    className={`px-1.5 py-0.5 rounded-md text-[11px] font-semibold cursor-pointer border transition-all ${
                       currentCalYear === 2026 && currentCalMonth === 8
                         ? 'bg-rose-400/20 text-rose-300 border-rose-400/30'
                         : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
                     }`}
                   >
-                    T9/2026 (Pipelle)
+                    T9/2026
                   </button>
                   <button
                     onClick={() => {
@@ -1127,65 +1127,65 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                       setCurrentCalMonth(7); // August
                       setSelectedCalendarDateStr('24/08/2026');
                     }}
-                    className={`px-2 py-1 rounded-lg text-xs font-semibold cursor-pointer border transition-all ${
+                    className={`px-1.5 py-0.5 rounded-md text-[11px] font-semibold cursor-pointer border transition-all ${
                       currentCalYear === 2026 && currentCalMonth === 7
                         ? 'bg-rose-400/20 text-rose-300 border-rose-400/30'
                         : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
                     }`}
                   >
-                    T8/2026 (Kinh)
+                    T8/2026
                   </button>
                   <button
                     onClick={handleJumpToToday}
-                    className="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer border border-slate-700"
+                    className="px-1.5 py-0.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-semibold cursor-pointer border border-slate-700"
                   >
                     Hôm Nay
                   </button>
-                  <div className="flex items-center bg-slate-800 rounded-lg p-0.5 border border-slate-700">
+                  <div className="flex items-center bg-slate-800 rounded-md p-0.5 border border-slate-700">
                     <button
                       onClick={handlePrevMonth}
-                      className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-700 cursor-pointer"
+                      className="p-0.5 text-slate-400 hover:text-white rounded hover:bg-slate-700 cursor-pointer"
                       title="Tháng trước"
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <ChevronLeft className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={handleNextMonth}
-                      className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-700 cursor-pointer"
+                      className="p-0.5 text-slate-400 hover:text-white rounded hover:bg-slate-700 cursor-pointer"
                       title="Tháng sau"
                     >
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
               </div>
 
               {/* Legend Bar */}
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3 p-2 rounded-lg bg-slate-800/40 border border-slate-700/40 text-[10px] text-slate-400">
+              <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-lg bg-slate-800/40 border border-slate-700/40 text-[10px] text-slate-400">
                 <span className="font-semibold text-slate-500 flex items-center gap-1">
-                  <Sliders className="w-3 h-3 text-slate-500" />
+                  <Sliders className="w-2.5 h-2.5 text-slate-500" />
                   Ký hiệu:
                 </span>
                 <div className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80 inline-block" />
+                  <span className="w-2 h-2 rounded-full bg-rose-500 inline-block" />
                   <span>Máu đỏ</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-300/50 inline-block" />
+                  <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
                   <span>Đốm cam</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-slate-400/70 inline-block" />
+                  <span className="w-2 h-2 rounded-full bg-slate-400 inline-block" />
                   <span>Rụng trứng</span>
                 </div>
                 <div className="flex items-center gap-1 text-slate-400">
-                  <Heart className="w-2.5 h-2.5 text-rose-400/70 fill-rose-400/40 inline-block" />
+                  <Heart className="w-2.5 h-2.5 text-rose-400 fill-rose-400 inline-block" />
                   <span>Quan hệ</span>
                 </div>
               </div>
 
               {/* Weekday Headers */}
-              <div className="grid grid-cols-7 gap-1 text-center text-xs font-black text-slate-400">
+              <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-black text-slate-400">
                 <div className="py-0.5">T2</div>
                 <div className="py-0.5">T3</div>
                 <div className="py-0.5">T4</div>
@@ -1195,8 +1195,8 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                 <div className="py-0.5 text-rose-400">CN</div>
               </div>
 
-              {/* Calendar Matrix */}
-              <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
+              {/* Calendar Matrix (Slimmer Cells) */}
+              <div className="grid grid-cols-7 gap-1">
                 {calendarMatrix.map((cell, idx) => {
                   const isSelected = cell.dateStr === selectedCalendarDateStr;
                   const isToday = cell.dateStr === formatDateToVN(new Date());
@@ -1212,9 +1212,9 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                     <div
                       key={idx}
                       onClick={() => handleSelectDay(cell.dateStr)}
-                      className={`min-h-[56px] sm:min-h-[68px] p-1 sm:p-1.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between relative group ${
+                      className={`min-h-[46px] sm:min-h-[52px] p-1 rounded-xl border transition-all cursor-pointer flex flex-col justify-between relative group ${
                         isSelected
-                          ? 'ring-2 ring-rose-400 border-rose-400 bg-rose-950/40 shadow-md z-10'
+                          ? 'ring-2 ring-rose-400 border-rose-400 bg-rose-950/50 shadow-md z-10'
                           : cell.isCurrentMonth
                           ? hasLog
                             ? hasPostProc || cell.log?.isKeyMilestone
@@ -1234,9 +1234,9 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                     >
                       {/* Top Day Number & Badges */}
                       <div className="flex items-center justify-between">
-                        <span className={`text-[11px] sm:text-xs font-bold ${
+                        <span className={`text-[11px] font-bold ${
                           isSelected ? 'text-rose-300 font-black' :
-                          isToday ? 'px-1 rounded bg-rose-400/20 text-rose-300 font-bold text-[10px]' :
+                          isToday ? 'px-1 rounded bg-rose-400/20 text-rose-300 font-bold text-[9px]' :
                           hasLog ? 'text-white font-bold' :
                           cell.isCurrentMonth ? 'text-slate-300' : 'text-slate-600'
                         }`}>
@@ -1244,19 +1244,19 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                         </span>
 
                         {cell.isCycleStart && (
-                          <span className="text-[8px] px-1 rounded bg-rose-500/30 text-rose-300 font-bold" title="Bắt đầu chu kỳ">
+                          <span className="text-[7px] px-1 rounded bg-rose-500/30 text-rose-300 font-bold" title="Bắt đầu chu kỳ">
                             K1
                           </span>
                         )}
 
                         {!cell.isCycleStart && cell.periodDayNumber && (
-                          <span className="text-[8px] px-0.5 rounded bg-rose-400/20 text-rose-300 font-medium">
+                          <span className="text-[7px] px-0.5 rounded bg-rose-400/20 text-rose-300 font-medium">
                             K{cell.periodDayNumber}
                           </span>
                         )}
 
                         {cell.isOvulationPeak && !cell.isPeriod && (
-                          <span className="text-[9px] opacity-80" title="Đỉnh Rụng Trứng">🌸</span>
+                          <span className="text-[8px] opacity-80" title="Đỉnh Rụng Trứng">🌸</span>
                         )}
                       </div>
 
@@ -1268,8 +1268,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
 
                         {hasSpotting && (
                           <div className="flex items-center gap-1">
-                            <span className="w-2 h-2 rounded-full bg-amber-400 shadow-xs shrink-0" title="Đốm cam" />
-                            <span className="text-[8px] text-amber-300 font-medium hidden sm:inline">Cam</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-xs shrink-0" title="Đốm cam" />
                           </div>
                         )}
 
@@ -1283,21 +1282,21 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                       </div>
 
                       {/* Bottom Icon Badges */}
-                      <div className="flex items-center justify-between text-[9px]">
+                      <div className="flex items-center justify-between text-[8px]">
                         <div className="flex items-center gap-0.5">
                           {hasSex && (
                             <span title="Có sinh hoạt vợ chồng" className="inline-flex">
-                              <Heart className="w-2.5 h-2.5 text-rose-400 fill-rose-400" />
+                              <Heart className="w-2 h-2 text-rose-400 fill-rose-400" />
                             </span>
                           )}
                           {cell.log?.isKeyMilestone && (
-                            <span className="text-[9px]" title="Cột mốc quan trọng">⭐</span>
+                            <span className="text-[8px]" title="Cột mốc quan trọng">⭐</span>
                           )}
                           {hasMastalgia && (
-                            <span className="text-[8px] text-amber-400 font-bold" title="Căng đau vú">⚡</span>
+                            <span className="text-[7px] text-amber-400 font-bold" title="Căng đau vú">⚡</span>
                           )}
                           {cell.log?.eventNote && (
-                            <span className="text-[8px]" title={cell.log.eventNote}>🏥</span>
+                            <span className="text-[7px]" title={cell.log.eventNote}>🏥</span>
                           )}
                         </div>
 
@@ -1311,22 +1310,22 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
               </div>
 
               {/* Quick list of recorded events for this viewed month */}
-              <div className="p-3 rounded-2xl bg-slate-800/40 border border-slate-700/50 space-y-2 pt-2.5">
-                <div className="flex items-center justify-between text-xs font-semibold text-slate-300">
-                  <span className="flex items-center gap-1.5 text-slate-200">
-                    <CalendarIcon className="w-3.5 h-3.5 text-rose-400" />
-                    <span>Các ngày đã ghi nhận trong Tháng {currentCalMonth + 1}/{currentCalYear} ({logsInCurrentMonth.length} ngày):</span>
+              <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-700/50 space-y-1.5 pt-2">
+                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-300">
+                  <span className="flex items-center gap-1 text-slate-200">
+                    <CalendarIcon className="w-3 h-3 text-rose-400" />
+                    <span>Ngày có nhật ký T{currentCalMonth + 1}/{currentCalYear} ({logsInCurrentMonth.length}):</span>
                   </span>
                 </div>
                 {logsInCurrentMonth.length > 0 ? (
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {logsInCurrentMonth.map(l => {
                       const isSel = l.date === selectedCalendarDateStr;
                       return (
                         <button
                           key={l.date}
                           onClick={() => handleSelectDay(l.date)}
-                          className={`px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer border ${
+                          className={`px-2 py-0.5 rounded-lg text-[11px] font-semibold flex items-center gap-1 transition-all cursor-pointer border ${
                             isSel
                               ? 'bg-rose-500 text-white border-rose-400 shadow-sm ring-1 ring-rose-300'
                               : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-slate-700 hover:border-slate-600'
@@ -1334,194 +1333,217 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                         >
                           <span>{l.date.slice(0, 5)}</span>
                           {l.isKeyMilestone && <span>⭐</span>}
-                          {l.eventNote && <span className="text-[10px] text-rose-300 truncate max-w-[90px]">({l.eventNote.slice(0, 12)}...)</span>}
-                          {l.hasIntercourse && <Heart className="w-2.5 h-2.5 text-rose-400 fill-rose-400 inline" />}
+                          {l.hasIntercourse && <Heart className="w-2 h-2 text-rose-400 fill-rose-400 inline" />}
                         </button>
                       );
                     })}
                   </div>
                 ) : (
-                  <p className="text-xs text-slate-500 italic">Tháng này chưa có ghi nhận triệu chứng nào.</p>
+                  <p className="text-[11px] text-slate-500 italic">Tháng này chưa có ghi nhận triệu chứng nào.</p>
                 )}
               </div>
             </div>
+          </div>
 
-            {/* RIGHT SIDEBAR: DAY DETAIL */}
-            <div className="lg:col-span-5 xl:col-span-4 bg-slate-900/95 border border-slate-800 rounded-2xl p-3.5 sm:p-4 space-y-3 shadow-lg sticky top-20">
-              
-              <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-slate-800 text-slate-400 border border-slate-700">
-                    <CalendarIcon className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm sm:text-base font-bold text-slate-100">
-                      {activeSelectedDayData.date}
-                    </h4>
-                    <span className="text-[11px] text-slate-500 font-medium">
-                      {activeSelectedDayData.dayOfWeek} • {activeSelectedDayData.cycleDayText}
-                    </span>
-                  </div>
+          {/* Wider Day Content Column (Right 7 Cols - Song Song & Rộng Rãi) */}
+          <div className="lg:col-span-7 bg-slate-900/95 border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-4 shadow-xl sticky top-20">
+            
+            {/* Top Header of Day Detail */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl bg-slate-800 text-slate-400 border border-slate-700 shadow-sm">
+                  <CalendarIcon className="w-5 h-5 text-rose-400" />
                 </div>
+                <div>
+                  <h4 className="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+                    <span>{activeSelectedDayData.date}</span>
+                    {activeSelectedDayData.isKeyMilestone && (
+                      <span className="px-2 py-0.5 rounded-md bg-amber-400/20 text-amber-300 text-[10px] font-bold border border-amber-400/30">
+                        ⭐ Cột Mốc
+                      </span>
+                    )}
+                  </h4>
+                  <span className="text-xs text-slate-400 font-medium">
+                    {activeSelectedDayData.dayOfWeek} • {activeSelectedDayData.cycleDayText}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {/* Action Button: Start Cycle on Selected Date */}
+                <button
+                  onClick={() => handleOpenStartCycleModal(activeSelectedDayData.date)}
+                  className="py-1.5 px-3 rounded-xl bg-rose-400/15 hover:bg-rose-400/25 text-rose-300 font-semibold text-xs flex items-center gap-1.5 cursor-pointer transition-all border border-rose-400/20"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>+ Bắt Đầu Chu Kỳ</span>
+                </button>
 
                 {!isQuickEditing ? (
                   <button
                     onClick={handleStartQuickEdit}
-                    className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs flex items-center gap-1 transition-all cursor-pointer border border-slate-700"
+                    className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer border border-slate-700 shadow-sm"
                   >
-                    <Edit3 className="w-3 h-3 text-slate-400" />
+                    <Edit3 className="w-3.5 h-3.5 text-slate-400" />
                     <span>{activeSelectedDayData.isVirtual ? 'Ghi Nhật Ký' : 'Sửa Ngày'}</span>
                   </button>
                 ) : (
                   <button
                     onClick={() => setIsQuickEditing(false)}
-                    className="p-1 text-slate-500 hover:text-slate-300 cursor-pointer"
+                    className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 cursor-pointer border border-slate-700"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 )}
               </div>
+            </div>
 
-              {/* Action Button: Start Cycle on Selected Date */}
-              <button
-                onClick={() => handleOpenStartCycleModal(activeSelectedDayData.date)}
-                className="w-full py-2 px-3 rounded-xl bg-rose-400/15 hover:bg-rose-400/25 text-rose-300 font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-all border border-rose-400/20"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>+ Bắt Đầu Chu Kỳ (K1)</span>
-              </button>
+            {/* READ MODE */}
+            {!isQuickEditing ? (
+              <div className="space-y-4 text-xs sm:text-sm">
+                
+                {/* Status Badges Row */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className={`px-2.5 py-1 rounded-xl font-semibold flex items-center gap-1.5 text-xs ${
+                    activeSelectedDayData.dischargeType === 'none' ? 'bg-slate-800 text-slate-400 border border-slate-700' :
+                    activeSelectedDayData.dischargeType === 'orange_spotting' ? 'bg-amber-950/40 text-amber-300 border border-amber-600/40 shadow-xs' :
+                    activeSelectedDayData.dischargeType === 'fresh_blood' ? 'bg-rose-950/40 text-rose-300 border border-rose-600/50 shadow-xs' :
+                    'bg-slate-800 text-slate-300 border border-slate-700'
+                  }`}>
+                    <Droplets className="w-3.5 h-3.5 text-rose-400" />
+                    <span>{activeSelectedDayData.dischargeLabel}</span>
+                  </span>
 
-              {/* READ MODE */}
-              {!isQuickEditing ? (
-                <div className="space-y-3 text-xs">
-                  
-                  {/* Status Badges Row */}
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    <span className={`px-2 py-0.5 rounded-full font-medium flex items-center gap-1 text-[11px] ${
-                      activeSelectedDayData.dischargeType === 'none' ? 'bg-slate-800 text-slate-400 border border-slate-700' :
-                      activeSelectedDayData.dischargeType === 'orange_spotting' ? 'bg-rose-900/20 text-rose-300/70 border border-rose-700/30' :
-                      activeSelectedDayData.dischargeType === 'fresh_blood' ? 'bg-rose-900/30 text-rose-300 border border-rose-700/40' :
-                      'bg-slate-800 text-slate-400 border border-slate-700'
-                    }`}>
-                      <Droplets className="w-2.5 h-2.5" />
-                      <span>{activeSelectedDayData.dischargeLabel}</span>
-                    </span>
+                  <span className={`px-2.5 py-1 rounded-xl font-semibold text-xs ${
+                    activeSelectedDayData.painLevel === 'none' ? 'bg-slate-800 text-slate-400 border border-slate-700' :
+                    activeSelectedDayData.painLevel === 'mild' ? 'bg-slate-800 text-slate-300 border border-slate-700' :
+                    'bg-amber-950/40 text-amber-300 border border-amber-600/40'
+                  }`}>
+                    Đau: {
+                      activeSelectedDayData.painLevel === 'none' ? 'Không đau' :
+                      activeSelectedDayData.painLevel === 'mild' ? 'Đau nhẹ' :
+                      activeSelectedDayData.painLevel === 'moderate' ? 'Đau vừa' : 'Đau quặn'
+                    }
+                  </span>
 
-                    <span className={`px-2 py-0.5 rounded-full font-medium text-[11px] ${
-                      activeSelectedDayData.painLevel === 'none' ? 'bg-slate-800 text-slate-500 border border-slate-700' :
-                      activeSelectedDayData.painLevel === 'mild' ? 'bg-slate-800 text-slate-400 border border-slate-700' :
-                      'bg-rose-900/20 text-rose-300/70 border border-rose-700/30'
-                    }`}>
-                      Đau: {
-                        activeSelectedDayData.painLevel === 'none' ? 'Không đau' :
-                        activeSelectedDayData.painLevel === 'mild' ? 'Đau nhẹ' :
-                        activeSelectedDayData.painLevel === 'moderate' ? 'Đau vừa' : 'Đau quặn'
-                      }
-                    </span>
+                  <span className="px-2.5 py-1 rounded-xl bg-slate-800 text-slate-300 border border-slate-700 font-semibold text-xs">
+                    {activeSelectedDayData.phaseLabel}
+                  </span>
+                </div>
 
-                    <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 font-medium text-[11px]">
-                      {activeSelectedDayData.phaseLabel}
-                    </span>
-                  </div>
-
-                  {/* Intimacy Heart Banner */}
-                  {activeSelectedDayData.hasIntercourse && (
-                    <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-700/60 text-slate-300 space-y-1">
-                      <div className="font-semibold flex items-center gap-1 text-slate-300 text-xs">
-                        <Heart className="w-3 h-3 text-rose-400/60 fill-rose-400/30" />
-                        <span>Sinh hoạt vợ chồng:</span>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-1.5 text-[10px] text-slate-400">
-                        <span className="px-1.5 py-0.5 rounded bg-slate-700/60 text-slate-300 font-medium border border-slate-600/40">
-                          {activeSelectedDayData.intercourseCount || 1} lần
+                {/* Intimacy Heart Banner */}
+                {activeSelectedDayData.hasIntercourse && (
+                  <div className="p-3 rounded-2xl bg-rose-950/25 border border-rose-600/30 text-slate-200 space-y-1.5">
+                    <div className="font-bold flex items-center gap-1.5 text-rose-300 text-xs">
+                      <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" />
+                      <span>Sinh hoạt vợ chồng ghi nhận:</span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
+                      <span className="px-2 py-0.5 rounded-lg bg-slate-800 text-slate-200 font-medium border border-slate-700">
+                        {activeSelectedDayData.intercourseCount || 1} lần
+                      </span>
+                      <span className="px-2 py-0.5 rounded-lg bg-slate-800 text-slate-300 border border-slate-700">
+                        {activeSelectedDayData.intercourseProtection === 'protected' ? 'Có bao cao su' : 'Tự nhiên'}
+                      </span>
+                      {activeSelectedDayData.intercourseOrgasm && (
+                        <span className="px-2 py-0.5 rounded-lg bg-slate-800 text-slate-300 border border-slate-700">
+                          Có cực khoái
                         </span>
-                        <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700/50">
-                          {activeSelectedDayData.intercourseProtection === 'protected' ? 'Có bao cao su' : 'Tự nhiên'}
-                        </span>
-                        {activeSelectedDayData.intercourseOrgasm && (
-                          <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700/50">
-                            Có cực khoái
-                          </span>
-                        )}
-                      </div>
-                      {activeSelectedDayData.intercourseNote && (
-                        <p className="text-[11px] text-slate-400 italic pt-0.5">
-                          {activeSelectedDayData.intercourseNote}
-                        </p>
                       )}
                     </div>
-                  )}
-
-                  {/* Summary Box */}
-                  <div className="p-2.5 rounded-xl bg-slate-800/30 border border-slate-700/40 space-y-1">
-                    <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
-                      Diễn biến trong ngày:
-                    </div>
-                    <p className="text-slate-300 leading-relaxed text-xs">
-                      {activeSelectedDayData.summary}
-                    </p>
+                    {activeSelectedDayData.intercourseNote && (
+                      <p className="text-xs text-slate-300 italic pt-0.5">
+                        {activeSelectedDayData.intercourseNote}
+                      </p>
+                    )}
                   </div>
+                )}
 
-                  {/* Symptoms Tags */}
-                  {activeSelectedDayData.symptoms.length > 0 && (
-                    <div className="space-y-1">
-                      <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
-                        Triệu chứng:
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {activeSelectedDayData.symptoms.map((sym, sIdx) => (
-                          <span key={sIdx} className="px-2 py-0.5 rounded-md bg-slate-800/50 text-slate-400 border border-slate-700/50 text-[10px]">
-                            {sym}
-                          </span>
-                        ))}
-                      </div>
+                {/* Summary Box (Diễn biến trong ngày) */}
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-800/40 border border-slate-700/50 space-y-1.5">
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                    Diễn biến trong ngày:
+                  </div>
+                  <p className="text-slate-100 leading-relaxed text-sm">
+                    {activeSelectedDayData.summary}
+                  </p>
+                </div>
+
+                {/* Symptoms Tags */}
+                {activeSelectedDayData.symptoms.length > 0 && (
+                  <div className="space-y-1.5">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Triệu chứng ghi nhận:
                     </div>
-                  )}
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeSelectedDayData.symptoms.map((sym, sIdx) => (
+                        <span key={sIdx} className="px-2.5 py-1 rounded-xl bg-slate-800/80 text-slate-200 border border-slate-700 text-xs font-medium">
+                          {sym}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
-                  {/* Event Note */}
+                {/* 2-Column Grid for Event Note & Medical Interpretation */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
                   {activeSelectedDayData.eventNote && (
-                    <div className="p-2 rounded-xl bg-slate-800/40 border border-slate-700/40 text-slate-400 text-xs">
-                      <strong className="text-slate-300">Cột mốc:</strong> {activeSelectedDayData.eventNote}
+                    <div className="p-3 rounded-2xl bg-rose-950/20 border border-rose-500/30 text-slate-300 space-y-1">
+                      <div className="font-bold text-rose-300 text-xs flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-rose-400" />
+                        <span>Sự Kiện & Cột Mốc:</span>
+                      </div>
+                      <p className="text-xs text-slate-200 leading-relaxed">
+                        {activeSelectedDayData.eventNote}
+                      </p>
                     </div>
                   )}
 
-                  {/* Clinical Interpretation */}
                   {activeSelectedDayData.clinicalInterpretation && (
-                    <div className="p-2 rounded-xl bg-slate-800/30 border border-slate-700/30 text-slate-500 text-xs">
-                      <strong className="text-slate-400">Đối chiếu y học:</strong> {activeSelectedDayData.clinicalInterpretation}
-                    </div>
-                  )}
-
-                  {/* Delete Button */}
-                  {!activeSelectedDayData.isVirtual && (
-                    <div className="pt-1 flex justify-end">
-                      <button
-                        onClick={() => handleDeleteLogForDay(activeSelectedDayData.date)}
-                        className="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1 cursor-pointer"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                        <span>Xóa nhật ký ngày này</span>
-                      </button>
+                    <div className="p-3 rounded-2xl bg-slate-800/40 border border-slate-700/50 text-slate-300 space-y-1">
+                      <div className="font-bold text-slate-300 text-xs flex items-center gap-1.5">
+                        <Info className="w-3.5 h-3.5 text-slate-400" />
+                        <span>Đối Chiếu Y Học Sinh Lý:</span>
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed">
+                        {activeSelectedDayData.clinicalInterpretation}
+                      </p>
                     </div>
                   )}
                 </div>
-              ) : (
-                /* EDIT MODE */
-                <form onSubmit={handleSaveQuickEdit} className="space-y-3 text-xs">
-                  
-                  <div className="space-y-1">
-                    <label className="text-slate-300 font-bold">Ngày ghi nhận:</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="DD/MM/YYYY"
-                      value={quickEditLog.date || ''}
-                      onChange={(e) => setQuickEditLog({ ...quickEditLog, date: e.target.value })}
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-rose-500"
-                    />
-                  </div>
 
-                  {/* 1. Tình trạng xuất huyết + Textbox trường hợp khác */}
+                {/* Delete Button */}
+                {!activeSelectedDayData.isVirtual && (
+                  <div className="pt-2 flex justify-end">
+                    <button
+                      onClick={() => handleDeleteLogForDay(activeSelectedDayData.date)}
+                      className="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1 cursor-pointer"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Xóa nhật ký ngày này</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              /* EDIT MODE */
+              <form onSubmit={handleSaveQuickEdit} className="space-y-4 text-xs sm:text-sm">
+                
+                <div className="space-y-1">
+                  <label className="text-slate-300 font-bold">Ngày ghi nhận:</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="DD/MM/YYYY"
+                    value={quickEditLog.date || ''}
+                    onChange={(e) => setQuickEditLog({ ...quickEditLog, date: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-rose-500"
+                  />
+                </div>
+
+                {/* 2 Columns: Bleeding Status & Pain Level */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* 1. Tình trạng xuất huyết */}
                   <div className="space-y-1.5">
                     <label className="text-slate-300 font-bold">Tình trạng xuất huyết / Dịch:</label>
                     <div className="grid grid-cols-2 gap-1.5">
@@ -1542,7 +1564,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                               dischargeType: item.type as DailyCycleLog['dischargeType'],
                               dischargeLabel: item.label
                             })}
-                            className={`p-2 rounded-xl text-left font-medium transition-all cursor-pointer border ${
+                            className={`p-2 rounded-xl text-left font-medium transition-all cursor-pointer border text-xs ${
                               isSelected
                                 ? 'bg-rose-500/20 border-rose-500 text-rose-200 font-bold shadow-sm'
                                 : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-850'
@@ -1553,11 +1575,10 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                         );
                       })}
                     </div>
-                    {/* Textbox nhập thêm mô tả trường hợp khác */}
                     <div className="pt-1">
                       <input
                         type="text"
-                        placeholder="Hoặc nhập trường hợp khác (VD: Dịch nhầy trong, đốm cam sau sinh hoạt...)"
+                        placeholder="Hoặc nhập trường hợp khác..."
                         value={quickEditLog.dischargeLabel || ''}
                         onChange={(e) => setQuickEditLog({ ...quickEditLog, dischargeLabel: e.target.value })}
                         className="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-rose-500 text-xs"
@@ -1565,7 +1586,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* 2. Mức độ đau + Textbox trường hợp khác */}
+                  {/* 2. Mức độ đau */}
                   <div className="space-y-1.5">
                     <label className="text-slate-300 font-bold">Mức độ đau:</label>
                     <div className="grid grid-cols-4 gap-1">
@@ -1581,7 +1602,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                             key={p.level}
                             type="button"
                             onClick={() => setQuickEditLog({ ...quickEditLog, painLevel: p.level as DailyCycleLog['painLevel'] })}
-                            className={`py-1.5 rounded-xl font-bold transition-all text-center cursor-pointer border ${
+                            className={`py-2 rounded-xl font-bold transition-all text-center cursor-pointer border text-xs ${
                               isSelected
                                 ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-sm'
                                 : 'bg-slate-950 border-slate-800 text-slate-400 hover:bg-slate-850'
@@ -1592,173 +1613,173 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                         );
                       })}
                     </div>
-                    {/* Textbox nhập mô tả chi tiết mức độ đau */}
                     <div className="pt-1">
                       <input
                         type="text"
-                        placeholder="Mô tả đau chi tiết (VD: Đau căng vú phải, đau âm ỉ hạ vị, mỏi lưng...)"
+                        placeholder="Mô tả đau chi tiết (VD: Căng đau ngực, mỏi lưng...)"
                         value={quickEditLog.painDescription || ''}
                         onChange={(e) => setQuickEditLog({ ...quickEditLog, painDescription: e.target.value })}
                         className="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs"
                       />
                     </div>
                   </div>
+                </div>
 
-                  {/* 3. Chọn nhanh triệu chứng + Textbox nhập thêm triệu chứng khác */}
-                  <div className="space-y-1.5">
-                    <label className="text-slate-300 font-bold">Chọn nhanh triệu chứng (Click để bật/tắt):</label>
-                    <div className="flex flex-wrap gap-1.5">
-                      {[
-                        'Căng đau vú PMS',
-                        'Đau mỏi thắt lưng',
-                        'Đau bụng dưới',
-                        'Dính cam băng daily',
-                        'Dính cam sau sinh hoạt',
-                        'Sau tập thể dục',
-                        'Người khỏe khoắn',
-                        'Ra máu nhiều K1-K2'
-                      ].map((tag) => {
-                        const isSelected = quickEditLog.symptoms?.includes(tag);
-                        return (
-                          <button
-                            key={tag}
-                            type="button"
-                            onClick={() => handleToggleSymptom(tag)}
-                            className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer border ${
-                              isSelected
-                                ? 'bg-rose-500 text-white border-rose-400 font-bold shadow-sm'
-                                : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
-                            }`}
-                          >
-                            {isSelected ? '✓ ' : '+ '}{tag}
-                          </button>
-                        );
-                      })}
-
-                      {/* Render any additional custom symptoms added by user */}
-                      {quickEditLog.symptoms?.filter(s => ![
-                        'Căng đau vú PMS',
-                        'Đau mỏi thắt lưng',
-                        'Đau bụng dưới',
-                        'Dính cam băng daily',
-                        'Dính cam sau sinh hoạt',
-                        'Sau tập thể dục',
-                        'Người khỏe khoắn',
-                        'Ra máu nhiều K1-K2'
-                      ].includes(s)).map((tag) => (
+                {/* 3. Chọn nhanh triệu chứng */}
+                <div className="space-y-1.5">
+                  <label className="text-slate-300 font-bold">Triệu chứng (Click để bật/tắt):</label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[
+                      'Căng đau vú PMS',
+                      'Đau mỏi thắt lưng',
+                      'Đau bụng dưới',
+                      'Dính cam băng daily',
+                      'Dính cam sau sinh hoạt',
+                      'Sau tập thể dục',
+                      'Người khỏe khoắn',
+                      'Ra máu nhiều K1-K2'
+                    ].map((tag) => {
+                      const isSelected = quickEditLog.symptoms?.includes(tag);
+                      return (
                         <button
                           key={tag}
                           type="button"
                           onClick={() => handleToggleSymptom(tag)}
-                          className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-teal-600 text-white border-teal-500 font-bold shadow-sm flex items-center gap-1 cursor-pointer"
+                          className={`px-2.5 py-1 rounded-xl text-xs font-medium transition-all cursor-pointer border ${
+                            isSelected
+                              ? 'bg-rose-500 text-white border-rose-400 font-bold shadow-sm'
+                              : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                          }`}
                         >
-                          <span>✓ {tag}</span>
-                          <X className="w-3 h-3 text-teal-200 hover:text-white" />
+                          {isSelected ? '✓ ' : '+ '}{tag}
                         </button>
-                      ))}
-                    </div>
+                      );
+                    })}
 
-                    {/* Textbox thêm triệu chứng khác */}
-                    <div className="flex items-center gap-1.5 pt-1">
-                      <input
-                        type="text"
-                        placeholder="Nhập thêm triệu chứng khác..."
-                        value={customSymptomInput}
-                        onChange={(e) => setCustomSymptomInput(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
-                            e.preventDefault();
-                            handleAddCustomSymptom();
-                          }
-                        }}
-                        className="flex-1 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-rose-500 text-xs"
-                      />
+                    {quickEditLog.symptoms?.filter(s => ![
+                      'Căng đau vú PMS',
+                      'Đau mỏi thắt lưng',
+                      'Đau bụng dưới',
+                      'Dính cam băng daily',
+                      'Dính cam sau sinh hoạt',
+                      'Sau tập thể dục',
+                      'Người khỏe khoắn',
+                      'Ra máu nhiều K1-K2'
+                    ].includes(s)).map((tag) => (
                       <button
+                        key={tag}
                         type="button"
-                        onClick={handleAddCustomSymptom}
-                        className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-teal-300 font-bold text-xs border border-slate-700 transition-all cursor-pointer"
+                        onClick={() => handleToggleSymptom(tag)}
+                        className="px-2.5 py-1 rounded-xl text-xs font-medium bg-rose-900/40 text-rose-300 border-rose-700/50 font-bold shadow-sm flex items-center gap-1 cursor-pointer"
                       >
-                        + Thêm
+                        <span>✓ {tag}</span>
+                        <X className="w-3 h-3 text-rose-400 hover:text-white" />
                       </button>
-                    </div>
+                    ))}
                   </div>
 
-                  {/* 4. Sinh hoạt vợ chồng / Intimacy Section */}
-                  <div className="p-3 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <label className="text-rose-300 font-bold flex items-center gap-1.5 cursor-pointer">
-                        <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
-                        <span>Sinh hoạt vợ chồng:</span>
-                      </label>
-                      <button
-                        type="button"
-                        onClick={() => setQuickEditLog({ ...quickEditLog, hasIntercourse: !quickEditLog.hasIntercourse })}
-                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
-                          quickEditLog.hasIntercourse
-                            ? 'bg-rose-500 text-white border-rose-400 shadow-sm'
-                            : 'bg-slate-900 text-slate-400 border-slate-700'
-                        }`}
-                      >
-                        {quickEditLog.hasIntercourse ? '❤️ Có ghi nhận' : 'Không'}
-                      </button>
-                    </div>
+                  {/* Textbox thêm triệu chứng khác */}
+                  <div className="flex items-center gap-1.5 pt-1">
+                    <input
+                      type="text"
+                      placeholder="Nhập thêm triệu chứng khác..."
+                      value={customSymptomInput}
+                      onChange={(e) => setCustomSymptomInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAddCustomSymptom();
+                        }
+                      }}
+                      className="flex-1 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-rose-500 text-xs"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddCustomSymptom}
+                      className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-300 font-bold text-xs border border-slate-700 transition-all cursor-pointer"
+                    >
+                      + Thêm
+                    </button>
+                  </div>
+                </div>
 
-                    {quickEditLog.hasIntercourse && (
-                      <div className="space-y-2 pt-2 border-t border-rose-900/40 animate-in slide-in-from-top-2 duration-150">
-                        <div className="grid grid-cols-2 gap-2">
-                          <div>
-                            <label className="text-[11px] text-slate-400">Số lần trong ngày:</label>
-                            <select
-                              value={quickEditLog.intercourseCount || 1}
-                              onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseCount: Number(e.target.value) })}
-                              className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-xs mt-0.5"
-                            >
-                              <option value={1}>1 lần</option>
-                              <option value={2}>2 lần</option>
-                              <option value={3}>3 lần</option>
-                              <option value={4}>4+ lần</option>
-                            </select>
-                          </div>
+                {/* 4. Sinh hoạt vợ chồng / Intimacy Section */}
+                <div className="p-3 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-rose-300 font-bold flex items-center gap-1.5 cursor-pointer">
+                      <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
+                      <span>Sinh hoạt vợ chồng:</span>
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setQuickEditLog({ ...quickEditLog, hasIntercourse: !quickEditLog.hasIntercourse })}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+                        quickEditLog.hasIntercourse
+                          ? 'bg-rose-500 text-white border-rose-400 shadow-sm'
+                          : 'bg-slate-900 text-slate-400 border-slate-700'
+                      }`}
+                    >
+                      {quickEditLog.hasIntercourse ? '❤️ Có ghi nhận' : 'Không'}
+                    </button>
+                  </div>
 
-                          <div>
-                            <label className="text-[11px] text-slate-400">Biện pháp bảo vệ:</label>
-                            <select
-                              value={quickEditLog.intercourseProtection || 'protected'}
-                              onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseProtection: e.target.value as DailyCycleLog['intercourseProtection'] })}
-                              className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-xs mt-0.5"
-                            >
-                              <option value="protected">Có bảo vệ (Bao cao su)</option>
-                              <option value="unprotected">Không bảo vệ</option>
-                              <option value="none">Tự nhiên / Khác</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center justify-between pt-1">
-                          <label className="text-slate-300 text-[11px] flex items-center gap-1.5 cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={Boolean(quickEditLog.intercourseOrgasm)}
-                              onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseOrgasm: e.target.checked })}
-                              className="rounded bg-slate-950 border-slate-700 text-rose-500 focus:ring-0"
-                            />
-                            <span>Có đạt cực khoái (Orgasm)</span>
-                          </label>
+                  {quickEditLog.hasIntercourse && (
+                    <div className="space-y-2 pt-2 border-t border-rose-900/40 animate-in slide-in-from-top-2 duration-150">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="text-[11px] text-slate-400">Số lần trong ngày:</label>
+                          <select
+                            value={quickEditLog.intercourseCount || 1}
+                            onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseCount: Number(e.target.value) })}
+                            className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-xs mt-0.5"
+                          >
+                            <option value={1}>1 lần</option>
+                            <option value={2}>2 lần</option>
+                            <option value={3}>3 lần</option>
+                            <option value={4}>4+ lần</option>
+                          </select>
                         </div>
 
                         <div>
-                          <input
-                            type="text"
-                            placeholder="Ghi chú thêm: VD: Có dính cam nhẹ sau sinh hoạt, không đau..."
-                            value={quickEditLog.intercourseNote || ''}
-                            onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseNote: e.target.value })}
-                            className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 text-xs"
-                          />
+                          <label className="text-[11px] text-slate-400">Biện pháp bảo vệ:</label>
+                          <select
+                            value={quickEditLog.intercourseProtection || 'protected'}
+                            onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseProtection: e.target.value as DailyCycleLog['intercourseProtection'] })}
+                            className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-xs mt-0.5"
+                          >
+                            <option value="protected">Có bảo vệ (Bao cao su)</option>
+                            <option value="unprotected">Không bảo vệ</option>
+                            <option value="none">Tự nhiên / Khác</option>
+                          </select>
                         </div>
                       </div>
-                    )}
-                  </div>
 
+                      <div className="flex items-center justify-between pt-1">
+                        <label className="text-slate-300 text-[11px] flex items-center gap-1.5 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={Boolean(quickEditLog.intercourseOrgasm)}
+                            onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseOrgasm: e.target.checked })}
+                            className="rounded bg-slate-950 border-slate-700 text-rose-500 focus:ring-0"
+                          />
+                          <span>Có đạt cực khoái (Orgasm)</span>
+                        </label>
+                      </div>
+
+                      <div>
+                        <input
+                          type="text"
+                          placeholder="Ghi chú thêm: VD: Có dính cam nhẹ sau sinh hoạt, không đau..."
+                          value={quickEditLog.intercourseNote || ''}
+                          onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseNote: e.target.value })}
+                          className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 text-xs"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <label className="text-slate-300 font-bold">Ghi chú diễn biến trong ngày:</label>
                     <textarea
@@ -1767,42 +1788,42 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                       placeholder="VD: Cả ngày sạch không ra cam, tối hơi mỏi lưng nhẹ..."
                       value={quickEditLog.summary || ''}
                       onChange={(e) => setQuickEditLog({ ...quickEditLog, summary: e.target.value })}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-rose-500"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-rose-500 text-xs"
                     />
                   </div>
 
                   <div className="space-y-1">
                     <label className="text-slate-300 font-bold">Sự kiện đặc biệt / Đi khám (nếu có):</label>
-                    <input
-                      type="text"
+                    <textarea
+                      rows={2}
                       placeholder="VD: Sinh thiết Pipelle BV Hùng Vương..."
                       value={quickEditLog.eventNote || ''}
                       onChange={(e) => setQuickEditLog({ ...quickEditLog, eventNote: e.target.value })}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-rose-500"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-rose-500 text-xs"
                     />
                   </div>
+                </div>
 
-                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
-                    <button
-                      type="button"
-                      onClick={() => setIsQuickEditing(false)}
-                      className="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 cursor-pointer"
-                    >
-                      Hủy Bỏ
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 rounded-xl bg-rose-400/20 hover:bg-rose-400/30 text-rose-300 font-bold flex items-center gap-1.5 cursor-pointer border border-rose-400/30"
-                    >
-                      <Save className="w-3.5 h-3.5" />
-                      <span>Lưu Nhật Ký Ngày</span>
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+                  <button
+                    type="button"
+                    onClick={() => setIsQuickEditing(false)}
+                    className="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 cursor-pointer text-xs"
+                  >
+                    Hủy Bỏ
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 rounded-xl bg-rose-400/20 hover:bg-rose-400/30 text-rose-300 font-bold flex items-center gap-1.5 cursor-pointer border border-rose-400/30 text-xs"
+                  >
+                    <Save className="w-3.5 h-3.5" />
+                    <span>Lưu Nhật Ký Ngày</span>
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
+
         </div>
       )}
 
