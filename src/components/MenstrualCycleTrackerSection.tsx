@@ -1525,18 +1525,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             ) : (
               /* EDIT MODE */
               <form onSubmit={handleSaveQuickEdit} className="space-y-4 text-xs sm:text-sm">
-                
-                <div className="space-y-1">
-                  <label className="text-slate-300 font-bold">Ngày ghi nhận:</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="DD/MM/YYYY"
-                    value={quickEditLog.date || ''}
-                    onChange={(e) => setQuickEditLog({ ...quickEditLog, date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-rose-500"
-                  />
-                </div>
 
                 {/* 2 Columns: Bleeding Status & Pain Level */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
