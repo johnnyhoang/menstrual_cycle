@@ -665,18 +665,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
     setIsQuickEditing(false);
   };
 
-  // Logs specifically belonging to the currently viewed calendar month
-  const logsInCurrentMonth = useMemo(() => {
-    return dailyLogs.filter(l => {
-      const d = parseDateUnified(l.date);
-      return d && d.getFullYear() === currentCalYear && d.getMonth() === currentCalMonth;
-    }).sort((a, b) => {
-      const da = parseDateUnified(a.date)?.getTime() || 0;
-      const db = parseDateUnified(b.date)?.getTime() || 0;
-      return da - db;
-    });
-  }, [dailyLogs, currentCalYear, currentCalMonth]);
-
   // Open the Start Cycle Modal from Calendar Day
   const handleOpenStartCycleModal = (dateStr: string) => {
     const parsed = parseDateUnified(dateStr) || new Date();
@@ -1304,40 +1292,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                     </div>
                   );
                 })}
-              </div>
-
-              {/* Quick list of recorded events for this viewed month */}
-              <div className="p-2.5 rounded-xl bg-slate-800/40 border border-slate-700/50 space-y-1.5 pt-2">
-                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-300">
-                  <span className="flex items-center gap-1 text-slate-200">
-                    <CalendarIcon className="w-3 h-3 text-rose-400" />
-                    <span>Ngày có nhật ký T{currentCalMonth + 1}/{currentCalYear} ({logsInCurrentMonth.length}):</span>
-                  </span>
-                </div>
-                {logsInCurrentMonth.length > 0 ? (
-                  <div className="flex flex-wrap gap-1">
-                    {logsInCurrentMonth.map(l => {
-                      const isSel = l.date === selectedCalendarDateStr;
-                      return (
-                        <button
-                          key={l.date}
-                          onClick={() => handleSelectDay(l.date)}
-                          className={`px-2 py-0.5 rounded-lg text-[11px] font-semibold flex items-center gap-1 transition-all cursor-pointer border ${
-                            isSel
-                              ? 'bg-rose-500 text-white border-rose-400 shadow-sm ring-1 ring-rose-300'
-                              : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-slate-700 hover:border-slate-600'
-                          }`}
-                        >
-                          <span>{l.date.slice(0, 5)}</span>
-                          {l.isKeyMilestone && <span>⭐</span>}
-                          {l.hasIntercourse && <Heart className="w-2 h-2 text-rose-400 fill-rose-400 inline" />}
-                        </button>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <p className="text-[11px] text-slate-500 italic">Tháng này chưa có ghi nhận triệu chứng nào.</p>
-                )}
               </div>
             </div>
           </div>
