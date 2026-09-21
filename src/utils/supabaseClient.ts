@@ -126,6 +126,22 @@ export function onAuthStateChange(callback: (user: any) => void) {
   };
 }
 
+export async function updateUserProfile(profile: any): Promise<{ error: string | null }> {
+  const client = getSupabase();
+  if (!client) return { error: null };
+
+  try {
+    const { error } = await client.auth.updateUser({
+      data: { user_profile: profile }
+    });
+    if (error) throw error;
+    return { error: null };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { error: msg };
+  }
+}
+
 // ==============================================================================
 // 1. MH_MENSTRUAL_CYCLES API
 // ==============================================================================

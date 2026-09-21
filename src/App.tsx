@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { MenstrualCycleTrackerSection } from './components/MenstrualCycleTrackerSection';
+import { UserProfileModal, type UserProfile } from './components/UserProfileModal';
 import { Heart, Download, LogOut, User as UserIcon, AlertCircle } from 'lucide-react';
 import { 
   signInWithGoogle, 
@@ -13,12 +14,25 @@ export function App() {
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [isAuthLoading, setIsAuthLoading] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
   useEffect(() => {
     // Initial user fetch
     getCurrentUser()
       .then(u => {
         setUser(u);
+        if (u) {
+          const storageKey = `menstrual_user_profile_${u.id || u.email || 'default'}`;
+          const localData = localStorage.getItem(storageKey);
+          if (u.user_metadata?.user_profile) {
+            setUserProfile(u.user_metadata.user_profile);
+          } else if (localData) {
+            try {
+              setUserProfile(JSON.parse(localData));
+            } catch {}
+          }
+        }
       })
       .finally(() => {
         setIsAuthChecking(false);
@@ -30,6 +44,15 @@ export function App() {
       setIsAuthChecking(false);
       if (currentUser) {
         setAuthError(null);
+        const storageKey = `menstrual_user_profile_${currentUser.id || currentUser.email || 'default'}`;
+        const localData = localStorage.getItem(storageKey);
+        if (currentUser.user_metadata?.user_profile) {
+          setUserProfile(currentUser.user_metadata.user_profile);
+        } else if (localData) {
+          try {
+            setUserProfile(JSON.parse(localData));
+          } catch {}
+        }
       }
     });
 
@@ -51,6 +74,7 @@ export function App() {
   const handleLogout = async () => {
     await signOutUser();
     setUser(null);
+    setUserProfile(null);
   };
 
   const handleExportData = () => {
@@ -60,6 +84,7 @@ export function App() {
       const exportPayload = {
         exportedAt: new Date().toISOString(),
         userEmail: user?.email || 'user',
+        userProfile: userProfile || undefined,
         cycles: cyclesRaw ? JSON.parse(cyclesRaw) : [],
         dailyLogs: logsRaw ? JSON.parse(logsRaw) : []
       };
@@ -76,8 +101,11 @@ export function App() {
     }
   };
 
-  const userFullName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Tài khoản';
+  const userDisplayName = userProfile?.fullName || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Tài khoản';
   const userAvatar = user?.user_metadata?.avatar_url;
+
+  // Calculate age for badge
+  const userAge = userProfile?.birthYear ? (new Date().getFullYear() - userProfile.birthYear) : null;
 
   // 1. Loading screen while checking initial session
   if (isAuthChecking) {
@@ -189,19 +217,33 @@ export function App() {
               <Download className="w-4 h-4" />
             </button>
 
-            {/* User Profile Badge & Logout */}
-            <div className="flex items-center gap-2 bg-slate-800/80 border border-slate-700/80 rounded-xl px-2.5 py-1">
-              {userAvatar ? (
-                <img src={userAvatar} alt="Avatar" className="w-6 h-6 rounded-full border border-slate-600 object-cover" />
-              ) : (
-                <div className="w-6 h-6 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-xs font-bold">
-                  <UserIcon className="w-3.5 h-3.5 text-slate-300" />
+            {/* User Profile Trigger Button */}
+            <div className="flex items-center gap-1.5 bg-slate-800/80 border border-slate-700/80 rounded-xl p-1">
+              <button
+                onClick={() => setIsProfileModalOpen(true)}
+                title="Xem và chỉnh sửa hồ sơ phụ nữ / ngày sinh"
+                className="flex items-center gap-2 hover:bg-slate-700/60 rounded-lg px-2 py-0.5 transition-all cursor-pointer text-left"
+              >
+                {userAvatar ? (
+                  <img src={userAvatar} alt="Avatar" className="w-6 h-6 rounded-full border border-slate-600 object-cover" />
+                ) : (
+                  <div className="w-6 h-6 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-xs font-bold">
+                    <UserIcon className="w-3.5 h-3.5 text-slate-300" />
+                  </div>
+                )}
+                <div className="hidden md:block text-left text-[11px] leading-tight pr-1">
+                  <div className="font-semibold text-slate-200 flex items-center gap-1">
+                    <span>{userDisplayName}</span>
+                    {userAge !== null && (
+                      <span className="text-[10px] text-rose-300 font-bold bg-rose-500/20 px-1 rounded">
+                        {userAge}t
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-[10px] text-slate-400 truncate max-w-[130px]">{user.email}</div>
                 </div>
-              )}
-              <div className="hidden md:block text-left text-[11px] leading-tight pr-1">
-                <div className="font-semibold text-slate-200">{userFullName}</div>
-                <div className="text-[10px] text-slate-400 truncate max-w-[140px]">{user.email}</div>
-              </div>
+              </button>
+
               <button
                 onClick={handleLogout}
                 title="Đăng xuất khỏi Google"
@@ -218,6 +260,14 @@ export function App() {
       <main className="flex-1 max-w-[1650px] w-full mx-auto px-4 sm:px-8 py-5">
         <MenstrualCycleTrackerSection />
       </main>
+
+      {/* User Profile Modal */}
+      <UserProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        user={user}
+        onProfileUpdated={(updated) => setUserProfile(updated)}
+      />
 
       {/* Footer */}
       <footer className="bg-slate-900 border-t border-slate-800 py-4 px-4 sm:px-8 text-center text-xs text-slate-500">
