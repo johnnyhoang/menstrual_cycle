@@ -972,15 +972,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             <span>Giải Mã 4 Pha Sinh Lý</span>
           </button>
         </div>
-
-        {/* Quick Add Button */}
-        <button
-          onClick={() => handleQuickStartCycleOnDate(selectedCalendarDateStr)}
-          className="px-2.5 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer shrink-0"
-        >
-          <Plus className="w-3.5 h-3.5 text-rose-400" />
-          <span>+ Start Chu Kỳ</span>
-        </button>
       </div>
 
       {/* Dynamic View Panels */}
@@ -1231,21 +1222,12 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                {/* Action Button: Start Cycle on Selected Date */}
-                <button
-                  onClick={() => handleQuickStartCycleOnDate(activeSelectedDayData.date)}
-                  className="py-1.5 px-3 rounded-xl bg-rose-400/15 hover:bg-rose-400/25 text-rose-300 font-semibold text-xs flex items-center gap-1.5 cursor-pointer transition-all border border-rose-400/20"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>+ Bắt Đầu Chu Kỳ</span>
-                </button>
-
                 {!isQuickEditing ? (
                   <button
                     onClick={handleStartQuickEdit}
-                    className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer border border-slate-700 shadow-sm"
+                    className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer border border-slate-700 shadow-sm"
                   >
-                    <Edit3 className="w-3.5 h-3.5 text-slate-400" />
+                    <Edit3 className="w-3.5 h-3.5 text-slate-300" />
                     <span>{activeSelectedDayData.isVirtual ? 'Ghi Nhật Ký' : 'Sửa Ngày'}</span>
                   </button>
                 ) : (
@@ -1750,7 +1732,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   className="px-3 py-1.5 rounded-xl bg-rose-400/15 hover:bg-rose-400/25 text-rose-300 text-xs font-semibold flex items-center gap-1.5 cursor-pointer border border-rose-400/20"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>+ Thêm Chu Kỳ Mới</span>
+                  <span>Thêm Chu Kỳ Mới</span>
                 </button>
               </div>
             </div>
