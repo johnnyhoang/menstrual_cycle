@@ -1526,9 +1526,35 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
               /* EDIT MODE */
               <form onSubmit={handleSaveQuickEdit} className="space-y-4 text-xs sm:text-sm">
 
-                {/* 2 Columns: Bleeding Status & Pain Level */}
+                {/* 1. TEXT INPUTS (PRIORITY USER INPUT FIRST) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-slate-300 font-bold">Ghi chú diễn biến trong ngày:</label>
+                    <textarea
+                      rows={2}
+                      required
+                      placeholder="VD: Cả ngày sạch không ra cam, tối hơi mỏi lưng nhẹ..."
+                      value={quickEditLog.summary || ''}
+                      onChange={(e) => setQuickEditLog({ ...quickEditLog, summary: e.target.value })}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-rose-500 text-xs"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-slate-300 font-bold">Sự kiện đặc biệt / Đi khám (nếu có):</label>
+                    <textarea
+                      rows={2}
+                      placeholder="VD: Sinh thiết Pipelle BV Hùng Vương..."
+                      value={quickEditLog.eventNote || ''}
+                      onChange={(e) => setQuickEditLog({ ...quickEditLog, eventNote: e.target.value })}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-rose-500 text-xs"
+                    />
+                  </div>
+                </div>
+
+                {/* 2. OPTIONS: Bleeding Status & Pain Level */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* 1. Tình trạng xuất huyết */}
+                  {/* Tình trạng xuất huyết */}
                   <div className="space-y-1.5">
                     <label className="text-slate-300 font-bold">Tình trạng xuất huyết / Dịch:</label>
                     <div className="grid grid-cols-2 gap-1.5">
@@ -1571,7 +1597,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* 2. Mức độ đau */}
+                  {/* Mức độ đau */}
                   <div className="space-y-1.5">
                     <label className="text-slate-300 font-bold">Mức độ đau:</label>
                     <div className="grid grid-cols-4 gap-1">
@@ -1610,7 +1636,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 3. Chọn nhanh triệu chứng */}
+                {/* 3. OPTIONS: Chọn nhanh triệu chứng */}
                 <div className="space-y-1.5">
                   <label className="text-slate-300 font-bold">Triệu chứng (Click để bật/tắt):</label>
                   <div className="flex flex-wrap gap-1.5">
@@ -1688,7 +1714,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 4. Sinh hoạt vợ chồng / Intimacy Section */}
+                {/* 4. OPTIONS: Sinh hoạt vợ chồng / Intimacy Section */}
                 <div className="p-3 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-2.5">
                   <div className="flex items-center justify-between">
                     <label className="text-rose-300 font-bold flex items-center gap-1.5 cursor-pointer">
@@ -1762,31 +1788,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                       </div>
                     </div>
                   )}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="text-slate-300 font-bold">Ghi chú diễn biến trong ngày:</label>
-                    <textarea
-                      rows={2}
-                      required
-                      placeholder="VD: Cả ngày sạch không ra cam, tối hơi mỏi lưng nhẹ..."
-                      value={quickEditLog.summary || ''}
-                      onChange={(e) => setQuickEditLog({ ...quickEditLog, summary: e.target.value })}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-rose-500 text-xs"
-                    />
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-slate-300 font-bold">Sự kiện đặc biệt / Đi khám (nếu có):</label>
-                    <textarea
-                      rows={2}
-                      placeholder="VD: Sinh thiết Pipelle BV Hùng Vương..."
-                      value={quickEditLog.eventNote || ''}
-                      onChange={(e) => setQuickEditLog({ ...quickEditLog, eventNote: e.target.value })}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-rose-500 text-xs"
-                    />
-                  </div>
                 </div>
 
                 <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
