@@ -1015,9 +1015,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
             <h3 className="text-lg sm:text-xl font-black text-white tracking-tight">
               Nhật Ký & Lịch Theo Dõi Chu Kỳ
             </h3>
-            <p className="text-xs text-slate-300 mt-0.5 max-w-3xl leading-relaxed">
-              Chọn ngày trên lịch để xem và cập nhật triệu chứng, sinh hoạt hoặc bắt đầu chu kỳ mới ({dynamicStats.totalTrackedCycles} chu kỳ từ {dynamicStats.minYear} – {dynamicStats.maxYear}).
-            </p>
           </div>
 
           {/* Quick Stats Pill */}
@@ -2228,28 +2225,11 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   <h3 className="font-black text-white text-base sm:text-lg">
                     Bắt Đầu Chu Kỳ Kinh Nguyệt Mới
                   </h3>
-                  <p className="text-xs text-slate-400">
-                    Thiết lập Ngày 1 (K1) và tự động quản lý chuỗi chu kỳ
-                  </p>
                 </div>
               </div>
               <button onClick={() => setIsStartCycleModalOpen(false)} className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
-            </div>
-
-            {/* Smart Auto-closing notice */}
-            <div className="p-3.5 rounded-2xl bg-slate-800/40 border border-slate-700/50 text-xs text-slate-400 space-y-1.5">
-              <div className="font-semibold flex items-center gap-1.5 text-slate-300">
-                <CheckCircle2 className="w-4 h-4 text-slate-400" />
-                <span>Quy tắc tự động thông minh:</span>
-              </div>
-              <p className="text-slate-300 leading-relaxed">
-                • <strong>Không cần nhập ngày kết thúc:</strong> Tool sẽ tự động dự đoán và khi bạn bắt đầu chu kỳ tiếp theo trong tương lai, ngày kết thúc thực tế của chu kỳ này sẽ tự động được ghi nhận.
-              </p>
-              <p className="text-slate-300 leading-relaxed">
-                • Chu kỳ liền trước sẽ tự động được đóng lại vào 1 ngày trước ngày bắt đầu này.
-              </p>
             </div>
 
             <form onSubmit={handleSaveStartCycle} className="space-y-4 text-xs">

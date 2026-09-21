@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { MenstrualCycleTrackerSection } from './components/MenstrualCycleTrackerSection';
-import { Heart, ShieldCheck, Download, LogOut, User as UserIcon, AlertCircle } from 'lucide-react';
+import { Heart, Download, LogOut, User as UserIcon, AlertCircle } from 'lucide-react';
 import { 
   signInWithGoogle, 
   signOutUser, 
@@ -113,11 +113,8 @@ export function App() {
               <Heart className="w-8 h-8 fill-rose-400/20" />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1">
               <h2 className="text-xl font-bold text-slate-100">Theo Dõi Chu Kỳ Kinh Nguyệt</h2>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Đăng nhập bằng tài khoản Google để theo dõi chu kỳ, ghi nhận triệu chứng và bảo mật dữ liệu sức khỏe cá nhân.
-              </p>
             </div>
 
             {/* Error Message if any */}
@@ -154,18 +151,12 @@ export function App() {
               </svg>
               <span>{isAuthLoading ? 'Đang chuyển hướng Google...' : 'Đăng nhập bằng tài khoản Google'}</span>
             </button>
-
-            <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-500">
-              <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
-              <span>Dữ liệu y tế được bảo mật an toàn</span>
-            </div>
-
           </div>
         </main>
 
         {/* Footer */}
         <footer className="max-w-md w-full mx-auto text-center text-[11px] text-slate-600 pb-2">
-          Menstrual Cycle Tracker • Phiên Bản Cá Nhân Hóa
+          Menstrual Cycle Tracker
         </footer>
       </div>
     );
@@ -185,9 +176,6 @@ export function App() {
               <h1 className="text-base sm:text-lg font-bold text-slate-100 tracking-tight flex items-center gap-2">
                 <span>Nhật Ký & Chu Kỳ Kinh Nguyệt</span>
               </h1>
-              <p className="text-[11px] text-slate-400 font-medium hidden sm:block">
-                Theo dõi lâm sàng • Lịch tháng trực quan • Phân tích sinh lý
-              </p>
             </div>
           </div>
 
@@ -232,12 +220,8 @@ export function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 py-6 px-4 sm:px-8 text-center text-xs text-slate-500">
-        <div className="max-w-[1650px] w-full mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-slate-400 font-medium">
-            <ShieldCheck className="w-4 h-4 text-slate-400" />
-            <span>Dữ liệu y tế được bảo mật cục bộ & riêng tư</span>
-          </div>
+      <footer className="bg-slate-900 border-t border-slate-800 py-4 px-4 sm:px-8 text-center text-xs text-slate-500">
+        <div className="max-w-[1650px] w-full mx-auto flex items-center justify-center">
           <div className="text-slate-500 font-mono text-[11px]">
             Menstrual Cycle Tracker
           </div>
