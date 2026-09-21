@@ -14,6 +14,7 @@ export interface DailyCycleLog {
   eventNote?: string;
   clinicalInterpretation: string;
   isKeyMilestone?: boolean;
+  isStartOfCycle?: boolean;
   // Sexual intimacy / Intimacy tracking (WomanLog)
   hasIntercourse?: boolean;
   intercourseProtection?: 'protected' | 'unprotected' | 'none';
