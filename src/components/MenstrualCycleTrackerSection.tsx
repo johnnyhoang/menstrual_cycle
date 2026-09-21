@@ -6,6 +6,7 @@ import {
   historicalCyclesData as initialHistoricalCycles,
 } from '../data/menstrualCycleLogData';
 import type { DailyCycleLog, HistoricalCycle } from '../data/menstrualCycleLogData';
+import type { UserProfile } from './UserProfileModal';
 import {
   Calendar as CalendarIcon,
   Activity,
@@ -23,7 +24,6 @@ import {
   Plus,
   Edit3,
   Trash2,
-  Download,
   Save,
   Search,
   Sliders,
@@ -180,7 +180,39 @@ function recalibrateCycles(cyclesList: HistoricalCycle[]): HistoricalCycle[] {
   });
 }
 
-export const MenstrualCycleTrackerSection: React.FC = () => {
+interface MenstrualCycleTrackerSectionProps {
+  userProfile?: UserProfile | null;
+}
+
+export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSectionProps> = ({ userProfile }) => {
+  // Check if user is adult (18+) with confirmed profile
+  const isAdult = useMemo(() => {
+    let prof = userProfile;
+    if (!prof) {
+      const raw = localStorage.getItem('mom_health_user_profile_v1');
+      if (raw) {
+        try { prof = JSON.parse(raw); } catch {}
+      }
+    }
+    if (!prof) return false;
+    if (prof.birthYear && prof.birthYear > 1900) {
+      return (new Date().getFullYear() - prof.birthYear) >= 18;
+    }
+    if (prof.birthDate) {
+      const parts = prof.birthDate.split(/[-/.]/);
+      let year: number | null = null;
+      if (parts.length === 3) {
+        year = parts[2].length === 4 ? parseInt(parts[2], 10) : parseInt(parts[0], 10);
+      } else if (parts.length === 1 && parts[0].length === 4) {
+        year = parseInt(parts[0], 10);
+      }
+      if (year && !isNaN(year) && year > 1900) {
+        return (new Date().getFullYear() - year) >= 18;
+      }
+    }
+    return false;
+  }, [userProfile]);
+
   // Main View Tabs:
   // 1. 'calendar' (Lịch Tháng WomanLog)
   // 2. 'tree_view' (Nhật Ký & Chu Kỳ Dạng Cây - gộp chu kỳ là cha, ngày là con)
@@ -796,23 +828,6 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
     setCustomSymptomInput('');
   };
 
-  const handleExportData = () => {
-    const exportObj = {
-      version: '3.0_generic',
-      exportDate: new Date().toISOString(),
-      stats: dynamicStats,
-      cycles: cycles,
-      dailyLogs: dailyLogs
-    };
-    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(exportObj, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute('href', dataStr);
-    downloadAnchor.setAttribute('download', `menstrual_data_${new Date().toISOString().slice(0,10)}.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-    showNotification('Đã xuất toàn bộ dữ liệu chu kỳ & nhật ký thành file JSON!', 'success');
-  };
 
   const handleSaveCycle = (e: React.FormEvent) => {
     e.preventDefault();
@@ -888,47 +903,28 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
         </div>
       )}
 
-      {/* Top Header */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-slate-900 border border-slate-700/60 space-y-3 shadow-lg">
-        <div className="flex flex-wrap items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold uppercase tracking-wider">
-            <CalendarIcon className="w-4 h-4 text-rose-400/70" />
-            <span>THEO DÕI CHU KỲ KINH NGUYỆT</span>
-          </div>
-
-          {/* Action Buttons: Only Single Download Icon */}
-          <div className="flex items-center gap-1.5 text-xs">
-            <button
-              onClick={handleExportData}
-              title="Tải xuống toàn bộ dữ liệu (JSON)"
-              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-slate-100 border border-slate-700 transition-all cursor-pointer shadow-sm"
-            >
-              <Download className="w-4 h-4" />
-            </button>
-          </div>
+      {/* Top Stats Bar */}
+      <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-900 border border-slate-700/60 shadow-md flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <CalendarIcon className="w-4 h-4 text-rose-400" />
+          <h2 className="text-xs sm:text-sm font-bold text-slate-200 tracking-tight uppercase">
+            Chỉ Số Thống Kê Chu Kỳ
+          </h2>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div>
-            <h3 className="text-lg sm:text-xl font-black text-white tracking-tight">
-              Nhật Ký & Lịch Theo Dõi Chu Kỳ
-            </h3>
+        {/* Quick Stats Pill */}
+        <div className="flex items-center gap-2 bg-slate-800/60 p-1.5 rounded-xl border border-slate-700/50 text-xs shrink-0">
+          <div className="text-center px-2.5 border-r border-slate-700/50">
+            <div className="text-[9px] text-slate-400 font-semibold uppercase">Chu kỳ TB</div>
+            <div className="text-sm font-bold text-slate-200">{dynamicStats.averageCycleLength} <span className="text-[9px] font-normal text-slate-400">ngày</span></div>
           </div>
-
-          {/* Quick Stats Pill */}
-          <div className="flex items-center gap-2 bg-slate-800/60 p-2 rounded-xl border border-slate-700/50 text-xs shrink-0">
-            <div className="text-center px-2.5 border-r border-slate-700/50">
-              <div className="text-[9px] text-slate-400 font-semibold uppercase">Chu kỳ TB</div>
-              <div className="text-sm font-bold text-slate-200">{dynamicStats.averageCycleLength} <span className="text-[9px] font-normal text-slate-400">ngày</span></div>
-            </div>
-            <div className="text-center px-2.5 border-r border-slate-700/50">
-              <div className="text-[9px] text-slate-400 font-semibold uppercase">Hành kinh</div>
-              <div className="text-sm font-bold text-slate-200">{dynamicStats.averagePeriodDuration} <span className="text-[9px] font-normal text-slate-400">ngày</span></div>
-            </div>
-            <div className="text-center px-2.5">
-              <div className="text-[9px] text-slate-400 font-semibold uppercase">Chu kỳ dài</div>
-              <div className="text-sm font-bold text-slate-200">{dynamicStats.longCyclePercentage}%</div>
-            </div>
+          <div className="text-center px-2.5 border-r border-slate-700/50">
+            <div className="text-[9px] text-slate-400 font-semibold uppercase">Hành kinh</div>
+            <div className="text-sm font-bold text-slate-200">{dynamicStats.averagePeriodDuration} <span className="text-[9px] font-normal text-slate-400">ngày</span></div>
+          </div>
+          <div className="text-center px-2.5">
+            <div className="text-[9px] text-slate-400 font-semibold uppercase">Chu kỳ dài</div>
+            <div className="text-sm font-bold text-slate-200">{dynamicStats.longCyclePercentage}%</div>
           </div>
         </div>
       </div>
@@ -1064,10 +1060,12 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   <span className="w-2 h-2 rounded-full bg-slate-400 inline-block" />
                   <span>Rụng trứng</span>
                 </div>
-                <div className="flex items-center gap-1 text-slate-400">
-                  <Heart className="w-2.5 h-2.5 text-rose-400 fill-rose-400 inline-block" />
-                  <span>Quan hệ</span>
-                </div>
+                {isAdult && (
+                  <div className="flex items-center gap-1 text-slate-400">
+                    <Heart className="w-2.5 h-2.5 text-rose-400 fill-rose-400 inline-block" />
+                    <span>Quan hệ</span>
+                  </div>
+                )}
               </div>
 
               {/* Weekday Headers */}
@@ -1091,7 +1089,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   const hasPostProc = cell.dischargeType === 'post_procedure_bleeding';
                   const hasBrown = cell.dischargeType === 'brown_blood';
                   const hasMastalgia = cell.log?.symptoms?.some(s => s.toLowerCase().includes('vú') || s.toLowerCase().includes('ngực'));
-                  const hasSex = cell.hasIntercourse;
+                  const hasSex = isAdult && cell.hasIntercourse;
                   const hasLog = cell.hasLog;
 
                   return (
@@ -1280,7 +1278,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                 </div>
 
                 {/* Intimacy Heart Banner */}
-                {activeSelectedDayData.hasIntercourse && (
+                {activeSelectedDayData.hasIntercourse && isAdult && (
                   <div className="p-3 rounded-2xl bg-rose-950/25 border border-rose-600/30 text-slate-200 space-y-1.5">
                     <div className="font-bold flex items-center gap-1.5 text-rose-300 text-xs">
                       <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" />
@@ -1528,7 +1526,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                       'Đau mỏi thắt lưng',
                       'Đau bụng dưới',
                       'Dính cam băng daily',
-                      'Dính cam sau sinh hoạt',
+                      ...(isAdult ? ['Dính cam sau sinh hoạt'] : []),
                       'Sau tập thể dục',
                       'Người khỏe khoắn',
                       'Ra máu nhiều K1-K2'
@@ -1597,81 +1595,83 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 4. OPTIONS: Sinh hoạt vợ chồng / Intimacy Section */}
-                <div className="p-3 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <label className="text-rose-300 font-bold flex items-center gap-1.5 cursor-pointer">
-                      <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
-                      <span>Sinh hoạt vợ chồng:</span>
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() => setQuickEditLog({ ...quickEditLog, hasIntercourse: !quickEditLog.hasIntercourse })}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
-                        quickEditLog.hasIntercourse
-                          ? 'bg-rose-500 text-white border-rose-400 shadow-sm'
-                          : 'bg-slate-900 text-slate-400 border-slate-700'
-                      }`}
-                    >
-                      {quickEditLog.hasIntercourse ? '❤️ Có ghi nhận' : 'Không'}
-                    </button>
-                  </div>
-
-                  {quickEditLog.hasIntercourse && (
-                    <div className="space-y-2 pt-2 border-t border-rose-900/40 animate-in slide-in-from-top-2 duration-150">
-                      <div className="grid grid-cols-2 gap-2">
-                        <div>
-                          <label className="text-[11px] text-slate-400">Số lần trong ngày:</label>
-                          <select
-                            value={quickEditLog.intercourseCount || 1}
-                            onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseCount: Number(e.target.value) })}
-                            className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-xs mt-0.5"
-                          >
-                            <option value={1}>1 lần</option>
-                            <option value={2}>2 lần</option>
-                            <option value={3}>3 lần</option>
-                            <option value={4}>4+ lần</option>
-                          </select>
-                        </div>
-
-                        <div>
-                          <label className="text-[11px] text-slate-400">Biện pháp bảo vệ:</label>
-                          <select
-                            value={quickEditLog.intercourseProtection || 'protected'}
-                            onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseProtection: e.target.value as DailyCycleLog['intercourseProtection'] })}
-                            className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-xs mt-0.5"
-                          >
-                            <option value="protected">Có bảo vệ (Bao cao su)</option>
-                            <option value="unprotected">Không bảo vệ</option>
-                            <option value="none">Tự nhiên / Khác</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between pt-1">
-                        <label className="text-slate-300 text-[11px] flex items-center gap-1.5 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={Boolean(quickEditLog.intercourseOrgasm)}
-                            onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseOrgasm: e.target.checked })}
-                            className="rounded bg-slate-950 border-slate-700 text-rose-500 focus:ring-0"
-                          />
-                          <span>Có đạt cực khoái (Orgasm)</span>
-                        </label>
-                      </div>
-
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="Ghi chú thêm: VD: Có dính cam nhẹ sau sinh hoạt, không đau..."
-                          value={quickEditLog.intercourseNote || ''}
-                          onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseNote: e.target.value })}
-                          className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 text-xs"
-                        />
-                      </div>
+                {/* 4. OPTIONS: Sinh hoạt vợ chồng / Intimacy Section (Chỉ dành cho người >= 18 tuổi đã xác nhận hồ sơ) */}
+                {isAdult && (
+                  <div className="p-3 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-rose-300 font-bold flex items-center gap-1.5 cursor-pointer">
+                        <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
+                        <span>Sinh hoạt vợ chồng:</span>
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setQuickEditLog({ ...quickEditLog, hasIntercourse: !quickEditLog.hasIntercourse })}
+                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+                          quickEditLog.hasIntercourse
+                            ? 'bg-rose-500 text-white border-rose-400 shadow-sm'
+                            : 'bg-slate-900 text-slate-400 border-slate-700'
+                        }`}
+                      >
+                        {quickEditLog.hasIntercourse ? '❤️ Có ghi nhận' : 'Không'}
+                      </button>
                     </div>
-                  )}
-                </div>
+
+                    {quickEditLog.hasIntercourse && (
+                      <div className="space-y-2 pt-2 border-t border-rose-900/40 animate-in slide-in-from-top-2 duration-150">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <label className="text-[11px] text-slate-400">Số lần trong ngày:</label>
+                            <select
+                              value={quickEditLog.intercourseCount || 1}
+                              onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseCount: Number(e.target.value) })}
+                              className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-xs mt-0.5"
+                            >
+                              <option value={1}>1 lần</option>
+                              <option value={2}>2 lần</option>
+                              <option value={3}>3 lần</option>
+                              <option value={4}>4+ lần</option>
+                            </select>
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] text-slate-400">Biện pháp bảo vệ:</label>
+                            <select
+                              value={quickEditLog.intercourseProtection || 'protected'}
+                              onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseProtection: e.target.value as DailyCycleLog['intercourseProtection'] })}
+                              className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-xs mt-0.5"
+                            >
+                              <option value="protected">Có bảo vệ (Bao cao su)</option>
+                              <option value="unprotected">Không bảo vệ</option>
+                              <option value="none">Tự nhiên / Khác</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-1">
+                          <label className="text-slate-300 text-[11px] flex items-center gap-1.5 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={Boolean(quickEditLog.intercourseOrgasm)}
+                              onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseOrgasm: e.target.checked })}
+                              className="rounded bg-slate-950 border-slate-700 text-rose-500 focus:ring-0"
+                            />
+                            <span>Có đạt cực khoái (Orgasm)</span>
+                          </label>
+                        </div>
+
+                        <div>
+                          <input
+                            type="text"
+                            placeholder="Ghi chú thêm: VD: Có dính cam nhẹ sau sinh hoạt, không đau..."
+                            value={quickEditLog.intercourseNote || ''}
+                            onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseNote: e.target.value })}
+                            className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 text-xs"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
                   <button
@@ -1932,7 +1932,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                                       )}
 
                                       {/* Intimacy Badge */}
-                                      {log.hasIntercourse && (
+                                      {log.hasIntercourse && isAdult && (
                                         <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800/40 text-slate-400 flex items-center gap-1">
                                           <Heart className="w-2.5 h-2.5 text-rose-400/50 fill-rose-400/30" />
                                           <span>{log.intercourseCount || 1}×</span>
@@ -1974,7 +1974,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                                   </p>
 
                                   {/* Line 3: Symptoms & pain — chỉ show khi không phải Day 1 (Day 1 đã có trong summary) */}
-                                  {!isDay1 && (log.symptoms.length > 0 || log.painDescription || log.intercourseNote) && (
+                                  {!isDay1 && (log.symptoms.length > 0 || log.painDescription || (isAdult && log.intercourseNote)) && (
                                     <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 mt-1 text-[10px] text-slate-500">
                                       {log.symptoms.map((s, sIdx) => (
                                         <span key={sIdx} className="px-1.5 py-0.5 rounded bg-slate-800/40 border border-slate-700/40">
@@ -1984,7 +1984,7 @@ export const MenstrualCycleTrackerSection: React.FC = () => {
                                       {log.painDescription && (
                                         <span className="text-slate-400">⚡ {log.painDescription}</span>
                                       )}
-                                      {log.hasIntercourse && log.intercourseNote && (
+                                      {isAdult && log.hasIntercourse && log.intercourseNote && (
                                         <span className="text-slate-400">❤ {log.intercourseNote}</span>
                                       )}
                                     </div>
