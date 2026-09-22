@@ -393,11 +393,32 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
     let startingDay = firstDayOfMonth.getDay() - 1;
     if (startingDay === -1) startingDay = 6; // Sunday
 
+    const sortedCyclesAsc = [...cycles].sort((a, b) => {
+      const da = parseDateUnified(a.startDate)?.getTime() || 0;
+      const db = parseDateUnified(b.startDate)?.getTime() || 0;
+      return da - db;
+    });
+
+    const getCycleDayNumberForDate = (d: Date): number | undefined => {
+      const dTime = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+      for (let idx = sortedCyclesAsc.length - 1; idx >= 0; idx--) {
+        const c = sortedCyclesAsc[idx];
+        const sDate = parseDateUnified(c.startDate);
+        if (!sDate) continue;
+        const sTime = new Date(sDate.getFullYear(), sDate.getMonth(), sDate.getDate()).getTime();
+        if (dTime >= sTime) {
+          return Math.floor((dTime - sTime) / (1000 * 60 * 60 * 24)) + 1;
+        }
+      }
+      return undefined;
+    };
+
     const matrix: Array<{
       date: Date;
       dateStr: string;
       isCurrentMonth: boolean;
       dayNumber: number;
+      cycleDayNumber?: number;
       isPeriod: boolean;
       periodDayNumber?: number;
       isOvulation: boolean;
@@ -427,6 +448,7 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
         dateStr: dStr,
         isCurrentMonth: false,
         dayNumber: d.getDate(),
+        cycleDayNumber: getCycleDayNumberForDate(d),
         isPeriod: Boolean(periodInfo || (log && log.phase === 'menstrual')),
         periodDayNumber: periodInfo?.dayNumber,
         isOvulation: Boolean(ovInfo),
@@ -456,6 +478,7 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
         dateStr: dStr,
         isCurrentMonth: true,
         dayNumber: i,
+        cycleDayNumber: getCycleDayNumberForDate(d),
         isPeriod: Boolean(periodInfo || (log && log.phase === 'menstrual')),
         periodDayNumber: periodInfo?.dayNumber,
         isOvulation: Boolean(ovInfo),
@@ -487,6 +510,7 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
           dateStr: dStr,
           isCurrentMonth: false,
           dayNumber: i,
+          cycleDayNumber: getCycleDayNumberForDate(d),
           isPeriod: Boolean(periodInfo || (log && log.phase === 'menstrual')),
           periodDayNumber: periodInfo?.dayNumber,
           isOvulation: Boolean(ovInfo),
@@ -1127,15 +1151,15 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
                           {cell.dayNumber}
                         </span>
 
-                        {cell.isCycleStart && (
-                          <span className="text-[7px] px-1 rounded bg-rose-500/30 text-rose-300 font-bold" title="Bắt đầu chu kỳ">
-                            K1
-                          </span>
-                        )}
-
-                        {!cell.isCycleStart && cell.periodDayNumber && (
-                          <span className="text-[7px] px-0.5 rounded bg-rose-400/20 text-rose-300 font-medium">
-                            K{cell.periodDayNumber}
+                        {cell.cycleDayNumber !== undefined && (
+                          <span className={`text-[8px] font-bold px-1 rounded ${
+                            cell.isCycleStart
+                              ? 'bg-rose-500/30 text-rose-300'
+                              : cell.isPeriod
+                              ? 'bg-rose-400/20 text-rose-300'
+                              : 'bg-slate-800/80 text-slate-400'
+                          }`} title={`Ngày thứ ${cell.cycleDayNumber} của chu kỳ`}>
+                            {cell.cycleDayNumber}
                           </span>
                         )}
 
