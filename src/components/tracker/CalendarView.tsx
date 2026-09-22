@@ -311,12 +311,12 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       {/* Calendar Column (Left 5 cols) */}
       <div className="lg:col-span-5 space-y-4">
-        <div className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 shadow-sm space-y-3">
+        <div className="p-4 sm:p-5 rounded-3xl bg-white border border-[#f8bbd0] shadow-sm space-y-4">
           
           {/* Navigator Header */}
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
-            <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-pink-100 pb-3">
+            <h3 className="text-base font-bold text-[#6a4c46] flex items-center gap-2 font-comfortaa">
+              <span className="w-2.5 h-2.5 rounded-full bg-pink-500" />
               <span>{monthNamesVN[currentCalMonth]} {currentCalYear}</span>
             </h3>
 
@@ -327,10 +327,10 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   onChangeMonth(2026, 8); // Sept 2026
                   onSelectDay('15/09/2026');
                 }}
-                className={`px-2 py-1 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
+                className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   currentCalYear === 2026 && currentCalMonth === 8
-                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
-                    : 'bg-slate-900/60 hover:bg-slate-700/60 text-slate-300 border-slate-700'
+                    ? 'bg-pink-500 text-white shadow-xs'
+                    : 'bg-pink-50 hover:bg-pink-100 text-[#6a4c46] border border-pink-200'
                 }`}
               >
                 T9/2026
@@ -340,24 +340,24 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   onChangeMonth(2026, 7); // Aug 2026
                   onSelectDay('24/08/2026');
                 }}
-                className={`px-2 py-1 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
+                className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   currentCalYear === 2026 && currentCalMonth === 7
-                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
-                    : 'bg-slate-900/60 hover:bg-slate-700/60 text-slate-300 border-slate-700'
+                    ? 'bg-pink-500 text-white shadow-xs'
+                    : 'bg-pink-50 hover:bg-pink-100 text-[#6a4c46] border border-pink-200'
                 }`}
               >
                 T8/2026
               </button>
               <button
                 onClick={handleJumpToToday}
-                className="px-2 py-1 rounded-lg bg-slate-900/60 hover:bg-slate-700/60 text-slate-300 text-xs font-semibold border border-slate-700 cursor-pointer"
+                className="px-2.5 py-1 rounded-xl bg-pink-50 hover:bg-pink-100 text-[#6a4c46] text-xs font-bold border border-pink-200 cursor-pointer"
               >
                 Hôm Nay
               </button>
-              <div className="flex items-center bg-slate-900/80 rounded-lg p-0.5 border border-slate-700">
+              <div className="flex items-center bg-pink-50 rounded-xl p-0.5 border border-pink-200">
                 <button
                   onClick={handlePrevMonth}
-                  className="p-1 text-slate-400 hover:text-slate-100 rounded hover:bg-slate-700/60 cursor-pointer"
+                  className="p-1 text-[#6a4c46] hover:bg-white rounded-lg cursor-pointer"
                   title="Tháng trước"
                   aria-label="Tháng trước"
                 >
@@ -365,7 +365,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                 </button>
                 <button
                   onClick={handleNextMonth}
-                  className="p-1 text-slate-400 hover:text-slate-100 rounded hover:bg-slate-700/60 cursor-pointer"
+                  className="p-1 text-[#6a4c46] hover:bg-white rounded-lg cursor-pointer"
                   title="Tháng sau"
                   aria-label="Tháng sau"
                 >
@@ -376,25 +376,25 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
           </div>
 
           {/* Legend */}
-          <div className="flex flex-wrap items-center gap-3 p-2 rounded-lg bg-slate-900/40 border border-slate-700/40 text-xs text-slate-300">
-            <span className="font-semibold text-slate-400">Ký hiệu:</span>
-            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Kinh nguyệt</span>
-            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-400" /> Đốm cam</span>
-            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-slate-400" /> Rụng trứng</span>
+          <div className="flex flex-wrap items-center gap-3 p-2.5 rounded-2xl bg-[#fff8f9] border border-pink-100 text-xs text-[#6a4c46]">
+            <span className="font-bold text-[#6a4c46]/80 font-comfortaa">Ký hiệu:</span>
+            <span className="flex items-center gap-1.5 font-medium"><span className="w-2.5 h-2.5 rounded-full bg-pink-500" /> Kinh nguyệt</span>
+            <span className="flex items-center gap-1.5 font-medium"><span className="w-2.5 h-2.5 rounded-full bg-amber-400" /> Đốm cam</span>
+            <span className="flex items-center gap-1.5 font-medium"><span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Rụng trứng</span>
             {isAdult && (
-              <span className="flex items-center gap-1 text-rose-300"><Heart className="w-3 h-3 fill-rose-400/40" /> Quan hệ</span>
+              <span className="flex items-center gap-1 text-pink-600 font-medium"><Heart className="w-3 h-3 fill-pink-400/60" /> Quan hệ</span>
             )}
           </div>
 
           {/* Weekday Headers */}
-          <div className="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-400">
+          <div className="grid grid-cols-7 gap-1 text-center text-xs font-bold text-[#6a4c46]/70">
             <div className="py-1">T2</div>
             <div className="py-1">T3</div>
             <div className="py-1">T4</div>
             <div className="py-1">T5</div>
             <div className="py-1">T6</div>
-            <div className="py-1 text-amber-300">T7</div>
-            <div className="py-1 text-rose-300">CN</div>
+            <div className="py-1 text-amber-600">T7</div>
+            <div className="py-1 text-pink-600">CN</div>
           </div>
 
           {/* Calendar Grid Cells */}
@@ -419,43 +419,43 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   aria-label={`${cell.dateStr}${cell.isPeriod ? ', Có kinh nguyệt' : ''}${hasLog ? ', Có nhật ký' : ''}`}
                   onClick={() => onSelectDay(cell.dateStr)}
                   onKeyDown={(e) => handleKeyDownCell(e, cell.dateStr, idx)}
-                  className={`min-h-[50px] p-1.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none ${
+                  className={`min-h-[50px] p-1.5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between focus-visible:ring-2 focus-visible:ring-pink-400 focus-visible:outline-none ${
                     isSelected
-                      ? 'ring-2 ring-rose-500 border-rose-500 bg-rose-950/40 shadow-sm'
+                      ? 'ring-2 ring-pink-500 border-pink-500 bg-pink-100/90 shadow-sm'
                       : cell.isCurrentMonth
                       ? hasLog
                         ? hasPostProc || cell.log?.isKeyMilestone
-                          ? 'bg-rose-950/30 border-rose-600/60 hover:bg-rose-900/40'
+                          ? 'bg-pink-100/80 border-pink-300 hover:bg-pink-200/80'
                           : hasFreshBlood || cell.isPeriod
-                          ? 'bg-rose-950/25 border-rose-700/50 hover:bg-rose-900/35'
+                          ? 'bg-pink-100/70 border-pink-300 hover:bg-pink-200/60'
                           : hasSpotting
-                          ? 'bg-amber-950/20 border-amber-600/50 hover:bg-amber-900/30'
-                          : 'bg-slate-900/80 border-slate-700/60 hover:bg-slate-700/60'
+                          ? 'bg-amber-100/70 border-amber-300 hover:bg-amber-200/60'
+                          : 'bg-white border-pink-200/80 hover:bg-pink-50'
                         : cell.isPeriod
-                        ? 'bg-rose-950/20 border-rose-800/40 hover:bg-rose-900/30'
+                        ? 'bg-pink-100/50 border-pink-200 hover:bg-pink-100/80'
                         : cell.isOvulation
-                        ? 'bg-slate-900/40 border-slate-700/40 hover:bg-slate-800/60'
-                        : 'bg-slate-900/20 border-slate-800/40 hover:bg-slate-800/40'
-                      : 'bg-transparent border-slate-800/20 text-slate-600 opacity-30 hover:opacity-60'
+                        ? 'bg-emerald-50/70 border-emerald-200 hover:bg-emerald-100/60'
+                        : 'bg-white/70 border-pink-100 hover:bg-pink-50/50'
+                      : 'bg-transparent border-pink-100/40 text-pink-300 opacity-40 hover:opacity-70'
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className={`text-xs font-bold ${
-                      isSelected ? 'text-rose-300 font-black' :
-                      isToday ? 'px-1 rounded bg-rose-500/20 text-rose-300 font-bold text-[10px]' :
-                      hasLog ? 'text-slate-100 font-bold' :
-                      cell.isCurrentMonth ? 'text-slate-300' : 'text-slate-600'
+                      isSelected ? 'text-pink-900 font-black' :
+                      isToday ? 'px-1 rounded bg-pink-500 text-white font-bold text-[10px]' :
+                      hasLog ? 'text-[#6a4c46] font-bold' :
+                      cell.isCurrentMonth ? 'text-[#6a4c46]' : 'text-[#6a4c46]/40'
                     }`}>
                       {cell.dayNumber}
                     </span>
 
                     {cell.cycleDayNumber !== undefined && (
-                      <span className={`text-[9px] font-bold px-1 rounded ${
+                      <span className={`text-[9px] font-bold px-1 rounded-full ${
                         cell.isCycleStart
-                          ? 'bg-rose-500/30 text-rose-300'
+                          ? 'bg-pink-500 text-white'
                           : cell.isPeriod
-                          ? 'bg-rose-500/20 text-rose-300'
-                          : 'bg-slate-800 text-slate-400'
+                          ? 'bg-pink-200 text-pink-900'
+                          : 'bg-pink-50 text-[#6a4c46]/70'
                       }`} title={`Ngày thứ ${cell.cycleDayNumber} của chu kỳ`}>
                         {cell.cycleDayNumber}
                       </span>
@@ -463,19 +463,19 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   </div>
 
                   <div className="my-0.5 flex flex-col gap-0.5">
-                    {hasFreshBlood && <div className="h-1 w-full rounded-full bg-rose-500" title="Máu kinh đỏ" />}
+                    {hasFreshBlood && <div className="h-1 w-full rounded-full bg-pink-500" title="Máu kinh đỏ" />}
                     {hasSpotting && <div className="h-1 w-full rounded-full bg-amber-400" title="Đốm cam" />}
                     {hasBrown && !hasFreshBlood && <div className="h-1 w-3/4 rounded-full bg-amber-700/80" title="Máu nâu" />}
-                    {hasPostProc && <div className="h-1 w-full rounded-full bg-rose-400" title="Máu thủ thuật" />}
+                    {hasPostProc && <div className="h-1 w-full rounded-full bg-pink-400" title="Máu thủ thuật" />}
                   </div>
 
                   <div className="flex items-center justify-between text-[9px]">
                     <div className="flex items-center gap-1">
-                      {hasSex && <Heart className="w-2.5 h-2.5 text-rose-400 fill-rose-400" />}
+                      {hasSex && <Heart className="w-2.5 h-2.5 text-pink-500 fill-pink-500" />}
                       {cell.log?.isKeyMilestone && <span>⭐</span>}
-                      {hasMastalgia && <span className="text-amber-400 font-bold">⚡</span>}
+                      {hasMastalgia && <span className="text-amber-500 font-bold">⚡</span>}
                     </div>
-                    {hasLog && <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />}
+                    {hasLog && <span className="w-1.5 h-1.5 rounded-full bg-pink-500" />}
                   </div>
                 </div>
               );
@@ -485,22 +485,22 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
       </div>
 
       {/* Day Detail Column (Right 7 cols) */}
-      <div className="lg:col-span-7 bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 space-y-4 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-700/60 pb-3">
+      <div className="lg:col-span-7 bg-white border border-[#f8bbd0] rounded-3xl p-5 sm:p-6 space-y-4 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-pink-100 pb-3">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-slate-900 border border-slate-700 text-rose-400">
+            <div className="p-2.5 rounded-2xl bg-pink-100 text-pink-600 border border-pink-200">
               <CalendarIcon className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+              <h3 className="text-lg font-bold text-[#6a4c46] flex items-center gap-2 font-comfortaa">
                 <span>{activeSelectedDayData.date}</span>
                 {activeSelectedDayData.isKeyMilestone && (
-                  <span className="px-2 py-0.5 rounded-md bg-amber-400/20 text-amber-300 text-xs font-bold border border-amber-400/30">
+                  <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold border border-amber-300">
                     ⭐ Cột Mốc
                   </span>
                 )}
               </h3>
-              <span className="text-xs text-slate-400 font-medium">
+              <span className="text-xs text-[#6a4c46]/70 font-medium">
                 {activeSelectedDayData.dayOfWeek} • {activeSelectedDayData.cycleDayText}
               </span>
             </div>
@@ -510,15 +510,15 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             {!isQuickEditing ? (
               <button
                 onClick={onStartQuickEdit}
-                className="px-3.5 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-100 font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-600"
+                className="px-4 py-2 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-xs font-comfortaa"
               >
-                <Edit3 className="w-3.5 h-3.5 text-slate-300" />
+                <Edit3 className="w-3.5 h-3.5" />
                 <span>{activeSelectedDayData.isVirtual ? 'Ghi Nhật Ký' : 'Sửa Ngày'}</span>
               </button>
             ) : (
               <button
                 onClick={onCloseQuickEdit}
-                className="p-1.5 rounded-lg bg-slate-700 text-slate-300 hover:text-slate-100 cursor-pointer border border-slate-600"
+                className="p-2 rounded-xl bg-pink-50 text-[#6a4c46] hover:bg-pink-100 cursor-pointer border border-pink-200"
                 aria-label="Đóng chỉnh sửa"
               >
                 <X className="w-4 h-4" />
@@ -528,24 +528,24 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
         </div>
 
         {/* Read Mode View */}
-        <div className="space-y-4 text-xs sm:text-sm">
+        <div className="space-y-4 text-xs sm:text-sm text-[#4a4c46]">
           <div className="flex flex-wrap items-center gap-2">
             {(activeSelectedDayData.cycleDayNumber === 1 || cycles.some(c => c.startDate === activeSelectedDayData.date) || activeSelectedDayData.isStartOfCycle) && (
-              <span className="px-2.5 py-1 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold text-xs">
+              <span className="px-3 py-1 rounded-full bg-pink-500 text-white font-bold text-xs shadow-xs">
                 🩸 Bắt đầu chu kỳ (K1)
               </span>
             )}
-            <span className={`px-2.5 py-1 rounded-xl font-semibold flex items-center gap-1.5 text-xs ${
-              activeSelectedDayData.dischargeType === 'none' ? 'bg-slate-900 text-slate-400 border border-slate-700' :
-              activeSelectedDayData.dischargeType === 'orange_spotting' ? 'bg-amber-950/40 text-amber-300 border border-amber-600/40' :
-              activeSelectedDayData.dischargeType === 'fresh_blood' ? 'bg-rose-950/40 text-rose-300 border border-rose-600/50' :
-              'bg-slate-900 text-slate-300 border border-slate-700'
+            <span className={`px-3 py-1 rounded-full font-semibold flex items-center gap-1.5 text-xs ${
+              activeSelectedDayData.dischargeType === 'none' ? 'bg-pink-50 text-[#6a4c46] border border-pink-200' :
+              activeSelectedDayData.dischargeType === 'orange_spotting' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+              activeSelectedDayData.dischargeType === 'fresh_blood' ? 'bg-pink-100 text-pink-900 border border-pink-300 font-bold' :
+              'bg-pink-50 text-[#6a4c46] border border-pink-200'
             }`}>
-              <Droplets className="w-3.5 h-3.5 text-rose-400" />
+              <Droplets className="w-3.5 h-3.5 text-pink-500" />
               <span>{activeSelectedDayData.dischargeLabel}</span>
             </span>
 
-            <span className="px-2.5 py-1 rounded-xl bg-slate-900 text-slate-300 border border-slate-700 font-semibold text-xs">
+            <span className="px-3 py-1 rounded-full bg-pink-50 text-[#6a4c46] border border-pink-200 font-semibold text-xs">
               Đau: {
                 activeSelectedDayData.painLevel === 'none' ? 'Không đau' :
                 activeSelectedDayData.painLevel === 'mild' ? 'Đau nhẹ' :
@@ -553,55 +553,55 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
               }
             </span>
 
-            <span className="px-2.5 py-1 rounded-xl bg-slate-900 text-slate-300 border border-slate-700 font-semibold text-xs">
+            <span className="px-3 py-1 rounded-full bg-pink-50 text-[#6a4c46] border border-pink-200 font-semibold text-xs">
               {activeSelectedDayData.phaseLabel}
             </span>
           </div>
 
           {activeSelectedDayData.hasIntercourse && isAdult && (
-            <div className="p-3 rounded-xl bg-rose-950/20 border border-rose-600/30 text-slate-200 space-y-1.5">
-              <div className="font-bold flex items-center gap-1.5 text-rose-300 text-xs">
-                <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" />
+            <div className="p-4 rounded-2xl bg-pink-50/80 border border-pink-200 text-[#4a4c46] space-y-2">
+              <div className="font-bold flex items-center gap-1.5 text-pink-700 text-xs font-comfortaa">
+                <Heart className="w-3.5 h-3.5 text-pink-500 fill-pink-500" />
                 <span>Sinh hoạt vợ chồng ghi nhận:</span>
               </div>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
-                <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-200 font-medium border border-slate-700">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-[#4a4c46]">
+                <span className="px-2.5 py-0.5 rounded-full bg-white text-[#6a4c46] font-semibold border border-pink-200">
                   {activeSelectedDayData.intercourseCount || 1} lần
                 </span>
-                <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-700">
+                <span className="px-2.5 py-0.5 rounded-full bg-white text-[#6a4c46] border border-pink-200">
                   {activeSelectedDayData.intercourseProtection === 'protected' ? 'Có bao cao su' : 'Tự nhiên'}
                 </span>
                 {activeSelectedDayData.intercourseOrgasm && (
-                  <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-700">
+                  <span className="px-2.5 py-0.5 rounded-full bg-white text-[#6a4c46] border border-pink-200">
                     Có cực khoái
                   </span>
                 )}
               </div>
               {activeSelectedDayData.intercourseNote && (
-                <p className="text-xs text-slate-300 italic pt-0.5">
+                <p className="text-xs text-[#6a4c46] italic pt-0.5">
                   {activeSelectedDayData.intercourseNote}
                 </p>
               )}
             </div>
           )}
 
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1">
-            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+          <div className="p-4 rounded-2xl bg-[#fff8f9] border border-pink-100 space-y-1">
+            <div className="text-[11px] font-bold text-[#6a4c46]/70 uppercase tracking-wider font-comfortaa">
               Diễn biến trong ngày:
             </div>
-            <p className="text-slate-100 leading-relaxed text-sm">
+            <p className="text-[#4a4c46] leading-relaxed text-sm">
               {activeSelectedDayData.summary}
             </p>
           </div>
 
           {activeSelectedDayData.symptoms.length > 0 && (
             <div className="space-y-1.5">
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              <div className="text-[11px] font-bold text-[#6a4c46]/70 uppercase tracking-wider font-comfortaa">
                 Triệu chứng ghi nhận:
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {activeSelectedDayData.symptoms.map((sym, sIdx) => (
-                  <span key={sIdx} className="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 text-xs font-medium">
+                  <span key={sIdx} className="px-3 py-1 rounded-xl bg-pink-50 text-[#6a4c46] border border-pink-200 text-xs font-semibold">
                     {sym}
                   </span>
                 ))}
@@ -611,24 +611,24 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
             {activeSelectedDayData.eventNote && (
-              <div className="p-3 rounded-xl bg-rose-950/20 border border-rose-500/30 text-slate-300 space-y-1">
-                <div className="font-bold text-rose-300 text-xs flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-rose-400" />
+              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 space-y-1">
+                <div className="font-bold text-amber-900 text-xs flex items-center gap-1.5 font-comfortaa">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                   <span>Sự Kiện & Cột Mốc:</span>
                 </div>
-                <p className="text-xs text-slate-200 leading-relaxed">
+                <p className="text-xs leading-relaxed">
                   {activeSelectedDayData.eventNote}
                 </p>
               </div>
             )}
 
             {activeSelectedDayData.clinicalInterpretation && (
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-slate-300 space-y-1">
-                <div className="font-bold text-slate-300 text-xs flex items-center gap-1.5">
-                  <Info className="w-3.5 h-3.5 text-slate-400" />
+              <div className="p-3.5 rounded-2xl bg-[#fff8f9] border border-pink-100 text-[#4a4c46] space-y-1">
+                <div className="font-bold text-[#6a4c46] text-xs flex items-center gap-1.5 font-comfortaa">
+                  <Info className="w-3.5 h-3.5 text-pink-500" />
                   <span>Đối Chiếu Y Học Sinh Lý:</span>
                 </div>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-[#6a4c46]/80 leading-relaxed">
                   {activeSelectedDayData.clinicalInterpretation}
                 </p>
               </div>
@@ -643,7 +643,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                     onDeleteLogForDay(activeSelectedDayData.date);
                   }
                 }}
-                className="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1 cursor-pointer font-medium"
+                className="text-xs text-pink-600 hover:text-pink-700 flex items-center gap-1 cursor-pointer font-bold"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>Xóa nhật ký ngày này</span>

@@ -117,29 +117,29 @@ export const TreeView: React.FC<TreeViewProps> = ({
   return (
     <div className="space-y-5">
       {/* Filter & Toolbar */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 space-y-4 shadow-sm">
+      <div className="p-4 sm:p-5 rounded-3xl bg-white border border-[#f8bbd0] space-y-4 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-slate-100 font-bold text-sm sm:text-base">
-            <GitBranch className="w-4 h-4 text-rose-400" />
+          <div className="flex items-center gap-2 text-[#6a4c46] font-bold text-sm sm:text-base font-comfortaa">
+            <GitBranch className="w-4 h-4 text-pink-500" />
             <span>Danh Sách Chu Kỳ & Nhật Ký ({cycles.length} chu kỳ, {dailyLogs.length} ngày ghi nhận)</span>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={expandAllCycles}
-              className="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold transition-colors cursor-pointer border border-slate-600"
+              className="px-3 py-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-[#6a4c46] text-xs font-bold transition-all cursor-pointer border border-pink-200"
             >
               Mở Rộng Tất Cả
             </button>
             <button
               onClick={collapseAllCycles}
-              className="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-400 hover:text-slate-200 text-xs font-semibold transition-colors cursor-pointer border border-slate-600"
+              className="px-3 py-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-[#6a4c46]/70 hover:text-[#6a4c46] text-xs font-bold transition-all cursor-pointer border border-pink-200"
             >
               Thu Gọn
             </button>
             <button
               onClick={() => onStartQuickEditOnDate(formatDateToVN(new Date()))}
-              className="px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-semibold flex items-center gap-1.5 cursor-pointer border border-rose-500/40"
+              className="px-3.5 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition-all font-comfortaa"
             >
               <Plus className="w-4 h-4" />
               <span>Thêm Chu Kỳ Mới</span>
@@ -148,15 +148,15 @@ export const TreeView: React.FC<TreeViewProps> = ({
         </div>
 
         {/* Filter Bar: Year Pills + Search Input */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-700/60">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-pink-100">
           <div className="flex flex-wrap items-center gap-1.5 text-xs">
-            <span className="text-slate-400 font-medium mr-1">Năm:</span>
+            <span className="text-[#6a4c46]/70 font-semibold mr-1 font-comfortaa">Năm:</span>
             <button
               onClick={() => setTreeYearFilter('all')}
-              className={`px-3 py-1.5 rounded-lg font-semibold transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
                 treeYearFilter === 'all'
-                  ? 'bg-rose-500 text-white shadow-xs'
-                  : 'bg-slate-900 text-slate-400 border border-slate-700 hover:text-slate-200'
+                  ? 'bg-pink-500 text-white shadow-xs'
+                  : 'bg-pink-50 text-[#6a4c46] border border-pink-200 hover:bg-pink-100'
               }`}
             >
               Tất Cả ({cycles.length})
@@ -167,10 +167,10 @@ export const TreeView: React.FC<TreeViewProps> = ({
                 <button
                   key={y}
                   onClick={() => setTreeYearFilter(y)}
-                  className={`px-2.5 py-1.5 rounded-lg font-semibold transition-colors cursor-pointer ${
+                  className={`px-2.5 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
                     treeYearFilter === y
-                      ? 'bg-rose-500 text-white shadow-xs'
-                      : 'bg-slate-900 text-slate-400 border border-slate-700 hover:text-slate-200'
+                      ? 'bg-pink-500 text-white shadow-xs'
+                      : 'bg-pink-50 text-[#6a4c46] border border-pink-200 hover:bg-pink-100'
                   }`}
                 >
                   {y} ({countInYear})
@@ -180,18 +180,18 @@ export const TreeView: React.FC<TreeViewProps> = ({
           </div>
 
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-pink-400 absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Tìm triệu chứng, ngày, ghi chú..."
               value={treeSearchQuery}
               onChange={(e) => setTreeSearchQuery(e.target.value)}
-              className="pl-9 pr-8 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-rose-500 w-52 sm:w-64"
+              className="pl-9 pr-8 py-1.5 rounded-2xl bg-[#fff8f9] border border-pink-200 text-xs text-[#6a4c46] placeholder:text-pink-300 focus:outline-none focus:border-pink-400 w-52 sm:w-64"
             />
             {treeSearchQuery && (
               <button
                 onClick={() => setTreeSearchQuery('')}
-                className="absolute right-2.5 top-2 text-slate-400 hover:text-slate-100 cursor-pointer"
+                className="absolute right-2.5 top-2 text-pink-400 hover:text-pink-600 cursor-pointer"
                 aria-label="Xóa từ khóa tìm kiếm"
               >
                 <X className="w-4 h-4" />
@@ -210,41 +210,41 @@ export const TreeView: React.FC<TreeViewProps> = ({
             return (
               <div
                 key={cycle.id}
-                className="rounded-xl bg-slate-800/60 border border-slate-700/80 overflow-hidden shadow-xs transition-all"
+                className="rounded-3xl bg-white border border-[#f8bbd0] overflow-hidden shadow-xs transition-all"
               >
                 {/* Cycle Parent Row */}
                 <div
                   onClick={() => toggleCycleExpansion(cycle.id)}
-                  className="p-4 flex flex-wrap items-center justify-between gap-3 cursor-pointer hover:bg-slate-700/40 transition-colors border-b border-transparent data-[expanded=true]:border-slate-700/60"
+                  className="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 cursor-pointer hover:bg-pink-50/50 transition-colors border-b border-transparent data-[expanded=true]:border-pink-100"
                   data-expanded={isExpanded}
                 >
                   <div className="flex items-center gap-3">
                     <button
                       type="button"
-                      className="p-1 rounded-lg bg-slate-900/80 text-slate-400 hover:text-slate-100 shrink-0"
+                      className="p-1.5 rounded-xl bg-pink-50 text-pink-600 hover:bg-pink-100 shrink-0"
                     >
-                      {isExpanded ? <ChevronDown className="w-4 h-4 text-rose-400" /> : <ChevronRight className="w-4 h-4" />}
+                      {isExpanded ? <ChevronDown className="w-4 h-4 text-pink-600" /> : <ChevronRight className="w-4 h-4" />}
                     </button>
 
                     <div>
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-sm sm:text-base font-bold text-slate-100 flex items-center gap-2">
+                        <span className="text-sm sm:text-base font-bold text-[#6a4c46] flex items-center gap-2 font-comfortaa">
                           {isOngoing
                             ? cycle.dateRangeDisplay.split('–')[0].trim()
                             : cycle.dateRangeDisplay}
                           {isOngoing && (
-                            <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-medium">
-                              <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
+                            <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-800 border border-pink-300 font-bold">
+                              <span className="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse" />
                               Đang diễn ra
                             </span>
                           )}
                         </span>
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-0.5 text-xs text-slate-400">
-                        <span>Chu kỳ: <strong className="text-slate-200">{cycle.cycleLengthDays} ngày</strong></span>
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-0.5 text-xs text-[#6a4c46]/70">
+                        <span>Chu kỳ: <strong className="text-[#6a4c46]">{cycle.cycleLengthDays} ngày</strong></span>
                         <span>•</span>
-                        <span>Hành kinh: <strong className="text-slate-200">{cycle.periodDurationDays} ngày</strong></span>
+                        <span>Hành kinh: <strong className="text-[#6a4c46]">{cycle.periodDurationDays} ngày</strong></span>
                       </div>
                     </div>
                   </div>
@@ -252,7 +252,7 @@ export const TreeView: React.FC<TreeViewProps> = ({
                   <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={() => onStartQuickEditOnDate(cycle.startDate)}
-                      className="p-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-700 text-slate-400 hover:text-rose-300 cursor-pointer border border-slate-700"
+                      className="p-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-600 cursor-pointer border border-pink-200"
                       title="Ghi nhật ký ngày"
                     >
                       <Plus className="w-4 h-4" />
@@ -260,7 +260,7 @@ export const TreeView: React.FC<TreeViewProps> = ({
 
                     <button
                       onClick={() => onOpenEditCycleModal(cycle)}
-                      className="p-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-700 text-slate-400 hover:text-slate-100 cursor-pointer border border-slate-700"
+                      className="p-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-[#6a4c46] cursor-pointer border border-pink-200"
                       title="Sửa chu kỳ"
                     >
                       <Edit3 className="w-4 h-4" />
@@ -268,7 +268,7 @@ export const TreeView: React.FC<TreeViewProps> = ({
 
                     <button
                       onClick={() => onDeleteCycle(cycle.id)}
-                      className="p-1.5 rounded-lg bg-slate-900/80 hover:bg-rose-950/60 text-slate-400 hover:text-rose-400 cursor-pointer border border-slate-700"
+                      className="p-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-600 cursor-pointer border border-pink-200"
                       title="Xóa chu kỳ"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -278,16 +278,16 @@ export const TreeView: React.FC<TreeViewProps> = ({
 
                 {/* Child Logs */}
                 {isExpanded && (
-                  <div className="px-4 py-3 space-y-2 bg-slate-900/40">
+                  <div className="px-4 py-3 space-y-2 bg-[#fff8f9]">
                     {cycle.clinicalNote && (
-                      <div className="py-1.5 text-xs text-slate-400 italic flex items-center gap-1.5 border-b border-slate-700/40">
-                        <Info className="w-4 h-4 text-slate-400 shrink-0" />
+                      <div className="py-2 text-xs text-[#6a4c46]/80 italic flex items-center gap-1.5 border-b border-pink-100">
+                        <Info className="w-4 h-4 text-pink-500 shrink-0" />
                         <span>{cycle.clinicalNote}</span>
                       </div>
                     )}
 
                     {childLogs.length > 0 ? (
-                      <div className="divide-y divide-slate-700/40">
+                      <div className="divide-y divide-pink-100">
                         {childLogs.map((log, lIdx) => {
                           const isDay1 = log.cycleDayNumber === 1 || log.cycleDayText?.includes('Ngày 1') || log.date === cycle.startDate;
 
@@ -295,27 +295,27 @@ export const TreeView: React.FC<TreeViewProps> = ({
                             <div
                               key={lIdx}
                               className={`py-3 transition-colors ${
-                                isDay1 ? 'bg-rose-500/[0.04] -mx-2 px-2 rounded-lg' : ''
+                                isDay1 ? 'bg-pink-100/50 -mx-2 px-3 rounded-2xl' : ''
                               }`}
                             >
                               <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
                                 <div className="flex flex-wrap items-center gap-2">
-                                  <span className="font-bold text-slate-100 text-xs sm:text-sm">{log.date}</span>
-                                  <span className="text-slate-400">{log.dayOfWeek.split('(')[0].trim()}</span>
-                                  <span className="text-slate-600">•</span>
-                                  <span className={`text-xs font-semibold ${isDay1 ? 'text-rose-300' : 'text-slate-300'}`}>
+                                  <span className="font-bold text-[#6a4c46] text-xs sm:text-sm font-comfortaa">{log.date}</span>
+                                  <span className="text-[#6a4c46]/70">{log.dayOfWeek.split('(')[0].trim()}</span>
+                                  <span className="text-pink-300">•</span>
+                                  <span className={`text-xs font-bold ${isDay1 ? 'text-pink-700' : 'text-[#6a4c46]'}`}>
                                     {isDay1 ? 'Ngày 1' : log.cycleDayText.split('(')[0].trim()}
                                   </span>
 
                                   {log.dischargeType !== 'none' && log.dischargeType !== 'fresh_blood' && (
-                                    <span className="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 border border-slate-700">
+                                    <span className="px-2 py-0.5 rounded-full text-[11px] bg-white text-[#6a4c46] border border-pink-200">
                                       {log.dischargeLabel}
                                     </span>
                                   )}
 
                                   {log.hasIntercourse && isAdult && (
-                                    <span className="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-rose-300 border border-slate-700 flex items-center gap-1">
-                                      <Heart className="w-3 h-3 text-rose-400 fill-rose-400/40" />
+                                    <span className="px-2 py-0.5 rounded-full text-[11px] bg-pink-100 text-pink-800 border border-pink-300 flex items-center gap-1">
+                                      <Heart className="w-3 h-3 text-pink-500 fill-pink-500" />
                                       <span>{log.intercourseCount || 1} lần</span>
                                     </span>
                                   )}
@@ -324,7 +324,7 @@ export const TreeView: React.FC<TreeViewProps> = ({
                                 <div className="flex items-center gap-1">
                                   <button
                                     onClick={() => onStartQuickEditOnDate(log.date)}
-                                    className="p-1.5 rounded text-slate-400 hover:text-slate-100 hover:bg-slate-700 transition-colors cursor-pointer"
+                                    className="p-1.5 rounded-lg text-[#6a4c46] hover:bg-white transition-colors cursor-pointer"
                                     title="Chỉnh sửa nhật ký"
                                   >
                                     <Edit3 className="w-3.5 h-3.5" />
@@ -335,7 +335,7 @@ export const TreeView: React.FC<TreeViewProps> = ({
                                         onDeleteLogForDay(log.date);
                                       }
                                     }}
-                                    className="p-1.5 rounded text-slate-400 hover:text-rose-400 hover:bg-slate-700 transition-colors cursor-pointer"
+                                    className="p-1.5 rounded-lg text-pink-600 hover:bg-white transition-colors cursor-pointer"
                                     title="Xóa nhật ký"
                                   >
                                     <Trash2 className="w-3.5 h-3.5" />
@@ -343,29 +343,29 @@ export const TreeView: React.FC<TreeViewProps> = ({
                                 </div>
                               </div>
 
-                              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                              <p className="text-xs text-[#4a4c46] mt-1 leading-relaxed">
                                 {log.summary}
                               </p>
 
                               {!isDay1 && (log.symptoms.length > 0 || log.painDescription || (isAdult && log.intercourseNote)) && (
-                                <div className="flex flex-wrap items-center gap-1.5 mt-1.5 text-xs text-slate-400">
+                                <div className="flex flex-wrap items-center gap-1.5 mt-1.5 text-xs text-[#6a4c46]/80">
                                   {log.symptoms.map((s, sIdx) => (
-                                    <span key={sIdx} className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300">
+                                    <span key={sIdx} className="px-2 py-0.5 rounded-lg bg-white border border-pink-200 text-[#6a4c46] font-medium">
                                       {s}
                                     </span>
                                   ))}
                                   {log.painDescription && (
-                                    <span className="text-slate-300">⚡ {log.painDescription}</span>
+                                    <span className="text-[#6a4c46]">⚡ {log.painDescription}</span>
                                   )}
                                   {isAdult && log.hasIntercourse && log.intercourseNote && (
-                                    <span className="text-slate-300">❤ {log.intercourseNote}</span>
+                                    <span className="text-[#6a4c46]">❤ {log.intercourseNote}</span>
                                   )}
                                 </div>
                               )}
 
                               {!isDay1 && log.eventNote && (
-                                <div className="mt-1 text-xs text-slate-400 flex items-start gap-1">
-                                  <Sparkles className="w-3.5 h-3.5 shrink-0 mt-0.5 text-rose-400" />
+                                <div className="mt-1 text-xs text-amber-800 flex items-start gap-1">
+                                  <Sparkles className="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-600" />
                                   <span>{log.eventNote}</span>
                                 </div>
                               )}
@@ -374,7 +374,7 @@ export const TreeView: React.FC<TreeViewProps> = ({
                         })}
                       </div>
                     ) : (
-                      <div className="py-4 text-xs text-slate-400 text-center">
+                      <div className="py-4 text-xs text-[#6a4c46]/70 text-center font-comfortaa">
                         Chu kỳ lịch sử ({cycle.cycleLengthDays} ngày, hành kinh {cycle.periodDurationDays} ngày) • Chưa có nhật ký chi tiết từng ngày.
                       </div>
                     )}
@@ -385,19 +385,19 @@ export const TreeView: React.FC<TreeViewProps> = ({
           })
         ) : (
           /* Empty Search State */
-          <div className="p-8 text-center bg-slate-800/60 border border-slate-700/80 rounded-xl space-y-3">
-            <div className="w-12 h-12 rounded-full bg-slate-700/60 flex items-center justify-center mx-auto text-slate-400">
+          <div className="p-8 text-center bg-white border border-[#f8bbd0] rounded-3xl space-y-3">
+            <div className="w-12 h-12 rounded-full bg-pink-50 flex items-center justify-center mx-auto text-pink-500">
               <FolderSearch className="w-6 h-6" />
             </div>
             <div className="space-y-1">
-              <h4 className="text-sm font-bold text-slate-200">Không tìm thấy ghi nhận phù hợp</h4>
-              <p className="text-xs text-slate-400">
-                Không có chu kỳ hoặc nhật ký nào khớp với từ khóa &quot;<strong className="text-slate-300">{treeSearchQuery}</strong>&quot;.
+              <h4 className="text-sm font-bold text-[#6a4c46] font-comfortaa">Không tìm thấy ghi nhận phù hợp</h4>
+              <p className="text-xs text-[#6a4c46]/70">
+                Không có chu kỳ hoặc nhật ký nào khớp với từ khóa &quot;<strong className="text-[#6a4c46]">{treeSearchQuery}</strong>&quot;.
               </p>
             </div>
             <button
               onClick={() => setTreeSearchQuery('')}
-              className="px-3.5 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold cursor-pointer border border-slate-600"
+              className="px-4 py-2 rounded-2xl bg-pink-50 hover:bg-pink-100 text-[#6a4c46] text-xs font-bold cursor-pointer border border-pink-200"
             >
               Xóa bộ lọc tìm kiếm
             </button>

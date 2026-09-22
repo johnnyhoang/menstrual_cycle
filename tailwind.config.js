@@ -7,6 +7,21 @@ export default {
   theme: {
     extend: {
       colors: {
+        coquette: {
+          50: '#fff5f7',
+          100: '#fce7f3',
+          200: '#f8bbd0',
+          300: '#f4a6c6',
+          400: '#f078a8',
+          500: '#ec4899',
+          600: '#db2777',
+          700: '#be185d',
+          bg: '#fcf7f8',
+          card: '#ffffff',
+          text: '#6a4c46',
+          subtext: '#4a4c46',
+          border: '#f8bbd0'
+        },
         medical: {
           50: '#f0fdf9',
           100: '#ccfbf1',
@@ -35,6 +50,7 @@ export default {
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', '"Be Vietnam Pro"', 'Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+        comfortaa: ['Comfortaa', 'cursive', 'sans-serif'],
         serif: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
       }
     },

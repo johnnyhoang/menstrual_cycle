@@ -102,19 +102,19 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
+    <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm text-[#4a4c46]">
       {/* 0. START CYCLE FLAG TOGGLE */}
-      <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-900 border border-slate-700/80">
+      <div className="flex items-center justify-between p-4 rounded-2xl bg-pink-50/80 border border-pink-200">
         <div className="flex items-center gap-3">
-          <span className="text-xl">🩸</span>
+          <span className="text-2xl">🩸</span>
           <div>
-            <div className="font-bold text-slate-100 text-xs flex items-center gap-2">
+            <div className="font-bold text-[#6a4c46] text-xs sm:text-sm flex items-center gap-2 font-comfortaa">
               <span>Bắt đầu chu kỳ mới (Ngày 1 / K1)</span>
               {quickEditLog.isStartOfCycle && (
-                <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-bold border border-rose-500/30">Đang Bật</span>
+                <span className="px-2 py-0.5 rounded-full bg-pink-500 text-white text-[10px] font-bold">Đang Bật</span>
               )}
             </div>
-            <div className="text-xs text-slate-400">Đánh dấu ngày này là ngày bắt đầu kỳ kinh mới</div>
+            <div className="text-xs text-[#6a4c46]/70">Đánh dấu ngày này là ngày bắt đầu kỳ kinh mới</div>
           </div>
         </div>
         <button
@@ -125,10 +125,10 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
             dischargeType: !quickEditLog.isStartOfCycle && (!quickEditLog.dischargeType || quickEditLog.dischargeType === 'none') ? 'fresh_blood' : quickEditLog.dischargeType,
             dischargeLabel: !quickEditLog.isStartOfCycle && (!quickEditLog.dischargeLabel || quickEditLog.dischargeLabel === 'Sạch hoàn toàn') ? 'Máu đỏ tươi (Kinh)' : quickEditLog.dischargeLabel
           })}
-          className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-colors cursor-pointer border ${
+          className={`px-3.5 py-2 rounded-xl font-bold text-xs transition-all cursor-pointer border ${
             quickEditLog.isStartOfCycle
-              ? 'bg-rose-500 text-white border-rose-400 shadow-xs'
-              : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+              ? 'bg-pink-500 text-white border-pink-500 shadow-xs'
+              : 'bg-white text-[#6a4c46] border-pink-200 hover:bg-pink-50'
           }`}
         >
           {quickEditLog.isStartOfCycle ? '✓ Ngày 1 (K1)' : 'Đặt làm Ngày 1 (K1)'}
@@ -138,7 +138,7 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
       {/* 1. TEXT INPUTS */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="space-y-1.5">
-          <label htmlFor="quick_summary" className="text-slate-200 font-bold text-xs">Ghi chú diễn biến trong ngày:</label>
+          <label htmlFor="quick_summary" className="text-[#6a4c46] font-bold text-xs font-comfortaa">Ghi chú diễn biến trong ngày:</label>
           <textarea
             id="quick_summary"
             rows={2}
@@ -146,19 +146,19 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
             placeholder="VD: Cả ngày sạch không ra cam, tối hơi mỏi lưng nhẹ..."
             value={quickEditLog.summary || ''}
             onChange={(e) => setQuickEditLog({ ...quickEditLog, summary: e.target.value })}
-            className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 focus:outline-none focus:border-rose-500 text-xs"
+            className="w-full px-3 py-2 rounded-xl bg-[#fff8f9] border border-pink-200 text-[#4a4c46] placeholder:text-pink-300 focus:outline-none focus:border-pink-400 text-xs"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="quick_event" className="text-slate-200 font-bold text-xs">Sự kiện đặc biệt / Đi khám (nếu có):</label>
+          <label htmlFor="quick_event" className="text-[#6a4c46] font-bold text-xs font-comfortaa">Sự kiện đặc biệt / Đi khám (nếu có):</label>
           <textarea
             id="quick_event"
             rows={2}
             placeholder="VD: Sinh thiết Pipelle BV Hùng Vương..."
             value={quickEditLog.eventNote || ''}
             onChange={(e) => setQuickEditLog({ ...quickEditLog, eventNote: e.target.value })}
-            className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 focus:outline-none focus:border-rose-500 text-xs"
+            className="w-full px-3 py-2 rounded-xl bg-[#fff8f9] border border-pink-200 text-[#4a4c46] placeholder:text-pink-300 focus:outline-none focus:border-pink-400 text-xs"
           />
         </div>
       </div>
@@ -166,7 +166,7 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
       {/* 2. OPTIONS: Bleeding & Pain */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <span className="text-slate-200 font-bold text-xs block">Tình trạng xuất huyết / Dịch:</span>
+          <span className="text-[#6a4c46] font-bold text-xs block font-comfortaa">Tình trạng xuất huyết / Dịch:</span>
           <div className="grid grid-cols-2 gap-1.5">
             {[
               { type: 'none', label: 'Sạch hoàn toàn' },
@@ -185,10 +185,10 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
                     dischargeType: item.type as DailyCycleLog['dischargeType'],
                     dischargeLabel: item.label
                   })}
-                  className={`p-2 rounded-lg text-left font-medium transition-colors cursor-pointer border text-xs ${
+                  className={`p-2.5 rounded-xl text-left font-medium transition-all cursor-pointer border text-xs ${
                     isSelected
-                      ? 'bg-rose-500/20 border-rose-500 text-rose-200 font-bold'
-                      : 'bg-slate-900 border-slate-700 text-slate-300 hover:bg-slate-700/60'
+                      ? 'bg-pink-500 border-pink-500 text-white font-bold shadow-xs'
+                      : 'bg-white border-pink-200 text-[#6a4c46] hover:bg-pink-50'
                   }`}
                 >
                   {item.label}
@@ -202,13 +202,13 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
               placeholder="Hoặc nhập trường hợp khác..."
               value={quickEditLog.dischargeLabel || ''}
               onChange={(e) => setQuickEditLog({ ...quickEditLog, dischargeLabel: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-rose-500 text-xs"
+              className="w-full px-3 py-2 rounded-xl bg-[#fff8f9] border border-pink-200 text-[#4a4c46] placeholder:text-pink-300 focus:outline-none focus:border-pink-400 text-xs"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <span className="text-slate-200 font-bold text-xs block">Mức độ đau:</span>
+          <span className="text-[#6a4c46] font-bold text-xs block font-comfortaa">Mức độ đau:</span>
           <div className="grid grid-cols-4 gap-1.5">
             {[
               { level: 'none', label: 'Không' },
@@ -222,10 +222,10 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
                   key={p.level}
                   type="button"
                   onClick={() => setQuickEditLog({ ...quickEditLog, painLevel: p.level as DailyCycleLog['painLevel'] })}
-                  className={`py-2 rounded-lg font-bold transition-colors text-center cursor-pointer border text-xs ${
+                  className={`py-2 rounded-xl font-bold transition-all text-center cursor-pointer border text-xs ${
                     isSelected
-                      ? 'bg-amber-500 text-slate-950 border-amber-400'
-                      : 'bg-slate-900 border-slate-700 text-slate-300 hover:bg-slate-700/60'
+                      ? 'bg-amber-400 text-amber-950 border-amber-400 shadow-xs'
+                      : 'bg-white border-pink-200 text-[#6a4c46] hover:bg-pink-50'
                   }`}
                 >
                   {p.label}
@@ -239,7 +239,7 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
               placeholder="Mô tả đau chi tiết (VD: Căng đau ngực, mỏi lưng...)"
               value={quickEditLog.painDescription || ''}
               onChange={(e) => setQuickEditLog({ ...quickEditLog, painDescription: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs"
+              className="w-full px-3 py-2 rounded-xl bg-[#fff8f9] border border-pink-200 text-[#4a4c46] placeholder:text-pink-300 focus:outline-none focus:border-pink-400 text-xs"
             />
           </div>
         </div>
@@ -247,7 +247,7 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
 
       {/* 3. SYMPTOMS SELECT */}
       <div className="space-y-1.5">
-        <span className="text-slate-200 font-bold text-xs block">Triệu chứng (Click để chọn/bỏ):</span>
+        <span className="text-[#6a4c46] font-bold text-xs block font-comfortaa">Triệu chứng (Click để chọn/bỏ):</span>
         <div className="flex flex-wrap gap-1.5">
           {[
             'Căng đau vú PMS',
@@ -265,10 +265,10 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
                 key={tag}
                 type="button"
                 onClick={() => handleToggleSymptom(tag)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer border ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border ${
                   isSelected
-                    ? 'bg-rose-500 text-white border-rose-400 font-bold'
-                    : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-700/60'
+                    ? 'bg-pink-500 text-white border-pink-500 font-bold shadow-xs'
+                    : 'bg-white text-[#6a4c46] border-pink-200 hover:bg-pink-50'
                 }`}
               >
                 {isSelected ? '✓ ' : '+ '}{tag}
@@ -290,10 +290,10 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
               key={tag}
               type="button"
               onClick={() => handleToggleSymptom(tag)}
-              className="px-2.5 py-1 rounded-lg text-xs font-medium bg-rose-950/60 text-rose-300 border-rose-700/60 font-bold flex items-center gap-1 cursor-pointer"
+              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-pink-100 text-pink-900 border-pink-300 font-bold flex items-center gap-1 cursor-pointer"
             >
               <span>✓ {tag}</span>
-              <X className="w-3.5 h-3.5 text-rose-400 hover:text-slate-100" />
+              <X className="w-3.5 h-3.5 text-pink-700 hover:text-pink-900" />
             </button>
           ))}
         </div>
@@ -310,12 +310,12 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
                 handleAddCustomSymptom();
               }
             }}
-            className="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-rose-500 text-xs"
+            className="flex-1 px-3 py-2 rounded-xl bg-[#fff8f9] border border-pink-200 text-[#4a4c46] placeholder:text-pink-300 focus:outline-none focus:border-pink-400 text-xs"
           />
           <button
             type="button"
             onClick={handleAddCustomSymptom}
-            className="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-rose-300 font-bold text-xs border border-slate-600 cursor-pointer flex items-center gap-1"
+            className="px-4 py-2 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-700 font-bold text-xs border border-pink-200 cursor-pointer flex items-center gap-1"
           >
             <Plus className="w-3.5 h-3.5" /> Thêm
           </button>
@@ -324,19 +324,19 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
 
       {/* 4. INTIMACY (ADULT ONLY) */}
       {isAdult && (
-        <div className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-600/30 space-y-2.5">
+        <div className="p-4 rounded-2xl bg-pink-50/80 border border-pink-200 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-rose-300 font-bold flex items-center gap-1.5 text-xs">
-              <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" />
+            <span className="text-pink-800 font-bold flex items-center gap-1.5 text-xs font-comfortaa">
+              <Heart className="w-3.5 h-3.5 text-pink-500 fill-pink-500" />
               <span>Sinh hoạt vợ chồng:</span>
             </span>
             <button
               type="button"
               onClick={() => setQuickEditLog({ ...quickEditLog, hasIntercourse: !quickEditLog.hasIntercourse })}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition-colors cursor-pointer border ${
+              className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
                 quickEditLog.hasIntercourse
-                  ? 'bg-rose-500 text-white border-rose-400'
-                  : 'bg-slate-900 text-slate-400 border-slate-700'
+                  ? 'bg-pink-500 text-white border-pink-500 shadow-xs'
+                  : 'bg-white text-[#6a4c46] border-pink-200'
               }`}
             >
               {quickEditLog.hasIntercourse ? '❤️ Có ghi nhận' : 'Không'}
@@ -344,15 +344,15 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
           </div>
 
           {quickEditLog.hasIntercourse && (
-            <div className="space-y-2 pt-2 border-t border-rose-900/40">
+            <div className="space-y-2 pt-2 border-t border-pink-200">
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label htmlFor="intercourse_count" className="text-[11px] text-slate-400 block">Số lần trong ngày:</label>
+                  <label htmlFor="intercourse_count" className="text-[11px] text-[#6a4c46]/70 block">Số lần trong ngày:</label>
                   <select
                     id="intercourse_count"
                     value={quickEditLog.intercourseCount || 1}
                     onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseCount: Number(e.target.value) })}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 text-xs mt-0.5"
+                    className="w-full px-3 py-1.5 rounded-xl bg-white border border-pink-200 text-[#4a4c46] text-xs mt-0.5"
                   >
                     <option value={1}>1 lần</option>
                     <option value={2}>2 lần</option>
@@ -362,12 +362,12 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
                 </div>
 
                 <div>
-                  <label htmlFor="intercourse_protection" className="text-[11px] text-slate-400 block">Biện pháp bảo vệ:</label>
+                  <label htmlFor="intercourse_protection" className="text-[11px] text-[#6a4c46]/70 block">Biện pháp bảo vệ:</label>
                   <select
                     id="intercourse_protection"
                     value={quickEditLog.intercourseProtection || 'protected'}
                     onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseProtection: e.target.value as DailyCycleLog['intercourseProtection'] })}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 text-xs mt-0.5"
+                    className="w-full px-3 py-1.5 rounded-xl bg-white border border-pink-200 text-[#4a4c46] text-xs mt-0.5"
                   >
                     <option value="protected">Có bảo vệ (Bao cao su)</option>
                     <option value="unprotected">Không bảo vệ</option>
@@ -377,12 +377,12 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
               </div>
 
               <div className="flex items-center justify-between pt-1">
-                <label className="text-slate-300 text-xs flex items-center gap-2 cursor-pointer">
+                <label className="text-[#4a4c46] text-xs flex items-center gap-2 cursor-pointer font-medium">
                   <input
                     type="checkbox"
                     checked={Boolean(quickEditLog.intercourseOrgasm)}
                     onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseOrgasm: e.target.checked })}
-                    className="rounded bg-slate-900 border-slate-700 text-rose-500 focus:ring-rose-500"
+                    className="rounded text-pink-500 focus:ring-pink-400 border-pink-300"
                   />
                   <span>Có đạt cực khoái (Orgasm)</span>
                 </label>
@@ -394,7 +394,7 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
                   placeholder="Ghi chú thêm: VD: Có dính cam nhẹ sau sinh hoạt..."
                   value={quickEditLog.intercourseNote || ''}
                   onChange={(e) => setQuickEditLog({ ...quickEditLog, intercourseNote: e.target.value })}
-                  className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 text-xs"
+                  className="w-full px-3 py-1.5 rounded-xl bg-white border border-pink-200 text-[#4a4c46] placeholder:text-pink-300 text-xs"
                 />
               </div>
             </div>
@@ -403,17 +403,17 @@ export const QuickEditDrawer: React.FC<QuickEditDrawerProps> = ({
       )}
 
       {/* Form Action Buttons */}
-      <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-700/60">
+      <div className="flex items-center justify-end gap-2 pt-3 border-t border-pink-100">
         <button
           type="button"
           onClick={onCancel}
-          className="px-3.5 py-2 rounded-xl bg-slate-700 text-slate-300 hover:bg-slate-600 cursor-pointer text-xs font-semibold"
+          className="px-4 py-2 rounded-2xl bg-pink-50 text-[#6a4c46] hover:bg-pink-100 cursor-pointer text-xs font-bold"
         >
           Hủy Bỏ
         </button>
         <button
           type="submit"
-          className="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold flex items-center gap-1.5 cursor-pointer shadow-xs text-xs"
+          className="px-5 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold flex items-center gap-1.5 cursor-pointer shadow-xs text-xs font-comfortaa"
         >
           <Save className="w-4 h-4" />
           <span>Lưu Nhật Ký Ngày</span>

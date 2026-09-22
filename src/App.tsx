@@ -110,12 +110,12 @@ export function App() {
   // 1. Loading screen while checking initial session
   if (isAuthChecking) {
     return (
-      <div className="min-h-screen bg-slate-900 text-slate-300 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#fcf7f8] text-[#6a4c46] flex items-center justify-center p-4">
         <div className="text-center space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 mx-auto flex items-center justify-center text-rose-400">
-            <Heart className="w-6 h-6 fill-rose-400/20 animate-pulse" />
+          <div className="w-12 h-12 rounded-2xl bg-white border border-[#f8bbd0] shadow-sm mx-auto flex items-center justify-center text-pink-500">
+            <Heart className="w-6 h-6 fill-pink-400/30 animate-pulse" />
           </div>
-          <p className="text-xs text-slate-400 font-medium">Đang kiểm tra phiên đăng nhập...</p>
+          <p className="text-xs text-[#6a4c46]/80 font-medium">Đang kiểm tra phiên đăng nhập...</p>
         </div>
       </div>
     );
@@ -124,31 +124,32 @@ export function App() {
   // 2. Auth Gate: Require Google Login
   if (!user) {
     return (
-      <div className="min-h-screen bg-slate-900 text-slate-300 flex flex-col justify-between selection:bg-rose-500/30 selection:text-rose-200 p-4 sm:p-6">
+      <div className="min-h-screen bg-[#fcf7f8] text-[#4a4c46] flex flex-col justify-between selection:bg-pink-200 selection:text-pink-900 p-4 sm:p-6">
         {/* Top minimal header */}
-        <header className="max-w-md w-full mx-auto flex items-center gap-2 text-xs text-slate-400 pt-2">
-          <div className="p-1.5 rounded-lg bg-slate-800 border border-slate-700 text-rose-400">
-            <Heart className="w-4 h-4 fill-rose-400/20" />
+        <header className="max-w-md w-full mx-auto flex items-center gap-2 text-xs text-[#6a4c46] pt-2">
+          <div className="p-1.5 rounded-lg bg-pink-100 border border-pink-200 text-pink-600">
+            <Heart className="w-4 h-4 fill-pink-400/30" />
           </div>
-          <span className="font-semibold text-slate-300">Nhật Ký Chu Kỳ Kinh Nguyệt</span>
+          <span className="font-semibold text-[#6a4c46] font-comfortaa">FemInsight • Nhật Ký Chu Kỳ Kinh Nguyệt</span>
         </header>
 
         {/* Center Login Box */}
         <main className="max-w-md w-full mx-auto my-auto py-8">
-          <div className="p-6 sm:p-8 rounded-3xl bg-slate-800/40 border border-slate-700/60 shadow-xl space-y-6 text-center">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#f8bbd0] shadow-md space-y-6 text-center">
             
-            <div className="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700/80 mx-auto flex items-center justify-center text-rose-400 shadow-sm">
-              <Heart className="w-8 h-8 fill-rose-400/20" />
+            <div className="w-16 h-16 rounded-2xl bg-pink-50 border border-pink-200 mx-auto flex items-center justify-center text-pink-500 shadow-sm">
+              <Heart className="w-8 h-8 fill-pink-400/30" />
             </div>
 
             <div className="space-y-1">
-              <h2 className="text-xl font-bold text-slate-100">Theo Dõi Chu Kỳ Kinh Nguyệt</h2>
+              <h2 className="text-xl font-bold text-[#6a4c46] font-comfortaa">Theo Dõi Chu Kỳ Kinh Nguyệt</h2>
+              <p className="text-xs text-[#6a4c46]/70">Theo dõi sức khỏe sinh lý phụ nữ nhẹ nhàng & riêng tư</p>
             </div>
 
             {/* Error Message if any */}
             {authError && (
-              <div className="p-3 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-200 text-xs text-left flex items-start gap-2">
-                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+              <div className="p-3 rounded-xl bg-pink-50 border border-pink-300 text-pink-800 text-xs text-left flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 text-pink-600 shrink-0 mt-0.5" />
                 <div>{authError}</div>
               </div>
             )}
@@ -157,9 +158,9 @@ export function App() {
             <button
               onClick={handleGoogleLogin}
               disabled={isAuthLoading}
-              className="w-full py-3 px-4 rounded-xl bg-slate-700/80 hover:bg-slate-700 text-slate-100 font-semibold text-xs sm:text-sm flex items-center justify-center gap-3 transition-all cursor-pointer border border-slate-600/70 shadow-sm disabled:opacity-50"
+              className="w-full py-3 px-4 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-3 transition-all cursor-pointer shadow-sm disabled:opacity-50"
             >
-              <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 shrink-0 bg-white rounded-full p-0.5" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -183,8 +184,8 @@ export function App() {
         </main>
 
         {/* Footer */}
-        <footer className="max-w-md w-full mx-auto text-center text-[11px] text-slate-600 pb-2">
-          Menstrual Cycle Tracker
+        <footer className="max-w-md w-full mx-auto text-center text-[11px] text-[#6a4c46]/60 pb-2 font-comfortaa">
+          FemInsight • Menstrual Cycle Tracker
         </footer>
       </div>
     );
@@ -192,62 +193,62 @@ export function App() {
 
   // 3. Main Authenticated App Screen
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-300 flex flex-col selection:bg-rose-500/30 selection:text-rose-200">
+    <div className="min-h-screen bg-[#fcf7f8] text-[#4a4c46] flex flex-col selection:bg-pink-200 selection:text-pink-900">
       {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-8 py-3">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-pink-100 px-4 sm:px-8 py-3 shadow-xs">
         <div className="max-w-[1650px] w-full mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-slate-800 border border-slate-700 text-rose-400">
-              <Heart className="w-5 h-5 fill-rose-400/20" />
+            <div className="p-2 rounded-2xl bg-pink-100 border border-pink-200 text-pink-600 shadow-xs">
+              <Heart className="w-5 h-5 fill-pink-400/40 text-pink-600" />
             </div>
             <div>
-              <h1 className="text-base sm:text-lg font-bold text-slate-100 tracking-tight flex items-center gap-2">
-                <span>Nhật Ký & Chu Kỳ Kinh Nguyệt</span>
+              <h1 className="text-base sm:text-lg font-bold text-[#6a4c46] tracking-tight flex items-center gap-2 font-comfortaa">
+                <span>FemInsight • Nhật Ký Chu Kỳ Kinh Nguyệt</span>
               </h1>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Download backup button (Icon only, no text) */}
+            {/* Download backup button */}
             <button
               onClick={handleExportData}
               title="Tải xuống toàn bộ dữ liệu (JSON)"
-              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-slate-100 border border-slate-700 transition-all cursor-pointer shadow-sm"
+              className="p-2 rounded-xl bg-pink-50 hover:bg-pink-100 text-[#6a4c46] border border-pink-200 transition-all cursor-pointer shadow-xs"
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-4 h-4 text-pink-600" />
             </button>
 
             {/* User Profile Trigger Button */}
-            <div className="flex items-center gap-1.5 bg-slate-800/80 border border-slate-700/80 rounded-xl p-1">
+            <div className="flex items-center gap-1.5 bg-pink-50/80 border border-pink-200 rounded-2xl p-1">
               <button
                 onClick={() => setIsProfileModalOpen(true)}
                 title="Xem và chỉnh sửa hồ sơ phụ nữ / ngày sinh"
-                className="flex items-center gap-2 hover:bg-slate-700/60 rounded-lg px-2 py-0.5 transition-all cursor-pointer text-left"
+                className="flex items-center gap-2 hover:bg-white rounded-xl px-2 py-1 transition-all cursor-pointer text-left"
               >
                 {userAvatar ? (
-                  <img src={userAvatar} alt="Avatar" className="w-6 h-6 rounded-full border border-slate-600 object-cover" />
+                  <img src={userAvatar} alt="Avatar" className="w-6 h-6 rounded-full border border-pink-300 object-cover" />
                 ) : (
-                  <div className="w-6 h-6 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-xs font-bold">
-                    <UserIcon className="w-3.5 h-3.5 text-slate-300" />
+                  <div className="w-6 h-6 rounded-full bg-pink-200 text-pink-800 flex items-center justify-center text-xs font-bold">
+                    <UserIcon className="w-3.5 h-3.5 text-pink-700" />
                   </div>
                 )}
                 <div className="hidden md:block text-left text-[11px] leading-tight pr-1">
-                  <div className="font-semibold text-slate-200 flex items-center gap-1">
+                  <div className="font-bold text-[#6a4c46] flex items-center gap-1">
                     <span>{userDisplayName}</span>
                     {userAge !== null && (
-                      <span className="text-[10px] text-rose-300 font-bold bg-rose-500/20 px-1 rounded">
+                      <span className="text-[10px] text-pink-700 font-bold bg-pink-200 px-1 rounded-full">
                         {userAge}t
                       </span>
                     )}
                   </div>
-                  <div className="text-[10px] text-slate-400 truncate max-w-[130px]">{user.email}</div>
+                  <div className="text-[10px] text-[#6a4c46]/70 truncate max-w-[130px]">{user.email}</div>
                 </div>
               </button>
 
               <button
                 onClick={handleLogout}
                 title="Đăng xuất khỏi Google"
-                className="p-1 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-700/60 transition-colors cursor-pointer"
+                className="p-1.5 rounded-xl text-[#6a4c46]/70 hover:text-pink-600 hover:bg-white transition-colors cursor-pointer"
               >
                 <LogOut className="w-3.5 h-3.5" />
               </button>
@@ -270,10 +271,10 @@ export function App() {
       />
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 py-4 px-4 sm:px-8 text-center text-xs text-slate-500">
+      <footer className="bg-white/60 border-t border-pink-100 py-4 px-4 sm:px-8 text-center text-xs text-[#6a4c46]/70">
         <div className="max-w-[1650px] w-full mx-auto flex items-center justify-center">
-          <div className="text-slate-500 font-mono text-[11px]">
-            Menstrual Cycle Tracker
+          <div className="font-comfortaa text-[11px]">
+            FemInsight • Nhật Ký Chu Kỳ Kinh Nguyệt & Nhịp Sinh Lý Phụ Nữ
           </div>
         </div>
       </footer>

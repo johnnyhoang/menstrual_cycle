@@ -132,19 +132,19 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
     <div className="w-full space-y-6 my-4 font-sans">
       {/* Notification Toast */}
       {notification && (
-        <div className={`fixed top-16 right-4 z-50 p-4 rounded-xl shadow-lg border flex items-center gap-3 animate-in slide-in-from-top-4 duration-200 ${
-          notification.type === 'success' ? 'bg-slate-800 border-slate-600 text-slate-100' :
-          notification.type === 'error' ? 'bg-rose-950 border-rose-600 text-rose-100' :
-          'bg-slate-800 border-slate-600 text-slate-200'
+        <div className={`fixed top-16 right-4 z-50 p-4 rounded-2xl shadow-md border flex items-center gap-3 animate-in slide-in-from-top-4 duration-200 ${
+          notification.type === 'success' ? 'bg-white border-[#f8bbd0] text-[#6a4c46]' :
+          notification.type === 'error' ? 'bg-pink-50 border-pink-400 text-pink-900' :
+          'bg-white border-[#f8bbd0] text-[#6a4c46]'
         }`}>
-          <CheckCircle2 className="w-5 h-5 text-rose-400 shrink-0" />
-          <span className="text-xs sm:text-sm font-medium">{notification.message}</span>
+          <CheckCircle2 className="w-5 h-5 text-pink-500 shrink-0" />
+          <span className="text-xs sm:text-sm font-semibold">{notification.message}</span>
           <button 
             onClick={() => setNotification(null)} 
-            className="p-1 hover:bg-slate-700 rounded cursor-pointer"
+            className="p-1 hover:bg-pink-100 rounded-lg cursor-pointer transition-colors"
             aria-label="Đóng thông báo"
           >
-            <X className="w-4 h-4 text-slate-400" />
+            <X className="w-4 h-4 text-[#6a4c46]" />
           </button>
         </div>
       )}
@@ -153,41 +153,41 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
       <StatsHeader dynamicStats={dynamicStats} />
 
       {/* Navigation Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-2 p-1.5 bg-slate-800/80 rounded-xl border border-slate-700/80">
+      <div className="flex flex-wrap items-center justify-between gap-2 p-1.5 bg-pink-50/80 rounded-2xl border border-pink-200/80 shadow-xs">
         <div className="grid grid-cols-3 gap-1.5 flex-1">
           <button
             onClick={() => setActiveTab('calendar')}
-            className={`py-2 px-3 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer ${
+            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer font-comfortaa ${
               activeTab === 'calendar'
-                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-xs'
-                : 'text-slate-400 hover:text-slate-100 hover:bg-slate-700/50'
+                ? 'bg-white text-[#6a4c46] border border-[#f8bbd0] shadow-xs'
+                : 'text-[#6a4c46]/70 hover:text-[#6a4c46] hover:bg-white/60'
             }`}
           >
-            <CalendarDays className="w-4 h-4" />
+            <CalendarDays className="w-4 h-4 text-pink-500" />
             <span>Lịch Tháng</span>
           </button>
 
           <button
             onClick={() => setActiveTab('tree_view')}
-            className={`py-2 px-3 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer ${
+            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer font-comfortaa ${
               activeTab === 'tree_view'
-                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-xs'
-                : 'text-slate-400 hover:text-slate-100 hover:bg-slate-700/50'
+                ? 'bg-white text-[#6a4c46] border border-[#f8bbd0] shadow-xs'
+                : 'text-[#6a4c46]/70 hover:text-[#6a4c46] hover:bg-white/60'
             }`}
           >
-            <GitBranch className="w-4 h-4" />
+            <GitBranch className="w-4 h-4 text-pink-500" />
             <span>Chu Kỳ & Nhật Ký</span>
           </button>
 
           <button
             onClick={() => setActiveTab('medical_decoder')}
-            className={`py-2 px-3 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer ${
+            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer font-comfortaa ${
               activeTab === 'medical_decoder'
-                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-xs'
-                : 'text-slate-400 hover:text-slate-100 hover:bg-slate-700/50'
+                ? 'bg-white text-[#6a4c46] border border-[#f8bbd0] shadow-xs'
+                : 'text-[#6a4c46]/70 hover:text-[#6a4c46] hover:bg-white/60'
             }`}
           >
-            <Microscope className="w-4 h-4" />
+            <Microscope className="w-4 h-4 text-pink-500" />
             <span>Giải Mã 4 Pha Sinh Lý</span>
           </button>
         </div>
@@ -195,11 +195,11 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
 
       {/* Loading Skeleton */}
       {isLoading && (
-        <div className="p-8 rounded-xl bg-slate-800/40 border border-slate-700/60 text-center space-y-3">
-          <div className="w-8 h-8 rounded-full bg-slate-700 animate-pulse mx-auto flex items-center justify-center text-rose-400">
-            <Heart className="w-4 h-4 fill-rose-400/20" />
+        <div className="p-8 rounded-2xl bg-white border border-[#f8bbd0] text-center space-y-3 shadow-xs">
+          <div className="w-8 h-8 rounded-full bg-pink-100 animate-pulse mx-auto flex items-center justify-center text-pink-500">
+            <Heart className="w-4 h-4 fill-pink-400/40" />
           </div>
-          <p className="text-xs text-slate-400">Đang đồng bộ dữ liệu với cơ sở dữ liệu...</p>
+          <p className="text-xs text-[#6a4c46]">Đang đồng bộ dữ liệu với cơ sở dữ liệu...</p>
         </div>
       )}
 
@@ -208,14 +208,14 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
         <>
           {activeTab === 'calendar' && (
             isQuickEditing ? (
-              <div className="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 shadow-sm">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-700/60 mb-4">
-                  <h3 className="font-bold text-slate-100 text-sm sm:text-base">
+              <div className="bg-white border border-[#f8bbd0] rounded-3xl p-5 sm:p-6 shadow-sm">
+                <div className="flex items-center justify-between pb-3 border-b border-pink-100 mb-4">
+                  <h3 className="font-bold text-[#6a4c46] text-sm sm:text-base font-comfortaa">
                     Ghi Nhật Ký Cho Ngày {selectedCalendarDateStr}
                   </h3>
                   <button
                     onClick={() => setIsQuickEditing(false)}
-                    className="p-1 rounded text-slate-400 hover:text-slate-100 cursor-pointer"
+                    className="p-1 rounded-lg text-[#6a4c46] hover:bg-pink-50 cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>

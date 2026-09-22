@@ -149,59 +149,59 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-xl w-full p-5 sm:p-6 space-y-5 shadow-2xl animate-in zoom-in-95 duration-200 my-8 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white border border-[#f8bbd0] rounded-3xl max-w-xl w-full p-5 sm:p-6 space-y-5 shadow-2xl animate-in zoom-in-95 duration-200 my-8 max-h-[90vh] overflow-y-auto text-[#4a4c46]">
         
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="flex items-center justify-between border-b border-pink-100 pb-3">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 text-white shadow-md shadow-rose-500/20">
-              <User className="w-5 h-5" />
+            <div className="p-2.5 rounded-2xl bg-pink-100 text-pink-600 border border-pink-200 shadow-xs">
+              <User className="w-5 h-5 text-pink-600" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base sm:text-lg">
+              <h3 className="font-bold text-[#6a4c46] text-base sm:text-lg font-comfortaa">
                 Hồ Sơ Sức Khỏe Phụ Nữ
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#6a4c46]/70">
                 Thông số sinh học và tiền sử sức khỏe cá nhân
               </p>
             </div>
           </div>
           <button 
             onClick={onClose} 
-            className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white cursor-pointer transition-colors"
+            className="p-1.5 rounded-xl bg-pink-50 text-[#6a4c46] hover:bg-pink-100 cursor-pointer transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSave} className="space-y-4 text-xs">
+        <form onSubmit={handleSave} className="space-y-4 text-xs sm:text-sm">
 
           {/* 1. THÔNG TIN CƠ BẢN & NGÀY SINH */}
-          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
-            <div className="text-[11px] font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
+          <div className="p-4 rounded-2xl bg-[#fff8f9] border border-pink-100 space-y-3">
+            <div className="text-[11px] font-bold text-pink-700 uppercase tracking-wider flex items-center gap-1.5 font-comfortaa">
               <User className="w-3.5 h-3.5" />
               <span>1. Thông Tin Cá Nhân & Ngày Sinh</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-slate-300 font-bold">Họ và tên hiển thị:</label>
+                <label className="text-[#6a4c46] font-bold font-comfortaa">Họ và tên hiển thị:</label>
                 <input
                   type="text"
                   required
                   placeholder="Họ và tên của bạn"
                   value={profile.fullName}
                   onChange={(e) => setProfile({ ...profile, fullName: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-rose-500"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 text-[#4a4c46] font-medium focus:outline-none focus:border-pink-400"
                 />
               </div>
 
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
-                  <label className="text-slate-300 font-bold">Ngày tháng năm sinh:</label>
+                  <label className="text-[#6a4c46] font-bold font-comfortaa">Ngày tháng năm sinh:</label>
                   {userAge !== null && (
-                    <span className="text-[10px] text-rose-300 font-bold bg-rose-500/20 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] text-pink-800 font-bold bg-pink-100 px-2 py-0.5 rounded-full">
                       {userAge} tuổi
                     </span>
                   )}
@@ -211,7 +211,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   placeholder="DD/MM/YYYY (VD: 15/08/1985)"
                   value={profile.birthDate}
                   onChange={(e) => setProfile({ ...profile, birthDate: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-rose-500"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 text-[#4a4c46] font-medium focus:outline-none focus:border-pink-400"
                 />
               </div>
             </div>
@@ -219,38 +219,38 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             {/* Chiều cao, cân nặng, nhóm máu */}
             <div className="grid grid-cols-3 gap-2 pt-1">
               <div className="space-y-1">
-                <label className="text-slate-400 font-medium">Chiều cao (cm):</label>
+                <label className="text-[#6a4c46]/70 font-semibold">Chiều cao (cm):</label>
                 <input
                   type="number"
                   placeholder="160"
                   value={profile.heightCm || ''}
                   onChange={(e) => setProfile({ ...profile, heightCm: e.target.value ? Number(e.target.value) : undefined })}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs"
+                  className="w-full px-2.5 py-1.5 rounded-xl bg-white border border-pink-200 text-[#4a4c46] text-xs"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-slate-400 font-medium">Cân nặng (kg):</label>
+                <label className="text-[#6a4c46]/70 font-semibold">Cân nặng (kg):</label>
                 <input
                   type="number"
                   placeholder="52"
                   value={profile.weightKg || ''}
                   onChange={(e) => setProfile({ ...profile, weightKg: e.target.value ? Number(e.target.value) : undefined })}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs"
+                  className="w-full px-2.5 py-1.5 rounded-xl bg-white border border-pink-200 text-[#4a4c46] text-xs"
                 />
               </div>
 
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
-                  <label className="text-slate-400 font-medium">Nhóm máu:</label>
+                  <label className="text-[#6a4c46]/70 font-semibold">Nhóm máu:</label>
                   {userBMI !== null && (
-                    <span className="text-[9px] text-slate-400">BMI: {userBMI}</span>
+                    <span className="text-[9px] text-[#6a4c46]/70">BMI: {userBMI}</span>
                   )}
                 </div>
                 <select
                   value={profile.bloodType || 'O'}
                   onChange={(e) => setProfile({ ...profile, bloodType: e.target.value })}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs"
+                  className="w-full px-2.5 py-1.5 rounded-xl bg-white border border-pink-200 text-[#4a4c46] text-xs"
                 >
                   <option value="A">Nhóm máu A</option>
                   <option value="B">Nhóm máu B</option>
@@ -263,65 +263,65 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           </div>
 
           {/* 2. THÔNG SỐ CHU KỲ KINH NGUYỆT CƠ SỞ */}
-          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
-            <div className="text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+          <div className="p-4 rounded-2xl bg-[#fff8f9] border border-pink-100 space-y-3">
+            <div className="text-[11px] font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5 font-comfortaa">
               <Activity className="w-3.5 h-3.5" />
               <span>2. Thông Số Chu Kỳ Sinh Lý Cơ Sở</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="space-y-1">
-                <label className="text-slate-300 font-bold">Chu kỳ TB (ngày):</label>
+                <label className="text-[#6a4c46] font-bold font-comfortaa">Chu kỳ TB (ngày):</label>
                 <input
                   type="number"
                   min={15}
                   max={90}
                   value={profile.averageCycleDays || 35}
                   onChange={(e) => setProfile({ ...profile, averageCycleDays: Number(e.target.value) })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 text-[#4a4c46] font-medium focus:outline-none focus:border-amber-400"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-slate-300 font-bold">Hành kinh TB (ngày):</label>
+                <label className="text-[#6a4c46] font-bold font-comfortaa">Hành kinh TB (ngày):</label>
                 <input
                   type="number"
                   min={1}
                   max={15}
                   value={profile.averagePeriodDays || 5}
                   onChange={(e) => setProfile({ ...profile, averagePeriodDays: Number(e.target.value) })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 text-[#4a4c46] font-medium focus:outline-none focus:border-amber-400"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-slate-300 font-bold">Tuổi có kinh lần đầu:</label>
+                <label className="text-[#6a4c46] font-bold font-comfortaa">Tuổi có kinh lần đầu:</label>
                 <input
                   type="number"
                   min={9}
                   max={20}
                   value={profile.menarcheAge || 13}
                   onChange={(e) => setProfile({ ...profile, menarcheAge: Number(e.target.value) })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 text-[#4a4c46] font-medium focus:outline-none focus:border-amber-400"
                 />
               </div>
             </div>
           </div>
 
           {/* 3. TIỀN SỬ SẢN PHỤ KHOA & MỤC TIÊU */}
-          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
-            <div className="text-[11px] font-bold text-teal-400 uppercase tracking-wider flex items-center gap-1.5">
+          <div className="p-4 rounded-2xl bg-[#fff8f9] border border-pink-100 space-y-3">
+            <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5 font-comfortaa">
               <Stethoscope className="w-3.5 h-3.5" />
               <span>3. Tiền Sử Sản Phụ Khoa & Mục Tiêu Theo Dõi</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-slate-300 font-bold">Tiền sử sinh nở:</label>
+                <label className="text-[#6a4c46] font-bold font-comfortaa">Tiền sử sinh nở:</label>
                 <select
                   value={profile.obstetricHistory || 'Đã sinh con'}
                   onChange={(e) => setProfile({ ...profile, obstetricHistory: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-teal-500"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 text-[#4a4c46] font-medium focus:outline-none focus:border-emerald-400"
                 >
                   <option value="Chưa từng sinh con">Chưa từng sinh con</option>
                   <option value="Sinh thường 1 con">Sinh thường 1 con</option>
@@ -334,11 +334,11 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               </div>
 
               <div className="space-y-1">
-                <label className="text-slate-300 font-bold">Mục tiêu theo dõi chính:</label>
+                <label className="text-[#6a4c46] font-bold font-comfortaa">Mục tiêu theo dõi chính:</label>
                 <select
                   value={profile.trackingGoal || 'Theo dõi sức khỏe sinh sản định kỳ'}
                   onChange={(e) => setProfile({ ...profile, trackingGoal: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-teal-500"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 text-[#4a4c46] font-medium focus:outline-none focus:border-emerald-400"
                 >
                   <option value="Theo dõi sức khỏe sinh sản định kỳ">Theo dõi sức khỏe sinh sản định kỳ</option>
                   <option value="Tránh thai tự nhiên">Tránh thai tự nhiên</option>
@@ -350,23 +350,23 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </div>
 
             <div className="space-y-1">
-              <label className="text-slate-300 font-bold">Tiền sử bệnh lý / Can thiệp phụ khoa (nếu có):</label>
+              <label className="text-[#6a4c46] font-bold font-comfortaa">Tiền sử bệnh lý / Can thiệp phụ khoa (nếu có):</label>
               <textarea
                 rows={2}
                 placeholder="VD: Từng sinh thiết Pipelle, u nang buồng trứng lành tính, đa nang buồng trứng PCOS..."
                 value={profile.gynecologicalNotes || ''}
                 onChange={(e) => setProfile({ ...profile, gynecologicalNotes: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 text-xs"
+                className="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 text-[#4a4c46] placeholder:text-pink-300 focus:outline-none focus:border-emerald-400 text-xs"
               />
             </div>
           </div>
 
           {/* Footer actions */}
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-pink-100">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 cursor-pointer"
+              className="px-4 py-2 rounded-2xl bg-pink-50 text-[#6a4c46] hover:bg-pink-100 cursor-pointer font-bold"
             >
               Đóng
             </button>
@@ -374,7 +374,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             <button
               type="submit"
               disabled={isSaving}
-              className="px-5 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold flex items-center gap-2 cursor-pointer shadow-md shadow-rose-500/20 disabled:opacity-50"
+              className="px-5 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold flex items-center gap-2 cursor-pointer shadow-xs disabled:opacity-50 font-comfortaa"
             >
               {saveSuccess ? (
                 <>
