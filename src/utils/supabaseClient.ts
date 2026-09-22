@@ -72,10 +72,12 @@ export async function signInWithGoogle(): Promise<{ error: string | null }> {
   }
 
   try {
+    // Explicit redirect target to guarantee exact sub-app return path
+    const redirectTarget = import.meta.env.VITE_SITE_URL || `${window.location.origin}${window.location.pathname}`;
     const { error } = await client.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin
+        redirectTo: redirectTarget
       }
     });
 
