@@ -72,12 +72,12 @@ export async function signInWithGoogle(): Promise<{ error: string | null }> {
   }
 
   try {
-    // Explicit redirect target to guarantee exact sub-app return path
+    // Explicit redirect target to guarantee exact sub-app return path (strip trailing slash for exact Supabase matching)
     let rawSiteUrl = import.meta.env.VITE_SITE_URL ? import.meta.env.VITE_SITE_URL.trim() : '';
     if (rawSiteUrl && !/^https?:\/\//i.test(rawSiteUrl)) {
       rawSiteUrl = `https://${rawSiteUrl}`;
     }
-    const redirectTarget = rawSiteUrl || `${window.location.origin}${window.location.pathname}`;
+    const redirectTarget = (rawSiteUrl || window.location.origin).replace(/\/+$/, '');
 
     const { error } = await client.auth.signInWithOAuth({
       provider: 'google',
