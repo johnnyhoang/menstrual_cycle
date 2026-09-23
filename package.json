@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db:seed": "tsx scripts/seed-mock-data.ts",
+    "db:clean": "tsx scripts/clean-db.ts",
+    "db:reset": "npm run db:clean && npm run db:seed"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
