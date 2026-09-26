@@ -20,9 +20,10 @@ import {
 
 interface MenstrualCycleTrackerSectionProps {
   userProfile?: UserProfile | null;
+  userId?: string | null;
 }
 
-export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSectionProps> = ({ userProfile }) => {
+export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSectionProps> = ({ userProfile, userId }) => {
   const {
     isAdult,
     isLoading,
@@ -36,7 +37,7 @@ export const MenstrualCycleTrackerSection: React.FC<MenstrualCycleTrackerSection
     deleteLogForDay,
     saveCycle,
     deleteCycle
-  } = useMenstrualTracker(userProfile);
+  } = useMenstrualTracker(userProfile, userId);
 
   // Active Main Tab: 'calendar' | 'tree_view' | 'medical_decoder'
   const [activeTab, setActiveTab] = useState<'calendar' | 'tree_view' | 'medical_decoder'>('calendar');

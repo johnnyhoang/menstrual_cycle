@@ -199,15 +199,21 @@ export function cycleFromDB(row: DBMenstrualCycle): HistoricalCycle {
   };
 }
 
-export async function fetchCyclesFromDB(): Promise<{ data: HistoricalCycle[] | null; error: string | null }> {
+export async function fetchCyclesFromDB(userId?: string): Promise<{ data: HistoricalCycle[] | null; error: string | null }> {
   const client = getSupabase();
   if (!client) return { data: null, error: 'Supabase is not configured' };
 
   try {
-    const { data, error } = await client
+    let query = client
       .from('mh_menstrual_cycles')
       .select('*')
       .order('year', { ascending: false });
+
+    if (userId) {
+      query = query.eq('user_id', userId);
+    }
+
+    const { data, error } = await query;
 
     if (error) throw error;
     if (data && data.length > 0) {
@@ -221,12 +227,12 @@ export async function fetchCyclesFromDB(): Promise<{ data: HistoricalCycle[] | n
   }
 }
 
-export async function upsertCyclesToDB(cycles: HistoricalCycle[]): Promise<{ success: boolean; error: string | null }> {
+export async function upsertCyclesToDB(cycles: HistoricalCycle[], userId?: string): Promise<{ success: boolean; error: string | null }> {
   const client = getSupabase();
   if (!client) return { success: false, error: 'Supabase is not configured' };
 
   try {
-    const payload = cycles.map(cycleToDB);
+    const payload = cycles.map(c => ({ ...cycleToDB(c), ...(userId ? { user_id: userId } : {}) }));
     const { error } = await client
       .from('mh_menstrual_cycles')
       .upsert(payload, { onConflict: 'id' });
@@ -338,14 +344,20 @@ export function logFromDB(row: DBDailyLog): DailyCycleLog {
   };
 }
 
-export async function fetchDailyLogsFromDB(): Promise<{ data: DailyCycleLog[] | null; error: string | null }> {
+export async function fetchDailyLogsFromDB(userId?: string): Promise<{ data: DailyCycleLog[] | null; error: string | null }> {
   const client = getSupabase();
   if (!client) return { data: null, error: 'Supabase is not configured' };
 
   try {
-    const { data, error } = await client
+    let query = client
       .from('mh_daily_logs')
       .select('*');
+
+    if (userId) {
+      query = query.eq('user_id', userId);
+    }
+
+    const { data, error } = await query;
 
     if (error) throw error;
     if (data && data.length > 0) {
@@ -359,12 +371,12 @@ export async function fetchDailyLogsFromDB(): Promise<{ data: DailyCycleLog[] | 
   }
 }
 
-export async function upsertDailyLogsToDB(logs: DailyCycleLog[]): Promise<{ success: boolean; error: string | null }> {
+export async function upsertDailyLogsToDB(logs: DailyCycleLog[], userId?: string): Promise<{ success: boolean; error: string | null }> {
   const client = getSupabase();
   if (!client) return { success: false, error: 'Supabase is not configured' };
 
   try {
-    const payload = logs.map(logToDB);
+    const payload = logs.map(l => ({ ...logToDB(l), ...(userId ? { user_id: userId } : {}) }));
     const { error } = await client
       .from('mh_daily_logs')
       .upsert(payload, { onConflict: 'date' });

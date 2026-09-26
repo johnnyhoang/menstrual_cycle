@@ -259,7 +259,7 @@ export function App() {
 
       {/* Main Content */}
       <main className="flex-1 max-w-[1650px] w-full mx-auto px-4 sm:px-8 py-5">
-        <MenstrualCycleTrackerSection userProfile={userProfile} />
+        <MenstrualCycleTrackerSection userProfile={userProfile} userId={user?.id ?? null} />
       </main>
 
       {/* User Profile Modal */}

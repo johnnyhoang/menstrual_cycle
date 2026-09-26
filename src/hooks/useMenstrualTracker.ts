@@ -1,16 +1,10 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { 
-  menstrualCycleLogs as initialDailyLogs, 
-  historicalCyclesData as initialHistoricalCycles 
-} from '../data/menstrualCycleLogData';
 import type { DailyCycleLog, HistoricalCycle } from '../data/menstrualCycleLogData';
 import type { UserProfile } from '../components/UserProfileModal';
 import { 
   parseDateUnified, 
   formatDateToVN, 
-  recalibrateCycles, 
-  mergeWithInitialLogs, 
-  mergeWithInitialCycles 
+  recalibrateCycles
 } from '../utils/dateUtils';
 import { 
   getSupabaseConfig, 
@@ -22,10 +16,10 @@ import {
   deleteDailyLogFromDB
 } from '../utils/supabaseClient';
 
-const STORAGE_KEY_CYCLES = 'mom_health_menstrual_cycles_v3';
-const STORAGE_KEY_LOGS = 'mom_health_daily_logs_v3';
+const STORAGE_KEY_CYCLES = (uid: string) => `mom_health_menstrual_cycles_v3_${uid}`;
+const STORAGE_KEY_LOGS = (uid: string) => `mom_health_daily_logs_v3_${uid}`;
 
-export function useMenstrualTracker(userProfile?: UserProfile | null) {
+export function useMenstrualTracker(userProfile?: UserProfile | null, userId?: string | null) {
   // Adult check (18+)
   const isAdult = useMemo(() => {
     let prof = userProfile;
@@ -58,66 +52,90 @@ export function useMenstrualTracker(userProfile?: UserProfile | null) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'info' | 'error' } | null>(null);
 
-  // Persistence State
+  // Per-user localStorage keys
+  const cycleStorageKey = userId ? STORAGE_KEY_CYCLES(userId) : null;
+  const logsStorageKey = userId ? STORAGE_KEY_LOGS(userId) : null;
+
+  // Persistence State — start empty, will be populated from DB or localStorage per user
   const [cycles, setCycles] = useState<HistoricalCycle[]>(() => {
+    if (!cycleStorageKey) return [];
     try {
-      const saved = localStorage.getItem(STORAGE_KEY_CYCLES) || localStorage.getItem('mom_health_menstrual_cycles_v2');
+      const saved = localStorage.getItem(cycleStorageKey);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return mergeWithInitialCycles(parsed);
+        if (Array.isArray(parsed) && parsed.length > 0) return recalibrateCycles(parsed);
       }
     } catch {
       // ignore
     }
-    return recalibrateCycles(initialHistoricalCycles);
+    return [];
   });
 
   const [dailyLogs, setDailyLogs] = useState<DailyCycleLog[]>(() => {
+    if (!logsStorageKey) return [];
     try {
-      const saved = localStorage.getItem(STORAGE_KEY_LOGS) || localStorage.getItem('mom_health_daily_logs_v2');
+      const saved = localStorage.getItem(logsStorageKey);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return mergeWithInitialLogs(parsed);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
       }
     } catch {
       // ignore
     }
-    return initialDailyLogs;
+    return [];
   });
 
-  // Sync to LocalStorage
+  // Sync to per-user LocalStorage
   useEffect(() => {
+    if (!cycleStorageKey) return;
     try {
-      localStorage.setItem(STORAGE_KEY_CYCLES, JSON.stringify(cycles));
+      localStorage.setItem(cycleStorageKey, JSON.stringify(cycles));
     } catch (e) {
       console.error('Failed to save cycles to LocalStorage', e);
     }
-  }, [cycles]);
+  }, [cycles, cycleStorageKey]);
 
   useEffect(() => {
+    if (!logsStorageKey) return;
     try {
-      localStorage.setItem(STORAGE_KEY_LOGS, JSON.stringify(dailyLogs));
+      localStorage.setItem(logsStorageKey, JSON.stringify(dailyLogs));
     } catch (e) {
       console.error('Failed to save logs to LocalStorage', e);
     }
-  }, [dailyLogs]);
+  }, [dailyLogs, logsStorageKey]);
 
-  // Initial Sync with Supabase DB
+  // Reset state when userId changes (user switch)
   useEffect(() => {
+    if (!userId) {
+      setCycles([]);
+      setDailyLogs([]);
+      return;
+    }
+    // Load from per-user localStorage
+    const savedCycles = localStorage.getItem(STORAGE_KEY_CYCLES(userId));
+    const savedLogs = localStorage.getItem(STORAGE_KEY_LOGS(userId));
+    setCycles(savedCycles ? (JSON.parse(savedCycles) as HistoricalCycle[]) : []);
+    setDailyLogs(savedLogs ? (JSON.parse(savedLogs) as DailyCycleLog[]) : []);
+  }, [userId]);
+
+  // Initial Sync with Supabase DB — fetch ONLY this user's data
+  useEffect(() => {
+    if (!userId) {
+      setIsLoading(false);
+      return;
+    }
     const config = getSupabaseConfig();
     if (config.isConfigured) {
       setIsLoading(true);
-      Promise.all([fetchCyclesFromDB(), fetchDailyLogsFromDB()])
+      Promise.all([fetchCyclesFromDB(userId), fetchDailyLogsFromDB(userId)])
         .then(([cyclesRes, logsRes]) => {
-          if (cyclesRes.data) {
-            const merged = mergeWithInitialCycles(cyclesRes.data);
-            setCycles(merged);
-            upsertCyclesToDB(merged);
+          if (cyclesRes.data && cyclesRes.data.length > 0) {
+            // Use only real DB data for this user — no hardcode injection
+            const recalibrated = recalibrateCycles(cyclesRes.data);
+            setCycles(recalibrated);
           }
-          if (logsRes.data) {
-            const merged = mergeWithInitialLogs(logsRes.data);
-            setDailyLogs(merged);
-            upsertDailyLogsToDB(merged);
+          if (logsRes.data && logsRes.data.length > 0) {
+            setDailyLogs(logsRes.data);
           }
         })
         .finally(() => {
@@ -126,7 +144,7 @@ export function useMenstrualTracker(userProfile?: UserProfile | null) {
     } else {
       setIsLoading(false);
     }
-  }, []);
+  }, [userId]);
 
   const showNotification = useCallback((message: string, type: 'success' | 'info' | 'error' = 'success') => {
     setNotification({ message, type });
@@ -199,7 +217,7 @@ export function useMenstrualTracker(userProfile?: UserProfile | null) {
         updatedCycles = recalibrateCycles(cycles);
       }
       setCycles(updatedCycles);
-      upsertCyclesToDB(updatedCycles);
+      upsertCyclesToDB(updatedCycles, userId ?? undefined);
     } else {
       const cycleStartingHere = cycles.find(c => c.startDate === dateVN);
       if (cycleStartingHere && cycles.length > 1) {
@@ -207,7 +225,7 @@ export function useMenstrualTracker(userProfile?: UserProfile | null) {
         const recalibrated = recalibrateCycles(remaining);
         setCycles(recalibrated);
         deleteCycleFromDB(cycleStartingHere.id);
-        upsertCyclesToDB(recalibrated);
+        upsertCyclesToDB(recalibrated, userId ?? undefined);
       }
     }
 
@@ -223,8 +241,8 @@ export function useMenstrualTracker(userProfile?: UserProfile | null) {
     }
 
     setDailyLogs(updated);
-    upsertDailyLogsToDB([fullLog]);
-  }, [cycles, dailyLogs, showNotification]);
+    upsertDailyLogsToDB([fullLog], userId ?? undefined);
+  }, [cycles, dailyLogs, showNotification, userId]);
 
   // Delete Daily Log
   const deleteLogForDay = useCallback((dateStr: string) => {
@@ -254,8 +272,8 @@ export function useMenstrualTracker(userProfile?: UserProfile | null) {
     }
     const recalibrated = recalibrateCycles(updated);
     setCycles(recalibrated);
-    upsertCyclesToDB(recalibrated);
-  }, [cycles, showNotification]);
+    upsertCyclesToDB(recalibrated, userId ?? undefined);
+  }, [cycles, showNotification, userId]);
 
   // Delete Cycle
   const deleteCycle = useCallback((id: string) => {
